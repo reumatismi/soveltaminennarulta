@@ -1,0 +1,70 @@
+CREATE TABLE proj_user(
+ IDNo INT,
+ UName VARCHAR(15),
+ FName VARCHAR(50),
+ LName VARCHAR(50),
+ Role INT,
+ ClassID VARCHAR(3),
+ Password VARCHAR(50),
+ VST DATE,
+ VET DATE NULL,
+ PRIMARY KEY(IDNo, VST)
+)engine=myisam;
+
+CREATE TABLE proj_role(
+ ID INT,
+ Description VARCHAR(20),
+ PRIMARY KEY(ID)
+)engine=myisam;
+
+CREATE TABLE proj_class(
+ ClassID CHAR(3),
+ Class CHAR(2),
+ VST DATE,
+ VET DATE NULL,
+ PRIMARY KEY(ClassID, VST)
+)engine=myisam;
+
+CREATE TABLE proj_mediafeed(
+ ID INT AUTO_INCREMENT,
+ ClassID CHAR(3),
+ UserID INT,
+ MediaFileName TEXT,
+ MediaDesc CHAR(100),
+ VST TIMESTAMP,
+ VET TIMESTAMP NULL,
+ PRIMARY KEY(ID, VST)
+)engine=myisam;
+
+CREATE TABLE proj_comment(
+ UserID INT,
+ MediaID INT,
+ CommentText Char(100),
+ VST TIMESTAMP,
+ VET TIMESTAMP NULL,
+ PRIMARY KEY(UserID, VST)
+)engine=myisam;
+
+CREATE TABLE proj_games(
+ GameID INT,
+ GameName CHAR(50),
+ GameType INT,
+ VST DATE,
+ VET DATE NULL,
+ PRIMARY KEY(GameID, VST)
+)engine=myisam;
+
+CREATE TABLE proj_gamedesc(
+ TypeID INT AUTO_INCREMENT,
+ Type CHAR(50),
+ PRIMARY KEY(TypeID)
+)engine=myisam;
+
+CREATE TABLE proj_gamestats(
+ GameID INT,
+ Points INT,
+ PlayerID INT,
+ VST TIMESTAMP,
+ VET TIMESTAMP,
+ PRIMARY KEY(GameID, PlayerID, VST)
+)engine=myisam;
