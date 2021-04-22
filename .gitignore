@@ -8,6 +8,7 @@
 *.crt
 *.cer
 *.priv
+*.csr
 
 ### dotenv ###
 .env
