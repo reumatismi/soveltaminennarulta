@@ -1,0 +1,30 @@
+{
+  "name": "wtpk21_project",
+  "version": "1.0.0",
+  "description": "A simple media sharing and educational gaming app for elementary school students",
+  "main": "app.js",
+  "author": "Matti Stenvall, Jon Menna, Timi Rautio",
+  "license": "GPL-3",
+  "keywords": [
+    "node.js",
+    "express",
+    "routing",
+    "middleware",
+    "database connection"
+  ],
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "exif": "^0.6.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.10.0",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "mysql2": "^2.2.5",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "sharp": "^0.28.1"
+  }
+}
