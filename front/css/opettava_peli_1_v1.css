@@ -1,0 +1,34 @@
+
+
+body {
+    background-color: white;
+}
+
+canvas {
+    display: none;
+    margin: 0 auto;
+    border-color: grey;
+    border-radius: 5px;
+    border-style: groove;
+    border-width: 5px;
+    background: #ffffff repeating-radial-gradient(white, ghostwhite 1%, #E7E5E3 1%);
+}
+
+#myCanvas {
+
+}
+
+button{
+    font-family: "American Typewriter", serif;
+    font-size: 17px;
+    line-height: 2em;
+    border-radius: 10px;
+    width: 175px;
+    margin-top: 10%;
+    padding: 2%;
+}
+
+div{
+    text-align:center;
+}
+

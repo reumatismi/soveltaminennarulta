@@ -1,0 +1,359 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family:Courier, serif;
+    text-align: center;
+}
+
+li {
+    color: whitesmoke;
+    text-align: left;
+    line-height: 23px;
+    margin-bottom: 15px;
+}
+
+li span {
+    position: relative;
+    left: 10px;
+}
+
+h1 {
+    background-color: #565656;
+    color: transparent;
+    text-shadow: 0 2px 3px rgba(255, 255, 255, 0.5);
+    -webkit-background-clip: text;
+}
+
+h2 {
+    font-size: 33px;
+    /*color: #5C5954;*/
+    margin: 1%;
+    color: whitesmoke;
+    font-weight: normal;
+
+}
+
+
+button {
+    border-radius: 13px;
+    font-size: 17px;
+    padding: 15px;
+    margin: 0;
+    width: 25%;
+    /*
+    background-color: #565656;
+    color: transparent;
+    text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
+    -webkit-background-clip: text;
+
+     */
+}
+
+.button2 {
+    border-radius: 19px;
+    font-size: 17px;
+    margin: 0;
+    width: 100%;
+    padding-top: 2px;
+}
+
+.button3 {
+    border-radius: 19px;
+    font-size: 17px;
+    padding-top: 2px;
+    margin: 0;
+    width: 100%;
+    background-color: #AD9E83;
+    background-image: linear-gradient(to top right, #AD9E83, #E7E5E3);
+    border-color: #f1f1f1;
+}
+
+
+.smaller {
+    font-size: 17px;
+}
+
+
+.parent {
+    height: 100vh;
+    /*
+    border: 3px solid darkorange;
+     */
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+
+}
+
+.child1 {
+    background-color: ghostwhite;
+    background-image: linear-gradient(to top, whitesmoke, white);
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.child2 {
+    background-color: goldenrod;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.yla {
+    flex: 1;
+    background-color: aqua;
+    flex-shrink: 0;
+}
+
+.ala {
+    flex: 2;
+    background-color: blueviolet;
+}
+
+.card {
+    background-color: white;
+    width: 475px;
+    height: 475px;
+    box-shadow: 1px 1px 2px lightgray, 0 0 15px darkgrey, 0 0 5px lightblue;
+    color: darkgrey;
+    margin-right: 45px;
+}
+
+.card2 {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    /*
+    box-shadow: 1px 1px 2px black, 0 0 15px darkgrey, 0 0 5px black;
+     */
+    color: #a9a9a9;
+    padding-bottom: 10%;
+}
+
+.card3 {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    color: darkgrey;
+    padding-bottom: 15%;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
+.card4 {
+
+    width: 75%;
+    color: darkgrey;
+    padding-bottom: 0;
+    margin-left: 25%;
+
+    display: flex;
+    flex-direction: column;
+
+
+}
+.heart {
+    bottom: 12%;
+    position: relative;
+    font-size: 17px;
+    line-height: 2em;
+    text-align: center;
+    margin: 1px;
+    color: #333333;
+}
+
+.text {
+    font-size: 17px;
+    font-family: Courier, serif;
+    color: dimgrey;
+    text-align: left;
+}
+
+.bottom {
+    bottom: 0;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    color: black;
+    background: none;
+    font-size: 19px;
+    font-style: normal;
+    text-align: center;
+    border: none;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.arrow:hover {
+    border: solid orange;
+    border-width: 0 2px 2px 0;
+}
+
+section button:first-child {
+    display: none;
+}
+
+section:hover button:first-child {
+    display: block;
+}
+
+section:hover button:last-child {
+    display: none;
+}
+
+
+#gradientti1 {
+    background-color: goldenrod;
+
+    background-image: linear-gradient(to bottom, black, whitesmoke);
+    /*
+    background-image: repeating-radial-gradient(darkgoldenrod, goldenrod 5%, palegoldenrod 5%);
+     */
+}
+
+
+@media only screen and (max-width: 1150px) {
+    h2 {
+        font-size: 27px;
+    }
+    .child1 {
+        justify-content: center;
+    }
+
+    .card {
+        margin-right: 0;
+    }
+
+}
+
+
+@media only screen and (max-width: 1050px) {
+
+    h2 {
+        font-size: 25px;
+    }
+
+    .card {
+        width: 423px;
+        height: 423px;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+
+    h2 {
+        font-size: 25px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .card {
+        width: 393px;
+        height: 393px;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+
+    h2 {
+        font-size: 23px;
+    }
+
+    .heart {
+        font-size: 15px;
+    }
+
+    .card {
+        width: 371px;
+        height: 371px;
+    }
+}
+
+
+
+@media only screen and (max-width: 750px) {
+    .parent {
+        flex-direction: column;
+    }
+
+    .heart {
+        font-size: 13px;
+        margin-top: 1%;
+    }
+
+    .card {
+        width: 351px;
+        height: 351px;
+    }
+
+    h2 {
+        font-size: 33px;
+        margin: 0;
+        color: black;
+
+    }
+
+    li {
+        color: ghostwhite;
+    }
+
+    #gradientti1 {
+        background-color: beige;
+        background-image: repeating-radial-gradient( gold,  goldenrod 1%, #E7E5E3 1%);
+
+        /*
+        background-image: repeating-radial-gradient(darkgoldenrod, goldenrod 1%, palegoldenrod 1%);
+        background-image: linear-gradient(to bottom, darkgoldenrod, beige);
+         */
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+
+    h2 {
+        font-size: 31px;
+    }
+}
+
+@media only screen and (max-width: 450px) and (min-width: 350px) {
+
+    .card {
+        width: 275px;
+        height: 275px;
+    }
+
+    .heart {
+        bottom: 15%;
+        position: relative;
+        font-size: 11px;
+        line-height: 2em;
+        text-align: left;
+        margin: 1px;
+    }
+
+}
+
+
+
+
