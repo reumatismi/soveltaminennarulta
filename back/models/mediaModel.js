@@ -12,10 +12,10 @@ const getAllMediaPost = async () => {
   }
 };
 
-const getMediaPostById = async (id) => {
+const getMediaPost = async (id) => {
   try {
-    console.log('mediaModel getCat', id);
-    const [rows] = await promisePool.execute('SELECT * FROM proj WHERE cat_id = ?', [id]);
+    console.log('mediaModel getMedia', id);
+    const [rows] = await promisePool.execute('SELECT * FROM proj_mediafeed WHERE id = ?', [id]);
     return rows[0];
   } catch (e) {
     console.error('catModel:', e.message);
@@ -24,11 +24,13 @@ const getMediaPostById = async (id) => {
 
 const insertMediaPost = async (req) => {
   try {
-    const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (ClassID, USerID, MediaFileName, MediaDesc, VST = now()) VALUES (?, ?, ?, ?);',
-        [req.body.class_id, req.body.user_id, req.body.filename, req.body.description]);
+    console.log(req.user.ClassID + req.user.ID + req.file.filename + req.body.description);
+    const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (ClassID, UserID, MediaFileName, MediaDesc, VST) VALUES (? , ?, ?, ?, NOW())',
+        [req.user.ClassID, req.user.ID, req.file.filename, req.body.description]);
     console.log('mediaModel insert:', rows);
     return rows.insertId;
   } catch (e) {
+    console.log('erroroium' + req);
     console.error('insertMediaPost:', e.message);
     throw new Error('insertMediaPost failed');
   }
@@ -43,4 +45,9 @@ const updateMediaPost = async (id, req) => {
   } catch (e) {
     return false;
   }
+};
+
+module.exports = {
+  insertMediaPost,
+  getMediaPost
 };

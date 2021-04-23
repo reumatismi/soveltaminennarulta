@@ -144,26 +144,8 @@ const createUserOptions = (users) => {
     });
   });
 };
-/*
-// get users to form options
-const getUsers = async () => {
-  try {
-    const options = {
-      headers: {
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-      },
-    };
-    const response = await fetch(url + '/user', options);
-    const users = await response.json();
-    createUserOptions(users);
-  }
-  catch (e) {
-    console.log(e.message);
-  }
-};
-*/
 
-// submit add media post form
+
 addForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const fd = new FormData(addForm);
@@ -172,35 +154,15 @@ addForm.addEventListener('submit', async (evt) => {
     headers: {
       'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
     },
-    body: fd,
+    body: fd
   };
+  console.log(this.user);
   const response = await fetch(url + '/media', fetchOptions);
   const json = await response.json();
   console.log('add response', json);
-  getCat();
+//  getCat();
 });
 
-/*
-// submit modify form
-modForm.addEventListener('submit', async (evt) => {
-  evt.preventDefault();
-  const data = serializeJson(modForm);
-  const fetchOptions = {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-    },
-    body: JSON.stringify(data),
-  };
-
-  console.log(fetchOptions);
-  const response = await fetch(url + '/cat', fetchOptions);
-  const json = await response.json();
-  console.log('modify response', json);
-  getCat();
-});
-*/
 // login
 loginForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
@@ -227,7 +189,6 @@ loginForm.addEventListener('submit', async (evt) => {
     main.style.display = 'block';
     userInfo.innerHTML = `Hello ${json.user.FName}`;
     // getCat();
-    getUsers();
   }
 });
 
@@ -260,6 +221,7 @@ logOut.addEventListener('click', async (evt) => {
 addUserForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const data = serializeJson(addUserForm);
+
   const fetchOptions = {
     method: 'POST',
     headers: {
@@ -267,18 +229,11 @@ addUserForm.addEventListener('submit', async (evt) => {
     },
     body: JSON.stringify(data),
   };
+
   const response = await fetch(url + '/auth/register', fetchOptions);
+
   const json = await response.json();
   console.log('user add response', json);
-  // save token
-  sessionStorage.setItem('token', json.token);
-  // show/hide forms + cats
-  loginWrapper.style.display = 'none';
-  logOut.style.display = 'block';
-  main.style.display = 'block';
-  userInfo.innerHTML = `Hello ${json.user.FName}`;
-  // getCat();
-  getUsers();
 });
 
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
@@ -287,5 +242,4 @@ if (sessionStorage.getItem('token')) {
   logOut.style.display = 'block';
   main.style.display = 'block';
   // getCat();
-  getUsers();
 }

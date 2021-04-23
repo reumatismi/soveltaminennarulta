@@ -27,12 +27,11 @@ const user_create = async (req, res, next) => {
   console.log('userController user_create', req.body);
   //hashing password before insert into database
   const user = {};
-  user.idno = req.body.id_number;
   user.username = req.body.username;
   user.fname = req.body.first_name;
   user.lname = req.body.last_name;
   user.role = req.body.role;
-  user.classid = req.body.class
+  user.classid = req.body.class;
   const salt = bcrypt.genSaltSync(12);
   user.password = bcrypt.hashSync(req.body.password, salt);
   console.log('userController user_create after hashing?', req.body, user);

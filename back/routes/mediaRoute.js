@@ -1,5 +1,5 @@
 'use strict';
-// catRoute
+// mediaRoute
 const express = require('express');
 const multer = require('multer');
 const mediaController = require('../controllers/mediaController');
@@ -31,10 +31,7 @@ router.post('/',
     upload.single('media'),
     testFile,
     mediaController.make_thumbnail,
-    body('name').isLength({min: 1}),
-    body('age').isLength({min: 1}).isNumeric(),
-    body('weight').isLength({min: 1}).isNumeric(),
-    body('owner').isLength({min: 1}).isNumeric(),
+    body('description').isLength({min: 1}),
     mediaController.mediaPost_create);
 
 router.get('/:id', mediaController.mediaPost_get_by_user_id);

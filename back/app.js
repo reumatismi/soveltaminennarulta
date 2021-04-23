@@ -26,5 +26,5 @@ app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.use('/auth', authRoute);
-app.use('/cat', passport.authenticate('jwt', {session: false}), mediaRoute);
+app.use('/media', passport.authenticate('jwt', {session: false}), mediaRoute);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);

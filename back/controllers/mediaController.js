@@ -43,12 +43,15 @@ const mediaPost_create = async (req, res) => {
     return res.status(400).json({errors: errors.array()});
   }
   try {
+    /*
     // hae koordinaatit
     const coords = await getCoordinates(req.file.path);
     console.log('coords', coords);
     req.body.coords = coords;
+    */
+
     //here we will create a cat with data comming from req...
-    console.log('mediaController mediaPost_create', req.body, req.file);
+    console.log('mediaController mediaPost_create', req.body, req.file, req.user);
     const id = await mediaModel.insertMediaPost(req);
     const media = await mediaModel.getMediaPost(id);
     res.send(media);
