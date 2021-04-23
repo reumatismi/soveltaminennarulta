@@ -11,7 +11,7 @@
 *.csr
 
 ### dotenv ###
-.env
+back/.env
 
 ### macOS ###
 # General
