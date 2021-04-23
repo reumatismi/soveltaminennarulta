@@ -17,14 +17,21 @@ const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 
-const mockFeed = document.querySelector("#mockFeed");
-const teacherFeed = document.querySelector("#teacherFeed");
-const success = document.getElementById("success_asshole");
-success.style.display= 'none';
-const dropDownTwo = document.querySelector("#addMedia");
-dropDownTwo.style.display= 'none';
-const dropDownThree = document.querySelector("#addUser");
-dropDownThree.style.display= 'none';
+const mockFeed = document.querySelector('#mockFeed');
+const teacherFeed = document.querySelector('#teacherFeed');
+const success = document.getElementById('success_asshole');
+success.style.display = 'none';
+const dropDownTwo = document.querySelector('#addMedia');
+dropDownTwo.style.display = 'none';
+const dropDownThree = document.querySelector('#addUser');
+dropDownThree.style.display = 'none';
+
+let loggedIn = false;
+let gamesVisible = false;
+let teacherness = false;
+
+const gameButton = document.querySelector('.buttonDown');
+const gameView = document.querySelector('#gameView');
 
 /*
 // create cat cards
@@ -237,17 +244,20 @@ loginForm.addEventListener('submit', async (evt) => {
     // show/hide forms + cats
     loginForm.style.display = 'none';
     logOut.style.display = 'block';
-    main.style.display = 'block';
-    userInfo.innerHTML = `Hello ${json.user.FName}`;
-    success.style.display = 'block';
-    mockFeed.style.display = 'none';
-    dropDownTwo.style.display= 'inline-block';
-    if (json.user.Role === 2) {
-      dropDownThree.style.display= 'inline-block';
+    //userInfo.innerHTML = `Hello ${json.user.FName}`;
+    if (!gamesVisible) {
+      main.style.display = 'block';
+      success.style.display = 'block';
+      mockFeed.style.display = 'none';
+      if (json.user.Role === 2) {
+        teacherFeed.style.display = 'block';
+      }
     }
+    dropDownTwo.style.display = 'inline-block';
     if (json.user.Role === 2) {
-      teacherFeed.style.display = 'block';
+      dropDownThree.style.display = 'inline-block';
     }
+    loggedIn = true;
     // getCat();
     //getUsers();
   }
@@ -272,15 +282,18 @@ logOut.addEventListener('click', async (evt) => {
     loginForm.style.display = 'block';
 
     //loginWrapper.style.display = 'flex';
+    loggedIn = false;
     logOut.style.display = 'none';
     main.style.display = 'none';
-    success.style.display= 'none';
-    mockFeed.style.display= 'block';
-    dropDownTwo.style.display= 'none';
-    dropDownThree.style.display= 'none';
+    success.style.display = 'none';
+    if (!gamesVisible) {
+      mockFeed.style.display = 'block';
+    }
+    dropDownTwo.style.display = 'none';
+    dropDownThree.style.display = 'none';
     teacherFeed.style.Display = 'none';
-  }
-  catch (e) {
+
+  } catch (e) {
     console.log(e.message);
   }
 });
@@ -323,3 +336,30 @@ if (sessionStorage.getItem('token')) {
   // getCat();
   //getUsers();
 }*/
+const revealGames = () => {
+  if (!gamesVisible) {
+    gameView.style.display = 'block';
+    mockFeed.style.display = 'none';
+    if (loggedIn) {
+      main.style.display = 'none';
+      if (teacherFeed.style.display === 'block') {
+        teacherFeed.style.display = 'none';
+        teacherness = true;
+      }
+    }
+    gamesVisible = true;
+  }else {
+    gameView.style.display = 'none';
+    if (loggedIn) {
+      if (teacherness) {
+        teacherFeed.style.display = 'block';
+      }
+      main.style.display = 'block';
+    } else {
+      mockFeed.style.display = 'block';
+    }
+    gamesVisible = false;
+  }
+
+};
+gameButton.addEventListener('click', revealGames);

@@ -210,3 +210,13 @@ p {
 #teacherFeed {
     display: none;
 }
+
+#gameView {
+    display: none;
+}
+
+
+
+.center {
+    margin: auto;
+}
