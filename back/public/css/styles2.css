@@ -153,6 +153,12 @@ p {
     text-align: center;
 }
 
+#user-info {
+    color: red;
+    font-size: 27px;
+    line-height: 1em;
+}
+
 .buttonDown {
     height: 100px;
     width: 100px;
