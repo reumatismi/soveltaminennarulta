@@ -285,7 +285,7 @@ h2 {
 
 img:hover {
     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(100%) contrast(200%);
+    filter: contrast(150%);
     z-index: 15;
 }
 
@@ -432,6 +432,34 @@ section:hover button:last-child {
     align-self: flex-end;
 }
 */
+#game1 {
+    display: none;
+}
+
+canvas {
+    display: none;
+    margin: 9% auto;
+    border-color: grey;
+    border-radius: 5px;
+    border-style: groove;
+    border-width: 5px;
+    background: #ffffff repeating-radial-gradient(white, ghostwhite 1%, #E7E5E3 1%);
+}
+
+.button2{
+    font-family: "American Typewriter", serif;
+    font-size: 17px;
+    line-height: 2em;
+    border-radius: 10px;
+    width: 175px;
+    margin-top: 10%;
+    padding: 2%;
+}
+
+div{
+    text-align:center;
+}
+
 
 @media only screen and (max-width: 750px) {
     .parent {
@@ -465,3 +493,4 @@ section:hover button:last-child {
          */
     }
 }
+

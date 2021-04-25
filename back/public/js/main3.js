@@ -32,6 +32,9 @@ let teacherness = false;
 
 const gameButton = document.querySelector('.buttonDown');
 const gameView = document.querySelector('#gameView');
+const game1 = document.querySelector('#game1')
+
+
 
 /*
 // create cat cards
@@ -338,6 +341,7 @@ if (sessionStorage.getItem('token')) {
   //getUsers();
 }*/
 const revealGames = () => {
+  //game1.style.display = 'none';
   if (!gamesVisible) {
     gameView.style.display = 'block';
     mockFeed.style.display = 'none';
@@ -363,4 +367,11 @@ const revealGames = () => {
   }
 
 };
+
+const gameOneStarter = () => {
+  game1.style.display = 'block';
+  gameView.style.display = 'none';
+}
+
+
 gameButton.addEventListener('click', revealGames);

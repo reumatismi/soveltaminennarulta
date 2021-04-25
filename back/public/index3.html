@@ -190,7 +190,7 @@
     </div>
     <div class="child2">
       <div class="ylak">
-        <img src="img/kuu.png" class = "imgkuu" alt="pentu" onclick ="alert('Peli 1');">
+        <img src="img/kuu.png" class = "imgkuu" alt="pentu" onclick ="gameOneStarter();">
         <img src="img/kapseli.png" class = "imgkapseli" alt="pentu" onclick ="alert('Peli 2');">
       </div>
       <div class="keskik">
@@ -213,6 +213,15 @@
   <div id="map"></div>
 </div>
 
+<div id ="game1">
+  <canvas id="myCanvas" width="360" height="640"></canvas>
+  <div>
+    <button id ="butt" class = "button2"></button>
+  </div>
+</div>
+
+
+
 
 <div class="footer">
   <button class="buttonDown">Pelit</button>
@@ -221,5 +230,6 @@
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
 <script src="./js/mapbox.js"></script>
 <script src="./js/main3.js"></script>
+<script src="./js/game1.js"></script>
 </body>
 </html>
