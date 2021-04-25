@@ -1,5 +1,5 @@
 'use strict';
-//yes yes too much repetion
+//yes yes too much repetition
 const canvas = document.getElementById('myCanvas');
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
