@@ -144,7 +144,7 @@ button{
     left: 0;
     top: 0;
     width: 100%;
-    background-color: red;
+    background-color: lightskyblue;
     color: white;
     text-align: right;
     font-size: 0;
@@ -155,7 +155,7 @@ button{
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: red;
+    background-color: lightskyblue;
     color: white;
     text-align: center;
     height: 8%;
@@ -177,23 +177,31 @@ h2 {
 }
 
 .buttonDown {
-    height: 100px;
-    width: 100px;
+    height: 90px;
+    width: 90px;
     border-radius: 100px;
     bottom: -150px;
     margin: -15% auto;
+    background-color: deeppink;
+    font-size: 21px;
+    color: ghostwhite;
+    border-style: dot-dot-dash;
+    border-width: 5px;
+    /*
+    background-image: repeating-radial-gradient( orange,  blue 1%, #E7E5E3 1%);
+     */
 }
 
 .buttonDown:hover {
-    background-color: grey;
-    color: ghostwhite;
+    background-color: ghostwhite;
+    color: deeppink;
 }
 
 .dropbtn {
     background-color: #4CAF50;
     color: white;
     padding: 16px;
-    font-size: 16px;
+    font-size: 17px;
     border: none;
     width: 150px;
     height: 100%;
@@ -223,11 +231,17 @@ h2 {
     display: flex;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+.dropdown:hover .dropbtn {
+    color: #3e8e41;
+    background-color: ghostwhite;
+
+}
 
 #teacherFeed {
     display: none;
@@ -253,13 +267,16 @@ h2 {
 .parent {
     margin-top: 3%;
     height: 92vh;
-    border: 3px solid darkgrey;
+    border: 0px solid darkgrey;
     display: flex;
     flex-direction: row;
     align-items: stretch;
 }
 
 .child1 {
+    /*
+    background-image: repeating-radial-gradient( gold,  goldenrod 1%, #E7E5E3 1%);
+     */
     background-image: repeating-radial-gradient( gold,  goldenrod 1%, #E7E5E3 1%);
     flex: 1;
     display: flex;
@@ -273,7 +290,7 @@ h2 {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-image: url("../img/laituri_ja_avaruus2v2.png");
+    background-image: url("../img/laituri_ja_avaruus3.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 
@@ -291,6 +308,9 @@ img:hover {
     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
     filter: contrast(150%);
     z-index: 15;
+}
+.kuussa {
+    border: 5px solid ghostwhite;
 }
 
 .kuussa:hover {
@@ -310,7 +330,7 @@ img:hover {
 }
 
 .imgkirahvi {
-    width: 35%;
+    width: 25%;
     height: auto;
     margin-right: 55px;
 }
@@ -345,10 +365,11 @@ img:hover {
 
 .keskik {
     display: flex;
-    flex: 3;
+    flex: 2;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
+
 }
 
 .alak {
@@ -366,7 +387,7 @@ img:hover {
 }
 
 .card2 {
-    height: 300px;
+    height: 400px;
     width: auto;
     display: flex;
     flex-direction: row;
@@ -375,15 +396,15 @@ img:hover {
 }
 
 .card3 {
-    height: 300px;
+    height: 100%;
     width: auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-}
 
+}
 
 
 
@@ -481,18 +502,26 @@ div{
     text-align:center;
 }
 
+@media only screen and (max-width: 1100px) {
+    .imgkirahvi {
+        width: 27%;
+    }
+    .card2 {
+        width: 351px;
+        height: 351px;
+    }
+}
 
-@media only screen and (max-width: 850px) {
+
+@media only screen and (max-width: 800px) {
     .parent {
         flex-direction: column;
     }
     .child1 {
         display: none;
     }
-
-    .card {
-        width: 351px;
-        height: 351px;
+    .parent{
+        height: 93vh;
     }
 
     h2 {
@@ -518,6 +547,7 @@ div{
 @media only screen and (max-width: 550px) {
     .dropbtn {
         width: 125px;
+        font-size: 15px;
     }
     .dropdown-content {
         display: none;
@@ -526,6 +556,11 @@ div{
         min-width: 125px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         z-index: 1;
+    }
+
+    h2 {
+        font-size: 17px;
+        margin-top: 17%;
     }
 }
 
