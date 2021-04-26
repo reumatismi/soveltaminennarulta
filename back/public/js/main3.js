@@ -32,12 +32,10 @@ let teacherness = false;
 
 const gameButton = document.querySelector('.buttonDown');
 const gameView = document.querySelector('#gameView');
-const game1 = document.querySelector('#game1')
+const game1 = document.querySelector('#game1');
 
-
-
-/*
 // create cat cards
+/*
 const createCatCards = (cats) => {
   // clear ul
   ul.innerHTML = '';
@@ -122,7 +120,7 @@ const createCatCards = (cats) => {
     ul.appendChild(li);
   });
 };
- */
+*/
 
 // close modal
 /*
@@ -134,24 +132,26 @@ close.addEventListener('click', (evt) => {
  */
 
 // AJAX call
-/*
-const getCat = async () => {
-  console.log('getCat token ', sessionStorage.getItem('token'));
+
+const getMedia = async () => {
+  console.log('getMedia token ', sessionStorage.getItem('token'));
   try {
     const options = {
       headers: {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-    const response = await fetch(url + '/cat', options);
-    const cats = await response.json();
-    createCatCards(cats);
-  }
-  catch (e) {
+    const response = await fetch(url + '/media', options);
+    const pics = await response.json();
+    //console.log(pics);
+    //createmediaCards(pics);
+  } catch (e) {
     console.log(e.message);
   }
 };
-*/
+
+//getMedia();
+
 // create user options to <select>
 
 const createUserOptions = (users) => {
@@ -295,7 +295,7 @@ logOut.addEventListener('click', async (evt) => {
     dropDownTwo.style.display = 'none';
     dropDownThree.style.display = 'none';
     teacherFeed.style.Display = 'none';
-    userInfo.innerHTML = "";
+    userInfo.innerHTML = '';
 
   } catch (e) {
     console.log(e.message);
@@ -340,6 +340,8 @@ if (sessionStorage.getItem('token')) {
   // getCat();
   //getUsers();
 }*/
+//getMedia();
+
 const revealGames = () => {
   //game1.style.display = 'none';
   if (!gamesVisible) {
@@ -353,7 +355,11 @@ const revealGames = () => {
       }
     }
     gamesVisible = true;
-  }else {
+  } else {
+    if (button.style.display === 'block') {
+      button.style.display = 'none';
+    }
+    button.style.display = 'none';
     gameView.style.display = 'none';
     if (loggedIn) {
       if (teacherness) {
@@ -365,13 +371,13 @@ const revealGames = () => {
     }
     gamesVisible = false;
   }
-
 };
 
 const gameOneStarter = () => {
+  //button.style.display = 'block';
+  firstReset();
   game1.style.display = 'block';
   gameView.style.display = 'none';
-}
-
+};
 
 gameButton.addEventListener('click', revealGames);

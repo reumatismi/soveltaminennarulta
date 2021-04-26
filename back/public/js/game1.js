@@ -34,8 +34,11 @@ let score = 0;
 let lives = 3;
 
 let button = document.getElementById('butt');
+button.style.display = "block";
+button.style.margin = '10% auto';
 button.style.color = `rgb(${255 - color1}, ${255 - color2}, ${255 - color3}`;
 button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, .7)`;
+
 if (which === 1) {
   button.innerText = "KERÄÄ VAIN PARITTOMIA NUMEROITA!";
 } else {
@@ -94,7 +97,29 @@ const superReset = () => {
   } else {
     button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARILLISIA NUMEROITA`;
   }
+}
 
+const firstReset = () => {
+  number = Math.floor(Math.random() * 9) + 1;
+  //document.location.reload();
+  canvas.style.display = 'none';
+  button.style.display = 'block';
+  button.style.margin = '10% auto';
+  gameButton.style.visibility = 'visible';
+  reset();
+  which = Math.floor(Math.random()*2 );
+  //console.log(which);
+
+  paddleX = (canvas.width - paddleWidth) / 2;
+  paddleY = paddleHeight;
+
+  button.style.color = `rgb(${255 - color1}, ${255 - color2}, ${255 - color3}`;
+  button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, .7)`;
+  if (which === 1) {
+    button.innerText = "KERÄÄ VAIN PARITTOMIA NUMEROITA!";
+  } else {
+    button.innerText = "KERÄÄ VAIN PARILLISIA NUMEROITA!";
+  }
 }
 
 //oldfashioned?
