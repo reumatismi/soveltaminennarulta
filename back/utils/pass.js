@@ -17,10 +17,10 @@ passport.use(new Strategy(
         if (user === undefined) {
           return done(null, false, {message: 'Incorrect credentials.'});
         }
-        if(!bcrypt.compare(password, user.Password)) {
+        if(!bcrypt.compare(password, user.password)) {
           return done(null, false, {message: 'Incorrect credentials.'});
         }
-        delete user.Password; // poista salasana
+        delete user.password; // poista salasana
         return done(null, {...user}, {message: 'Logged In Successfully'}); // use spread syntax to create shallow copy to get rid of binary row type
       } catch (err) {
         return done(err);
@@ -35,7 +35,7 @@ passport.use(new JWTStrategy({
 
       //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
       try {
-        const user = await userModel.getUser(jwtPayload.ID);
+        const user = await userModel.getUser(jwtPayload.id);
         return done(null, user);
       } catch (err) {
         return done(err);

@@ -16,23 +16,25 @@ const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 
-/*
-// create cat cards
-const createCatCards = (cats) => {
+
+// create media cards
+const createMediaCards = (mediaPosts) => {
   // clear ul
+  console.log("Creating media cards...");
   ul.innerHTML = '';
-  cats.forEach((cat) => {
+  mediaPosts.forEach((mediaPost) => {
     // create li with DOM methods
     const img = document.createElement('img');
-    img.src = url + '/thumbnails/' + cat.filename;
-    img.alt = cat.name;
+    img.src = url + '/thumbnails/' + mediaPost.mediafilename;
+    img.alt = mediaPost.VST;
     img.classList.add('resp');
 
     // open large image when clicking image
     img.addEventListener('click', () => {
-      modalImage.src = url + '/' + cat.filename;
-      imageModal.alt = cat.name;
+      modalImage.src = url + '/' + mediaPost.mediafilename;
+      imageModal.alt = mediaPost.VST;
       imageModal.classList.toggle('hide');
+      /*
       try {
         const coords = JSON.parse(cat.coords);
         // console.log(coords);
@@ -40,16 +42,17 @@ const createCatCards = (cats) => {
       }
       catch (e) {
       }
+       */
     });
 
     const figure = document.createElement('figure').appendChild(img);
 
     const h2 = document.createElement('h2');
-    h2.innerHTML = cat.name;
+    h2.innerHTML = mediaPost.VST;
 
     const p1 = document.createElement('p');
-    p1.innerHTML = `Age: ${cat.age}`;
-
+    p1.innerHTML = mediaPost.description;
+/*
     const p2 = document.createElement('p');
     p2.innerHTML = `Weight: ${cat.weight}kg`;
 
@@ -88,21 +91,22 @@ const createCatCards = (cats) => {
         console.log(e.message());
       }
     });
-
+*/
     const li = document.createElement('li');
     li.classList.add('light-border');
 
     li.appendChild(h2);
     li.appendChild(figure);
     li.appendChild(p1);
+    /*
     li.appendChild(p2);
     li.appendChild(p3);
     li.appendChild(modButton);
     li.appendChild(delButton);
+     */
     ul.appendChild(li);
   });
 };
- */
 
 // close modal
 close.addEventListener('click', (evt) => {
@@ -111,24 +115,24 @@ close.addEventListener('click', (evt) => {
 });
 
 // AJAX call
-/*
-const getCat = async () => {
-  console.log('getCat token ', sessionStorage.getItem('token'));
+
+const getMediaPosts = async () => {
+  console.log('getMediaPosts token ', sessionStorage.getItem('token'));
   try {
     const options = {
       headers: {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-    const response = await fetch(url + '/cat', options);
-    const cats = await response.json();
-    createCatCards(cats);
+    const response = await fetch(url + '/media', options);
+    const mediaPosts = await response.json();
+    createMediaCards(mediaPosts);
   }
   catch (e) {
     console.log(e.message);
   }
 };
-*/
+
 // create user options to <select>
 const createUserOptions = (users) => {
   userLists.forEach((list) => {
@@ -137,8 +141,8 @@ const createUserOptions = (users) => {
     users.forEach((user) => {
       // create options with DOM methods
       const option = document.createElement('option');
-      option.value = user.user_id;
-      option.innerHTML = user.name;
+      option.value = user.id;
+      option.innerHTML = user.username;
       option.classList.add('light-border');
       list.appendChild(option);
     });
@@ -160,7 +164,7 @@ addForm.addEventListener('submit', async (evt) => {
   const response = await fetch(url + '/media', fetchOptions);
   const json = await response.json();
   console.log('add response', json);
-//  getCat();
+  getMediaPosts();
 });
 
 // login
@@ -187,8 +191,8 @@ loginForm.addEventListener('submit', async (evt) => {
     loginWrapper.style.display = 'none';
     logOut.style.display = 'block';
     main.style.display = 'block';
-    userInfo.innerHTML = `Hello ${json.user.FName}`;
-    // getCat();
+    userInfo.innerHTML = `Hello ${json.user.firstname}`;
+    getMediaPosts();
   }
 });
 
@@ -241,5 +245,5 @@ if (sessionStorage.getItem('token')) {
   loginWrapper.style.display = 'none';
   logOut.style.display = 'block';
   main.style.display = 'block';
-  // getCat();
+  getMediaPosts();
 }

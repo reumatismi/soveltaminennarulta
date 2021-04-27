@@ -3,22 +3,24 @@
 const mediaModel = require('../models/mediaModel');
 const {validationResult} = require('express-validator');
 const {makeThumbnail} = require('../utils/resize');
-const {getCoordinates} = require('../utils/imageMeta');
+//const {getCoordinates} = require('../utils/imageMeta');
 
 const mediaPost = mediaModel.mediaPosts;
 
 const mediaPost_list_get = async (req, res) => {
+  console.log("Fetching some media posts?");
   try {
-    console.log('get all users from controllers', req.query);
-    if (req.query.sort === 'age') {
-      const mediaPostSort = await mediaModel.getAllMediaPostSort('age');
+    console.log('get all users from controllers???', req.query);
+    if (req.query.sort === 'vst') {
+      const mediaPostSort = await mediaModel.getAllMediaPostSort('vst');
       res.json(mediaPostSort);
       return;
-    } else if (req.query.sort === 'name') {
-      const mediaPostSort = await mediaModel.getAllMediaPostSort('name');
+    } else if (req.query.sort === 'userid') {
+      const mediaPostSort = await mediaModel.getAllMediaPostSort('userid');
       res.json(mediaPostSort);
       return;
     }
+
     const mediaPost = await mediaModel.getAllMediaPost();
     res.json(mediaPost);
   } catch (e) {

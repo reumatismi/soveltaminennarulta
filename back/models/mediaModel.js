@@ -5,7 +5,7 @@ const promisePool = pool.promise();
 const getAllMediaPost = async () => {
   try {
 
-    const [rows] = await promisePool.execute('SELECT ID, ClassID, UserID, MediaFileName, MediaDesc, VST, proj_user.UName AS username FROM proj_mediaFeed LEFT JOIN proj_user ON UserID = IDNo');
+    const [rows] = await promisePool.execute('SELECT proj_mediafeed.id, proj_mediafeed.classid, userid, mediafilename, mediadesc, proj_mediafeed.VST, proj_user.username AS username FROM proj_mediafeed LEFT JOIN proj_user ON userid = proj_user.id');
     return rows;
   } catch (e) {
     console.error('mediaModel:', e.message);
@@ -24,9 +24,9 @@ const getMediaPost = async (id) => {
 
 const insertMediaPost = async (req) => {
   try {
-    console.log(req.user.ClassID + req.user.ID + req.file.filename + req.body.description);
-    const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (ClassID, UserID, MediaFileName, MediaDesc, VST) VALUES (? , ?, ?, ?, NOW())',
-        [req.user.ClassID, req.user.ID, req.file.filename, req.body.description]);
+    console.log(req.user.classid + req.user.id + req.file.filename + req.body.description);
+    const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (classid, userid, mediafilename, mediadesc, VST) VALUES (? , ?, ?, ?, NOW())',
+        [req.user.classid, req.user.id, req.file.filename, req.body.description]);
     console.log('mediaModel insert:', rows);
     return rows.insertId;
   } catch (e) {
@@ -38,8 +38,8 @@ const insertMediaPost = async (req) => {
 
 const updateMediaPost = async (id, req) => {
   try {
-    const [rows] = await promisePool.execute('UPDATE proj_mediafeed SET ClassID = ?, UserID = ?, MediaDesc = ? WHERE ID = ? AND VST = ?;',
-        [req.body.class_id, req.body.user_id, req.body.description, id]);
+    const [rows] = await promisePool.execute('UPDATE proj_mediafeed SET classid = ?, userid = ?, mediadesc = ? WHERE id = ? AND VST = ?;',
+        [req.body.classid, req.body.userid, req.body.description, id]);
     console.log('mediaModel update:', rows);
     return rows.affectedRows === 1;
   } catch (e) {
@@ -49,5 +49,6 @@ const updateMediaPost = async (id, req) => {
 
 module.exports = {
   insertMediaPost,
-  getMediaPost
+  getMediaPost,
+  getAllMediaPost
 };

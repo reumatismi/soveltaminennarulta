@@ -1,6 +1,6 @@
 CREATE TABLE proj_user(
- id INT,
- username VARCHAR(15),
+ id INT AUTO_INCREMENT,
+ username VARCHAR(15) UNIQUE,
  firstname VARCHAR(50),
  lastname VARCHAR(50),
  role INT,
@@ -31,7 +31,7 @@ CREATE TABLE proj_mediafeed(
  userid INT,
  mediafilename TEXT,
  mediadesc CHAR(100),
- approval TIMESTAMP NULL
+ approval TIMESTAMP NULL,
  vst TIMESTAMP,
  vet TIMESTAMP NULL,
  PRIMARY KEY(id, vst)

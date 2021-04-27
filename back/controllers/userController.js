@@ -28,8 +28,8 @@ const user_create = async (req, res, next) => {
   //hashing password before insert into database
   const user = {};
   user.username = req.body.username;
-  user.fname = req.body.first_name;
-  user.lname = req.body.last_name;
+  user.firstname = req.body.first_name;
+  user.lastname = req.body.last_name;
   user.role = req.body.role;
   user.classid = req.body.class;
   const salt = bcrypt.genSaltSync(12);
