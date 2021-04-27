@@ -1,70 +1,71 @@
 CREATE TABLE proj_user(
- IDNo INT,
- UName VARCHAR(15),
- FName VARCHAR(50),
- LName VARCHAR(50),
- Role INT,
- ClassID VARCHAR(3),
- Password VARCHAR(50),
- VST DATE,
- VET DATE NULL,
- PRIMARY KEY(IDNo, VST)
+ id INT,
+ username VARCHAR(15),
+ firstname VARCHAR(50),
+ lastname VARCHAR(50),
+ role INT,
+ classid VARCHAR(3),
+ password VARCHAR(50),
+ vst DATE,
+ vet DATE NULL,
+ PRIMARY KEY(id, vst)
 )engine=myisam;
 
 CREATE TABLE proj_role(
- ID INT,
- Description VARCHAR(20),
- PRIMARY KEY(ID)
+ id INT,
+ description VARCHAR(20),
+ PRIMARY KEY(id)
 )engine=myisam;
 
 CREATE TABLE proj_class(
- ClassID CHAR(3),
- Class CHAR(2),
- VST DATE,
- VET DATE NULL,
- PRIMARY KEY(ClassID, VST)
+ classid CHAR(3),
+ class CHAR(2),
+ vst DATE,
+ vet DATE NULL,
+ PRIMARY KEY(classid, vst)
 )engine=myisam;
 
 CREATE TABLE proj_mediafeed(
- ID INT AUTO_INCREMENT,
- ClassID CHAR(3),
- UserID INT,
- MediaFileName TEXT,
- MediaDesc CHAR(100),
- VST TIMESTAMP,
- VET TIMESTAMP NULL,
- PRIMARY KEY(ID, VST)
+ id INT AUTO_INCREMENT,
+ classid CHAR(3),
+ userid INT,
+ mediafilename TEXT,
+ mediadesc CHAR(100),
+ approval TIMESTAMP NULL
+ vst TIMESTAMP,
+ vet TIMESTAMP NULL,
+ PRIMARY KEY(id, vst)
 )engine=myisam;
 
 CREATE TABLE proj_comment(
- UserID INT,
- MediaID INT,
- CommentText Char(100),
- VST TIMESTAMP,
- VET TIMESTAMP NULL,
- PRIMARY KEY(UserID, VST)
+ userid INT,
+ mediaid INT,
+ commenttext Char(100),
+ vst TIMESTAMP,
+ vet TIMESTAMP NULL,
+ PRIMARY KEY(userid, vst)
 )engine=myisam;
 
 CREATE TABLE proj_games(
- GameID INT,
- GameName CHAR(50),
- GameType INT,
- VST DATE,
- VET DATE NULL,
- PRIMARY KEY(GameID, VST)
+ gameid INT AUTO_INCREMENT,
+ gamename CHAR(50),
+ gametype INT,
+ vst DATE,
+ vet DATE NULL,
+ PRIMARY KEY(gameid, vst)
 )engine=myisam;
 
 CREATE TABLE proj_gamedesc(
- TypeID INT AUTO_INCREMENT,
- Type CHAR(50),
- PRIMARY KEY(TypeID)
+ typeid INT AUTO_INCREMENT,
+ type CHAR(50),
+ PRIMARY KEY(typeid)
 )engine=myisam;
 
 CREATE TABLE proj_gamestats(
- GameID INT,
- Points INT,
- PlayerID INT,
- VST TIMESTAMP,
- VET TIMESTAMP,
- PRIMARY KEY(GameID, PlayerID, VST)
+ gameid INT,
+ points INT,
+ playerid INT,
+ vst TIMESTAMP,
+ vet TIMESTAMP,
+ PRIMARY KEY(gameid, playerid, vst)
 )engine=myisam;
