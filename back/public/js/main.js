@@ -26,13 +26,13 @@ const createMediaCards = (mediaPosts) => {
     // create li with DOM methods
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
-    img.alt = mediaPost.VST;
+    img.alt = mediaPost.vst;
     img.classList.add('resp');
 
     // open large image when clicking image
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
-      imageModal.alt = mediaPost.VST;
+      imageModal.alt = mediaPost.vst;
       imageModal.classList.toggle('hide');
       /*
       try {
@@ -48,10 +48,10 @@ const createMediaCards = (mediaPosts) => {
     const figure = document.createElement('figure').appendChild(img);
 
     const h2 = document.createElement('h2');
-    h2.innerHTML = mediaPost.VST;
+    h2.innerHTML = mediaPost.vst;
 
     const p1 = document.createElement('p');
-    p1.innerHTML = mediaPost.description;
+    p1.innerHTML = mediaPost.mediadesc;
 /*
     const p2 = document.createElement('p');
     p2.innerHTML = `Weight: ${cat.weight}kg`;
