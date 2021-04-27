@@ -167,6 +167,7 @@ h2 {
     margin-top: 10%;
     margin-bottom: 2%;
     text-align: center;
+    font-size: 27px;
 }
 
 
@@ -203,7 +204,7 @@ h2 {
     padding: 16px;
     font-size: 17px;
     border: none;
-    width: 150px;
+    width: 160px;
     height: 100%;
     margin: 0;
     transition: all 0.7s;
@@ -290,7 +291,7 @@ h2 {
     flex: 1;
     display: flex;
     flex-direction: column;
-    background-image: url("../img/laituri_ja_avaruus3.png");
+    background-image: url("../img/maa_ja_avaruus.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
 
@@ -302,6 +303,14 @@ h2 {
     flex-shrink: 0;
     background-repeat: no-repeat;
     background-size: auto;
+}
+.ala {
+    flex: 1;
+    background-image: url("../img/kala.png");
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    align-self: flex-end;
 }
 
 img:hover {
@@ -330,9 +339,8 @@ img:hover {
 }
 
 .imgkirahvi {
-    width: 25%;
+    width: 35%;
     height: auto;
-    margin-right: 55px;
 }
 
 .imghiiri {
@@ -346,14 +354,7 @@ img:hover {
     margin-top: 14%;
 }
 
-.ala {
-    flex: 1;
-    background-image: url("../img/kala.png");
-    flex-shrink: 0;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    align-self: flex-end;
-}
+
 
 .ylak {
     flex: 1;
@@ -361,14 +362,15 @@ img:hover {
     display: flex;
     justify-content: space-around;
     align-items: baseline;
+
 }
 
 .keskik {
     display: flex;
     flex: 2;
     flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+
 
 }
 
@@ -503,12 +505,13 @@ div{
 }
 
 @media only screen and (max-width: 1100px) {
-    .imgkirahvi {
-        width: 27%;
-    }
+
     .card2 {
         width: 351px;
         height: 351px;
+    }
+    .imgkirahvi {
+        margin: auto 0;
     }
 }
 
@@ -524,8 +527,9 @@ div{
         height: 93vh;
     }
 
+
     h2 {
-        font-size: 33px;
+        font-size: 23px;
         color: black;
     }
 
@@ -541,6 +545,23 @@ div{
         background-image: repeating-radial-gradient(darkgoldenrod, goldenrod 1%, palegoldenrod 1%);
         background-image: linear-gradient(to bottom, darkgoldenrod, beige);
          */
+    }
+
+    .imgkirahvi {
+        width: 33%;
+        margin: auto 0;
+    }
+    .dropbtn {
+        width: 135px;
+        font-size: 15px;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 135px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
     }
 }
 
@@ -561,6 +582,10 @@ div{
     h2 {
         font-size: 17px;
         margin-top: 17%;
+    }
+    .imgkirahvi {
+        width: 35%;
+        margin: auto 0;
     }
 }
 
