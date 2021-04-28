@@ -247,17 +247,17 @@ loginForm.addEventListener('submit', async (evt) => {
     // show/hide forms + cats
     loginForm.style.display = 'none';
     logOut.style.display = 'block';
-    userInfo.innerHTML = `Hello ${json.user.FName}!`;
+    userInfo.innerHTML = `Hello ${json.user.firstname}!`;
     if (!gamesVisible) {
       main.style.display = 'block';
       success.style.display = 'block';
       mockFeed.style.display = 'none';
-      if (json.user.Role === 2) {
+      if (json.user.role === 2) {
         teacherFeed.style.display = 'block';
       }
     }
     dropDownTwo.style.display = 'inline-block';
-    if (json.user.Role === 2) {
+    if (json.user.role === 2) {
       dropDownThree.style.display = 'inline-block';
     }
     loggedIn = true;
@@ -294,7 +294,7 @@ logOut.addEventListener('click', async (evt) => {
     }
     dropDownTwo.style.display = 'none';
     dropDownThree.style.display = 'none';
-    teacherFeed.style.Display = 'none';
+    teacherFeed.style.display = 'none';
     userInfo.innerHTML = '';
 
   } catch (e) {
@@ -316,9 +316,10 @@ addUserForm.addEventListener('submit', async (evt) => {
 
   const response = await fetch(url + '/auth/register', fetchOptions);
   const json = await response.json();
+  console.log('user add response', json);
   //console.log('user add response', json);
   // save token
-  sessionStorage.setItem('token', json.token);
+  //sessionStorage.setItem('token', json.token);
   /*
   // show/hide forms + cats
   loginWrapper.style.display = 'none';
