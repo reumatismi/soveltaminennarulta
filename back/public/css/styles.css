@@ -23,6 +23,8 @@ ul {
     list-style-type: none;
     display: flex;
     flex-wrap: nowrap;
+    flex-direction: column;
+    align-content: center;
 }
 
 li {

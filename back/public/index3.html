@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jalka leijuu</title>
+    <title>Vähintään kutosen arvoinen aplikaatio</title>
+    <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css" rel="stylesheet"/>
     <link rel="stylesheet" href="./css/styles3.css">
 </head>
 <body>
 
 <div class="header">
-
     <div class="dropdown" id="addUser">
         <button class="dropbtn">Lisää käyttäjä</button>
         <div class="dropdown-content">
@@ -145,19 +145,27 @@
     <p>Alhaalla on jalattaja.</p>
 </div>
 
-
-<main style="display: none">
-    <br><br><br>
-    <h1>Luokkahässäkkää</h1>
-    <p id="user-info"></p>
-    <ul>
-        <!-- js creates list here -->
-    </ul>
-    <hr>
-
-</main>
+<div class = "container">
+    <main style="display: none;">
+        <br><br><br>
+        <h1>Luokkahässäkkää</h1>
+        <p id="user-info"></p>
+        <ul>
+            <!-- js creates list here -->
+        </ul>
+        <hr>
+    </main>
+</div>
 
 <div id="teacherFeed">
+    <div class="form-wrapper">
+        <h3>Sapiskaa mummolle</h3>
+        <form id="mod-cat-form" class="light-border">
+            <input class="light-border" type="number" name="visibility" placeholder="taso" required>
+            <input type="hidden" name="id">
+            <button class="light-border" type="submit">Save changes</button>
+        </form>
+    </div>
     <h2>Ope tsiigaa kuvia.</h2>
     <p>Ope open ope.</p>
     <p>Ope open ope.</p>
@@ -209,6 +217,7 @@
     <div id="map"></div>
 </div>
 
+
 <div id="game1">
     <canvas id="myCanvas" width="360" height="640"></canvas>
     <div>
@@ -221,8 +230,10 @@
     <button class="buttonDown">Pelit</button>
 </div>
 <script src="./js/serialize.js"></script>
+<!---
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
 <script src="./js/mapbox.js"></script>
+--->
 <script src="./js/main3.js"></script>
 <script src="./js/game1.js"></script>
 </body>

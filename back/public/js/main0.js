@@ -16,19 +16,17 @@ const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 
+
 // create media cards
 const createMediaCards = (mediaPosts) => {
   // clear ul
-  console.log('Creating media cards...');
+  console.log("Creating media cards...");
   ul.innerHTML = '';
-  console.log(ul.innerHTML);
   mediaPosts.forEach((mediaPost) => {
-
-    // create li with DOM methodxws
+    // create li with DOM methods
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
     img.alt = mediaPost.vst;
-    console.log('Kuvan visiippeli:' + mediaPost.visibility);
     img.classList.add('resp');
 
     // open large image when clicking image
@@ -64,40 +62,14 @@ const createMediaCards = (mediaPosts) => {
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Modify';
     modButton.addEventListener('click', () => {
-      console.log('modButton clicked' + mediaPost.id);
+      console.log("modButton clicked" + mediaPost.id)
       const inputs = modForm.querySelectorAll('input');
-      //inputs[0].value = mediaPost.visibility;
-      inputs[0].value = '2';
+      inputs[0].value = mediaPost.visibility;
       inputs[1].value = mediaPost.id;
       // modForm.querySelector('select').value = cat.owner;
     });
 
-    const modButton2 = document.createElement('button');
-    modButton2.innerHTML = 'Modify';
-    modButton2.addEventListener('click', async (evt) => {
-      console.log('modButton clicked' + mediaPost.id);
-      const inputs = modForm.querySelectorAll('input');
-      //inputs[0].value = mediaPost.visibility;
-      inputs[0].value = 7;
-      inputs[1].value = mediaPost.id;
-      // modForm.querySelector('select').value = cat.owner;
-      evt.preventDefault();
-      const data = serializeJson(modForm);
-      console.log(data);
-      const fetchOptions = {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-        },
-        body: JSON.stringify(data),
-      };
-      const response = await fetch(url + '/media', fetchOptions);
-      const json = await response.json();
-      console.log('modify response', json);
-      getMediaPosts();
-    });
-
+    // delete selected media
     const delButton = document.createElement('button');
     delButton.innerHTML = 'Delete';
     delButton.addEventListener('click', async () => {
@@ -117,28 +89,7 @@ const createMediaCards = (mediaPosts) => {
         console.log(e.message());
       }
     });
-    /*
-        // delete selected media
-        const delButton = document.createElement('button');
-        delButton.innerHTML = 'Delete';
-        delButton.addEventListener('click', async () => {
-          const fetchOptions = {
-            method: 'DELETE',
-            headers: {
-              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            },
-          };
-          try {
-            const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
-            const json = await response.json();
-            console.log('delete response', json);
-            getCat();
-          }
-          catch (e) {
-            console.log(e.message());
-          }
-        });
-    */
+
     const li = document.createElement('li');
     li.classList.add('light-border');
 
@@ -149,9 +100,7 @@ const createMediaCards = (mediaPosts) => {
     //li.appendChild(p2);
     //li.appendChild(p3);
     li.appendChild(modButton);
-    li.appendChild(modButton2);
     li.appendChild(delButton);
-    //li.appendChild(delButton);
 
     ul.appendChild(li);
   });
@@ -164,7 +113,7 @@ close.addEventListener('click', (evt) => {
 });
 
 // AJAX call
-/*
+
 const getMediaPosts = async () => {
   console.log('getMediaPosts token ', sessionStorage.getItem('token'));
   try {
@@ -176,25 +125,8 @@ const getMediaPosts = async () => {
     const response = await fetch(url + '/media', options);
     const mediaPosts = await response.json();
     createMediaCards(mediaPosts);
-  } catch (e) {
-    console.log(e.message);
   }
-};
-
- */
-
-const getMediaPosts = async () => {
-  console.log('getMediaPosts token ', sessionStorage.getItem('token'));
-  try {
-    const options = {
-      headers: {
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-      },
-    };
-    const response = await fetch(url + '/media', options);
-    const mediaPosts = await response.json();
-    createMediaCards(mediaPosts);
-  } catch (e) {
+  catch (e) {
     console.log(e.message);
   }
 };
@@ -215,6 +147,7 @@ const createUserOptions = (users) => {
   });
 };
 
+
 addForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const fd = new FormData(addForm);
@@ -223,7 +156,7 @@ addForm.addEventListener('submit', async (evt) => {
     headers: {
       'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
     },
-    body: fd,
+    body: fd
   };
   console.log(this.user);
   const response = await fetch(url + '/media', fetchOptions);
@@ -300,7 +233,8 @@ logOut.addEventListener('click', async (evt) => {
     loginWrapper.style.display = 'flex';
     logOut.style.display = 'none';
     main.style.display = 'none';
-  } catch (e) {
+  }
+  catch (e) {
     console.log(e.message);
   }
 });
@@ -331,5 +265,3 @@ if (sessionStorage.getItem('token')) {
   main.style.display = 'block';
   getMediaPosts();
 }
-
-getMediaPosts();

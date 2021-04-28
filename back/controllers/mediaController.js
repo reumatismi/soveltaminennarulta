@@ -20,7 +20,6 @@ const mediaPost_list_get = async (req, res) => {
       res.json(mediaPostSort);
       return;
     }
-
     const mediaPost = await mediaModel.getAllMediaPost();
     res.json(mediaPost);
   } catch (e) {
@@ -68,14 +67,45 @@ const mediaPost_update = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({errors: errors.array()});
   }
-  const updateOk = await mediaModel.updateMedia(req.params.id, req);
+  const updateOk = await mediaModel.updateMediaPost(req.params.id, req);
   res.send(`mediaPost updated... ${updateOk}`);
+};
+
+const mediaPost_update2 = async (req, res) => {
+  // Finds the validation errors in this request and wraps them in an object with handy functions
+  /*
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+*/
+  console.log("mediaPost_update2 started");
+  try {
+    console.log('put mediaPost', req.body);
+    const mediaPost = req.body;
+    mediaPost.id = req.params.id;
+    const success = await mediaModel.updateMediaPost(mediaPost);
+    res.send(`mediaPost updated ${success}`);
+  }catch (e) {
+    res.status(400).json({error: e.message})
+  }
+};
+
+const mediaPost_update3 = async (req, res) => {
+  try {
+    console.log('update mediaPost using html form', req.body);
+    const mediaPost = req.body;
+    const success = await mediaModel.updateMediaPost(mediaPost);
+    res.send(`mediaPost updated ${success}`);
+  }catch (e) {
+    res.status(400).json({error: e.message})
+  }
 };
 
 const mediaPost_delete = async (req, res) => {
   try {
     const deleteOk = await mediaModel.deleteMediaPost(req.params.id);
-    res.send(`mediaPost terminated... ${updateOk}`);
+    res.send(`mediaPost terminated... ${deleteOk}`);
   } catch (e) {
     res.status(400).json({error: e.message});
   }
@@ -96,7 +126,7 @@ module.exports = {
   mediaPost_list_get,
   mediaPost_get_by_user_id,
   mediaPost_create,
-  mediaPost_update,
+  mediaPost_update3,
   mediaPost_delete,
   make_thumbnail,
 };

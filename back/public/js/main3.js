@@ -3,7 +3,7 @@ const url = 'https://localhost:8000'; // change url when uploading to server
 
 // select existing html elements
 //const loginWrapper = document.querySelector('#login-wrapper');
-const loginWrapper = document.getElementById('#login-wrapper');
+//const loginWrapper = document.getElementById('#login-wrapper');
 const userInfo = document.querySelector('#user-info');
 const logOut = document.querySelector('#log-out');
 const main = document.querySelector('main');
@@ -12,6 +12,8 @@ const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
 const ul = document.querySelector('ul');
+const teacherUL = document.querySelector('#teacherPics')
+const studentUL = document.querySelector('#studentPics')
 const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
@@ -34,23 +36,35 @@ const gameButton = document.querySelector('.buttonDown');
 const gameView = document.querySelector('#gameView');
 const game1 = document.querySelector('#game1');
 
-// create cat cards
-/*
-const createCatCards = (cats) => {
+// create media cards
+const createMediaCards = (mediaPosts) => {
   // clear ul
+  console.log("Creating media cards...");
   ul.innerHTML = '';
-  cats.forEach((cat) => {
+
+  const x =  sessionStorage.getItem('token');
+
+  //console.log("User stuff: " + x.json.role);
+  mediaPosts.forEach((mediaPost) => {
+    console.log("User stuff: " + mediaPost.visibility);
     // create li with DOM methods
+    const h2 = document.createElement('h2');
+    if (teacherness === false && mediaPost.visibility ===1) {
+      h2.innerHTML = "Not for you asshole!"
+    } else {
+      h2.innerHTML = "For you asshole!"
+    }
     const img = document.createElement('img');
-    img.src = url + '/thumbnails/' + cat.filename;
-    img.alt = cat.name;
+    img.src = url + '/thumbnails/' + mediaPost.mediafilename;
+    img.alt = mediaPost.vst;
     img.classList.add('resp');
 
     // open large image when clicking image
     img.addEventListener('click', () => {
-      modalImage.src = url + '/' + cat.filename;
-      imageModal.alt = cat.name;
+      modalImage.src = url + '/' + mediaPost.mediafilename;
+      imageModal.alt = mediaPost.vst;
       imageModal.classList.toggle('hide');
+      /*
       try {
         const coords = JSON.parse(cat.coords);
         // console.log(coords);
@@ -58,83 +72,276 @@ const createCatCards = (cats) => {
       }
       catch (e) {
       }
+       */
     });
 
     const figure = document.createElement('figure').appendChild(img);
 
-    const h2 = document.createElement('h2');
-    h2.innerHTML = cat.name;
+    //const h2 = document.createElement('h2');
+    //h2.innerHTML = mediaPost.vst;
 
     const p1 = document.createElement('p');
-    p1.innerHTML = `Age: ${cat.age}`;
-
-    const p2 = document.createElement('p');
-    p2.innerHTML = `Weight: ${cat.weight}kg`;
-
-    const p3 = document.createElement('p');
-    p3.innerHTML = `Owner: ${cat.owner}`;
-
-    // add selected cat's values to modify form
+    p1.innerHTML = mediaPost.mediadesc;
+    /*
+        const p2 = document.createElement('p');
+        p2.innerHTML = `Weight: ${cat.weight}kg`;
+        const p3 = document.createElement('p');
+        p3.innerHTML = `Owner: ${cat.owner}`;
+    */
+    // add selected media's values to modify form
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Modify';
     modButton.addEventListener('click', () => {
+      console.log("modButton clicked" + mediaPost.id)
       const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = cat.name;
-      inputs[1].value = cat.age;
-      inputs[2].value = cat.weight;
-      inputs[3].value = cat.cat_id;
-      modForm.querySelector('select').value = cat.owner;
+      inputs[0].value = mediaPost.visibility;
+      inputs[1].value = mediaPost.id;
+      // modForm.querySelector('select').value = cat.owner;
     });
-
-    // delete selected cat
-    const delButton = document.createElement('button');
-    delButton.innerHTML = 'Delete';
-    delButton.addEventListener('click', async () => {
-      const fetchOptions = {
-        method: 'DELETE',
-        headers: {
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-        },
-      };
-      try {
-        const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
-        const json = await response.json();
-        console.log('delete response', json);
-        getCat();
-      }
-      catch (e) {
-        console.log(e.message());
-      }
-    });
-
+    /*
+        // delete selected media
+        const delButton = document.createElement('button');
+        delButton.innerHTML = 'Delete';
+        delButton.addEventListener('click', async () => {
+          const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+          };
+          try {
+            const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
+            const json = await response.json();
+            console.log('delete response', json);
+            getCat();
+          }
+          catch (e) {
+            console.log(e.message());
+          }
+        });
+    */
     const li = document.createElement('li');
     li.classList.add('light-border');
 
     li.appendChild(h2);
     li.appendChild(figure);
     li.appendChild(p1);
-    li.appendChild(p2);
-    li.appendChild(p3);
+
+    //li.appendChild(p2);
+    //li.appendChild(p3);
     li.appendChild(modButton);
-    li.appendChild(delButton);
+    //li.appendChild(delButton);
     ul.appendChild(li);
   });
 };
-*/
+
+
+const createMediaCardsForTeacherApproval = (mediaPosts) => {
+  // clear ul
+  console.log("Creating media cards...");
+  ul.innerHTML = '';
+  const x =  sessionStorage.getItem('token');
+  if (teacherness !== false && mediaPost.visibility ===1) {
+
+  }
+  //console.log("User stuff: " + x.json.role);
+  mediaPosts.forEach((mediaPost) => {
+    console.log("User stuff: " + mediaPost.visibility);
+    // create li with DOM methods
+    const h2 = document.createElement('h2');
+
+    const img = document.createElement('img');
+    img.src = url + '/thumbnails/' + mediaPost.mediafilename;
+    img.alt = mediaPost.vst;
+    img.classList.add('resp');
+
+    // open large image when clicking image
+    img.addEventListener('click', () => {
+      modalImage.src = url + '/' + mediaPost.mediafilename;
+      imageModal.alt = mediaPost.vst;
+      imageModal.classList.toggle('hide');
+      /*
+      try {
+        const coords = JSON.parse(cat.coords);
+        // console.log(coords);
+        addMarker(coords);
+      }
+      catch (e) {
+      }
+       */
+    });
+
+    const figure = document.createElement('figure').appendChild(img);
+
+    //const h2 = document.createElement('h2');
+    //h2.innerHTML = mediaPost.vst;
+
+    const p1 = document.createElement('p');
+    p1.innerHTML = mediaPost.mediadesc;
+    /*
+        const p2 = document.createElement('p');
+        p2.innerHTML = `Weight: ${cat.weight}kg`;
+        const p3 = document.createElement('p');
+        p3.innerHTML = `Owner: ${cat.owner}`;
+    */
+    // add selected media's values to modify form
+    const modButton = document.createElement('button');
+    modButton.innerHTML = 'Modify';
+    modButton.addEventListener('click', () => {
+      console.log("modButton clicked" + mediaPost.id)
+      const inputs = modForm.querySelectorAll('input');
+      inputs[0].value = mediaPost.visibility;
+      inputs[1].value = mediaPost.id;
+      // modForm.querySelector('select').value = cat.owner;
+    });
+    /*
+        // delete selected media
+        const delButton = document.createElement('button');
+        delButton.innerHTML = 'Delete';
+        delButton.addEventListener('click', async () => {
+          const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+          };
+          try {
+            const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
+            const json = await response.json();
+            console.log('delete response', json);
+            getCat();
+          }
+          catch (e) {
+            console.log(e.message());
+          }
+        });
+    */
+    const li = document.createElement('li');
+    li.classList.add('light-border');
+
+    li.appendChild(h2);
+    li.appendChild(figure);
+    li.appendChild(p1);
+
+    //li.appendChild(p2);
+    //li.appendChild(p3);
+    li.appendChild(modButton);
+    //li.appendChild(delButton);
+    ul.appendChild(li);
+  });
+};
+
+const createMediaCardsForStudents = (mediaPosts) => {
+  // clear ul
+  console.log("Creating media cards...");
+  ul.innerHTML = '';
+  const x =  sessionStorage.getItem('token');
+
+  //console.log("User stuff: " + x.json.role);
+  mediaPosts.forEach((mediaPost) => {
+    console.log("User stuff: " + mediaPost.visibility);
+    // create li with DOM methods
+    const h2 = document.createElement('h2');
+    if (teacherness === false && mediaPost.visibility ===1) {
+      h2.innerHTML = "Not for you asshole!"
+    } else {
+      h2.innerHTML = "For you asshole!"
+    }
+    const img = document.createElement('img');
+    img.src = url + '/thumbnails/' + mediaPost.mediafilename;
+    img.alt = mediaPost.vst;
+    img.classList.add('resp');
+
+    // open large image when clicking image
+    img.addEventListener('click', () => {
+      modalImage.src = url + '/' + mediaPost.mediafilename;
+      imageModal.alt = mediaPost.vst;
+      imageModal.classList.toggle('hide');
+      /*
+      try {
+        const coords = JSON.parse(cat.coords);
+        // console.log(coords);
+        addMarker(coords);
+      }
+      catch (e) {
+      }
+       */
+    });
+
+    const figure = document.createElement('figure').appendChild(img);
+
+    //const h2 = document.createElement('h2');
+    //h2.innerHTML = mediaPost.vst;
+
+    const p1 = document.createElement('p');
+    p1.innerHTML = mediaPost.mediadesc;
+    /*
+        const p2 = document.createElement('p');
+        p2.innerHTML = `Weight: ${cat.weight}kg`;
+        const p3 = document.createElement('p');
+        p3.innerHTML = `Owner: ${cat.owner}`;
+    */
+    // add selected media's values to modify form
+    const modButton = document.createElement('button');
+    modButton.innerHTML = 'Modify';
+    modButton.addEventListener('click', () => {
+      console.log("modButton clicked" + mediaPost.id)
+      const inputs = modForm.querySelectorAll('input');
+      inputs[0].value = mediaPost.visibility;
+      inputs[1].value = mediaPost.id;
+      // modForm.querySelector('select').value = cat.owner;
+    });
+    /*
+        // delete selected media
+        const delButton = document.createElement('button');
+        delButton.innerHTML = 'Delete';
+        delButton.addEventListener('click', async () => {
+          const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+          };
+          try {
+            const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
+            const json = await response.json();
+            console.log('delete response', json);
+            getCat();
+          }
+          catch (e) {
+            console.log(e.message());
+          }
+        });
+    */
+    const li = document.createElement('li');
+    li.classList.add('light-border');
+
+    li.appendChild(h2);
+    li.appendChild(figure);
+    li.appendChild(p1);
+
+    //li.appendChild(p2);
+    //li.appendChild(p3);
+    li.appendChild(modButton);
+    //li.appendChild(delButton);
+    ul.appendChild(li);
+  });
+};
+
 
 // close modal
-/*
+
 close.addEventListener('click', (evt) => {
   evt.preventDefault();
   imageModal.classList.toggle('hide');
 });
 
- */
+
 
 // AJAX call
 
-const getMedia = async () => {
-  console.log('getMedia token ', sessionStorage.getItem('token'));
+const getMediaPosts = async () => {
+  console.log('getMediaPosts token ', sessionStorage.getItem('token'));
   try {
     const options = {
       headers: {
@@ -142,10 +349,10 @@ const getMedia = async () => {
       },
     };
     const response = await fetch(url + '/media', options);
-    const pics = await response.json();
-    //console.log(pics);
-    //createmediaCards(pics);
-  } catch (e) {
+    const mediaPosts = await response.json();
+    createMediaCards(mediaPosts);
+  }
+  catch (e) {
     console.log(e.message);
   }
 };
@@ -201,8 +408,29 @@ addForm.addEventListener('submit', async (evt) => {
   const response = await fetch(url + '/media', fetchOptions);
   const json = await response.json();
   console.log('add response', json);
-  //getCat();
+  getMediaPosts();
 });
+
+// submit modify form
+modForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  const data = serializeJson(modForm);
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  };
+
+  console.log(fetchOptions);
+  const response = await fetch(url + '/media', fetchOptions);
+  const json = await response.json();
+  console.log('modify response', json);
+  getMediaPosts();
+});
+
 
 /*
 // submit modify form
@@ -261,6 +489,7 @@ loginForm.addEventListener('submit', async (evt) => {
       dropDownThree.style.display = 'inline-block';
     }
     loggedIn = true;
+    getMediaPosts();
     // getCat();
     //getUsers();
   }
@@ -382,3 +611,13 @@ const gameOneStarter = () => {
 };
 
 gameButton.addEventListener('click', revealGames);
+
+/*
+if (sessionStorage.getItem('token')) {
+  //loginWrapper.style.display = 'none';
+  logOut.style.display = 'block';
+  main.style.display = 'block';
+  getMediaPosts();
+}
+ */
+
