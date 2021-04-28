@@ -58,20 +58,19 @@ const createMediaCards = (mediaPosts) => {
 
     const p3 = document.createElement('p');
     p3.innerHTML = `Owner: ${cat.owner}`;
-
-    // add selected cat's values to modify form
+*/
+    // add selected media's values to modify form
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Modify';
     modButton.addEventListener('click', () => {
+      console.log("modButton clicked" + mediaPost.id)
       const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = cat.name;
-      inputs[1].value = cat.age;
-      inputs[2].value = cat.weight;
-      inputs[3].value = cat.cat_id;
-      modForm.querySelector('select').value = cat.owner;
+      inputs[0].value = mediaPost.visibility;
+      inputs[1].value = mediaPost.id;
+      // modForm.querySelector('select').value = cat.owner;
     });
-
-    // delete selected cat
+/*
+    // delete selected media
     const delButton = document.createElement('button');
     delButton.innerHTML = 'Delete';
     delButton.addEventListener('click', async () => {
@@ -98,12 +97,12 @@ const createMediaCards = (mediaPosts) => {
     li.appendChild(h2);
     li.appendChild(figure);
     li.appendChild(p1);
-    /*
-    li.appendChild(p2);
-    li.appendChild(p3);
+
+    //li.appendChild(p2);
+    //li.appendChild(p3);
     li.appendChild(modButton);
-    li.appendChild(delButton);
-     */
+    //li.appendChild(delButton);
+
     ul.appendChild(li);
   });
 };
@@ -164,6 +163,26 @@ addForm.addEventListener('submit', async (evt) => {
   const response = await fetch(url + '/media', fetchOptions);
   const json = await response.json();
   console.log('add response', json);
+  getMediaPosts();
+});
+
+// submit modify form
+modForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  const data = serializeJson(modForm);
+  const fetchOptions = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  };
+
+  console.log(fetchOptions);
+  const response = await fetch(url + '/media', fetchOptions);
+  const json = await response.json();
+  console.log('modify response', json);
   getMediaPosts();
 });
 

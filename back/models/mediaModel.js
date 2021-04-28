@@ -5,7 +5,7 @@ const promisePool = pool.promise();
 const getAllMediaPost = async () => {
   try {
 
-    const [rows] = await promisePool.execute('SELECT proj_mediafeed.id, proj_mediafeed.classid, userid, mediafilename, mediadesc, proj_mediafeed.vst, proj_user.username AS username FROM proj_mediafeed LEFT JOIN proj_user ON userid = proj_user.id');
+    const [rows] = await promisePool.execute('SELECT proj_mediafeed.id, proj_mediafeed.classid, userid, mediafilename, mediadesc, visibility, proj_mediafeed.vst, proj_user.username FROM proj_mediafeed LEFT JOIN proj_user ON userid = proj_user.id');
     return rows;
   } catch (e) {
     console.error('mediaModel:', e.message);
@@ -18,14 +18,14 @@ const getMediaPost = async (id) => {
     const [rows] = await promisePool.execute('SELECT * FROM proj_mediafeed WHERE id = ?', [id]);
     return rows[0];
   } catch (e) {
-    console.error('catModel:', e.message);
+    console.error('mediaModel:', e.message);
   }
 };
 
 const insertMediaPost = async (req) => {
   try {
     console.log(req.user.classid + req.user.id + req.file.filename + req.body.description);
-    const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (classid, userid, mediafilename, mediadesc, VST) VALUES (? , ?, ?, ?, NOW())',
+    const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (classid, userid, mediafilename, mediadesc, visibility, VST) VALUES (? , ?, ?, ?, 1, NOW())',
         [req.user.classid, req.user.id, req.file.filename, req.body.description]);
     console.log('mediaModel insert:', rows);
     return rows.insertId;
@@ -36,10 +36,11 @@ const insertMediaPost = async (req) => {
   }
 };
 
-const updateMediaPost = async (id, req) => {
+const updateMediaPost = async (req) => {
   try {
-    const [rows] = await promisePool.execute('UPDATE proj_mediafeed SET classid = ?, userid = ?, mediadesc = ? WHERE id = ? AND VST = ?;',
-        [req.body.classid, req.body.userid, req.body.description, id]);
+//    console.log(req.visibility + ' ' + req.id);
+    const [rows] = await promisePool.execute('UPDATE proj_mediafeed SET visibility = ? WHERE id = ?;',
+        [req.visibility, req.id]);
     console.log('mediaModel update:', rows);
     return rows.affectedRows === 1;
   } catch (e) {
@@ -50,5 +51,6 @@ const updateMediaPost = async (id, req) => {
 module.exports = {
   insertMediaPost,
   getMediaPost,
-  getAllMediaPost
+  getAllMediaPost,
+  updateMediaPost
 };
