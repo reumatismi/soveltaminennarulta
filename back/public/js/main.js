@@ -69,7 +69,7 @@ const createMediaCards = (mediaPosts) => {
       inputs[1].value = mediaPost.id;
       // modForm.querySelector('select').value = cat.owner;
     });
-/*
+
     // delete selected media
     const delButton = document.createElement('button');
     delButton.innerHTML = 'Delete';
@@ -81,16 +81,16 @@ const createMediaCards = (mediaPosts) => {
         },
       };
       try {
-        const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
+        const response = await fetch(url + '/media/' + mediaPost.id, fetchOptions);
         const json = await response.json();
         console.log('delete response', json);
-        getCat();
+        getMediaPosts();
       }
       catch (e) {
         console.log(e.message());
       }
     });
-*/
+
     const li = document.createElement('li');
     li.classList.add('light-border');
 
@@ -101,7 +101,7 @@ const createMediaCards = (mediaPosts) => {
     //li.appendChild(p2);
     //li.appendChild(p3);
     li.appendChild(modButton);
-    //li.appendChild(delButton);
+    li.appendChild(delButton);
 
     ul.appendChild(li);
   });
