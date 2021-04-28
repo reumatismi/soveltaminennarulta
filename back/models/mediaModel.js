@@ -51,8 +51,8 @@ const updateMediaPost = async (req) => {
 const deleteMediaPost = async (id) => {
   try {
     console.log('mediaModel deleteMediaPost', id);
-    const [rows] = await promisePool.execute('UPDATE proj_mediafeed SET VET = ? WHERE proj_mediafeed.id = ?;',
-    ['DATETIME()', id]);
+    const [rows] = await promisePool.execute('UPDATE proj_mediafeed SET vet = NOW() WHERE proj_mediafeed.id = ?',
+    [id]);
     return rows.affectedRows === 1;
   } catch (e) {
     console.error('mediaModel:', e.message);
