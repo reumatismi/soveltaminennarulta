@@ -20,7 +20,6 @@ const mediaPost_list_get = async (req, res) => {
       res.json(mediaPostSort);
       return;
     }
-
     const mediaPost = await mediaModel.getAllMediaPost();
     res.json(mediaPost);
   } catch (e) {
