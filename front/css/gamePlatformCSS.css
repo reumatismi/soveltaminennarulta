@@ -1,0 +1,232 @@
+
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Baloo Tammudu 2', cursive;
+    font-size: 33px;
+    text-align: center;
+    color: #f1f1f1;
+}
+
+.parent {
+    height: 100vh;
+    border: 3px solid darkgrey;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.child1 {
+    background-image: repeating-radial-gradient( gold,  goldenrod 1%, #E7E5E3 1%);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.child2 {
+    background-color: green;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../img/laituri_ja_avaruus2v2.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+
+.yla {
+    flex: 1;
+    background-image: url("../img/kapseli.png");
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+img:hover {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%) contrast(200%);
+}
+
+.imgkuu {
+    width: 15%;
+    height: auto;
+}
+
+.imgkapseli {
+    width: 21%;
+    height: auto;
+    padding: 5px;
+}
+
+.imgkirahvi {
+    width: 35%;
+    height: auto;
+    margin-right: 55px;
+}
+
+.imghiiri {
+    width: 15%;
+    height: auto;
+}
+
+.imgkala {
+    width: 20%;
+    height: auto;
+    margin-top: 14%;
+}
+
+.ala {
+    flex: 1;
+    background-image: url("../img/kala.png");
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    align-self: flex-end;
+}
+
+.ylak {
+    flex: 1;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.keskik {
+    display: flex;
+    flex: 3;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.alak {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.card {
+    width: 300px;
+    height: 400px;
+    box-shadow: black 10px 10px 10px;
+
+}
+
+.card2 {
+
+    height: 300px;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.onTop1 {
+    flex: 1;
+
+    z-index: 5;
+    width: 50%;
+}
+
+.bottom {
+    bottom: 20px;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    color: black;
+    background: none;
+    font-size: 19px;
+    font-style: normal;
+    text-align: center;
+    border: none;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.arrow:hover {
+    border: solid orange;
+    border-width: 0 2px 2px 0;
+}
+
+section button:first-child {
+    display: none;
+}
+
+section:hover button:first-child {
+    display: block;
+}
+
+section:hover button:last-child {
+    display: none;
+}
+
+
+/*
+.child3 {
+    width: 150px;
+    height: 150px;
+    background-color: blue;
+    order: 2;
+    flex: 1;
+}
+
+.child4 {
+    width: 150px;
+    height: 150px;
+    background-color: pink;
+    order: 3;
+    flex: 1;
+    align-self: flex-end;
+}
+*/
+
+@media only screen and (max-width: 750px) {
+    .parent {
+        flex-direction: column;
+    }
+    .child1 {
+        display: none;
+    }
+
+    .card {
+        width: 351px;
+        height: 351px;
+    }
+
+    h2 {
+        font-size: 33px;
+        margin: 0;
+        color: black;
+    }
+
+    li {
+        color: ghostwhite;
+    }
+
+    #gradientti1 {
+        background-color: beige;
+        background-image: repeating-radial-gradient(gold, goldenrod 1%, #E7E5E3 1%);
+
+        /*
+        background-image: repeating-radial-gradient(darkgoldenrod, goldenrod 1%, palegoldenrod 1%);
+        background-image: linear-gradient(to bottom, darkgoldenrod, beige);
+         */
+    }
+}

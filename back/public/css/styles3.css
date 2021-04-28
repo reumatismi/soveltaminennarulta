@@ -1,0 +1,593 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Baloo Tammudu 2', cursive;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, serif;
+}
+
+p {
+    line-height: 2em;
+    text-align: center;
+}
+
+.container {
+    max-width: 40em;
+    margin: auto;
+    padding: 1em;
+}
+
+.light-border {
+    border-radius: 8px;
+    line-height: 2em;
+    padding: 1em;
+    box-sizing: border-box;
+    width: 90%;
+    margin: auto 4%;
+    display: block;
+    flex-direction: column;
+    align-items: center;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+li {
+    width: 30%;
+    margin: .5em;
+}
+
+figure {
+    margin: 0;
+    padding: 0;
+}
+
+.resp {
+    width: 100%;
+}
+
+.forms {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.form-wrapper {
+    width: 33%;
+    margin: auto;
+}
+
+input, button, select {
+    display: inline-block;
+    width: 100%;
+    margin: .5em 0;
+}
+
+select {
+    line-height: 1.5em;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat, repeat;
+    background-position: right .7em top 50%, 0 0;
+    background-size: .65em auto, 100%;
+}
+
+button{
+    background-color: #ccc;
+    color: #fff;
+
+}
+
+#painuvittuun {
+    margin: auto;
+}
+
+.hide {
+    display: none !important;
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    position: fixed;
+}
+
+.modal img {
+    display: block;
+    height: 80vh;
+    margin: auto;
+    padding-top: 10vh;
+}
+
+.close {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    color: #fff;
+    text-shadow: #000;
+    font-size: 2em;
+}
+
+#map {
+    position: absolute;
+    bottom: 5vh;
+    right: 5vw;
+    width: 30vw;
+    height: 30vh;
+}
+
+
+* {
+    font-family: "Baskerville", serif;
+}
+.header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background-color: lightskyblue;
+    color: white;
+    text-align: right;
+    font-size: 0;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: lightskyblue;
+    color: white;
+    text-align: center;
+    height: 8%;
+}
+h1 {
+    text-align: center;
+}
+h2 {
+    margin-top: 10%;
+    margin-bottom: 2%;
+    text-align: center;
+    font-size: 27px;
+}
+
+
+#user-info {
+    color: red;
+    font-size: 27px;
+    line-height: 1em;
+}
+
+.buttonDown {
+    height: 90px;
+    width: 90px;
+    border-radius: 100px;
+    bottom: -150px;
+    margin: -15% auto;
+    background-color: deeppink;
+    font-size: 21px;
+    color: ghostwhite;
+    border-style: dot-dot-dash;
+    border-width: 5px;
+    /*
+    background-image: repeating-radial-gradient( orange,  blue 1%, #E7E5E3 1%);
+     */
+}
+
+.buttonDown:hover {
+    background-color: ghostwhite;
+    color: deeppink;
+}
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 17px;
+    border: none;
+    width: 160px;
+    height: 100%;
+    margin: 0;
+    transition: all 0.7s;
+}
+
+.dropdown {
+    font-size: 0;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {
+    color: #3e8e41;
+    background-color: ghostwhite;
+
+}
+
+#teacherFeed {
+    display: none;
+}
+
+#gameView {
+    display: none;
+}
+#addMedia {
+    display: none;
+}
+#addUser {
+    display: none;
+}
+
+
+
+.center {
+    margin: auto;
+}
+
+
+.parent {
+    margin-top: 3%;
+    height: 92vh;
+    border: 0px solid darkgrey;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+}
+
+.child1 {
+    /*
+    background-image: repeating-radial-gradient( gold,  goldenrod 1%, #E7E5E3 1%);
+     */
+    background-image: repeating-radial-gradient( gold,  goldenrod 1%, #E7E5E3 1%);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.child2 {
+    background-color: green;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-image: url("../img/maa_ja_avaruus.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+
+}
+
+.yla {
+    flex: 1;
+    background-image: url("../img/kapseli.png");
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+.ala {
+    flex: 1;
+    background-image: url("../img/kala.png");
+    flex-shrink: 0;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    align-self: flex-end;
+}
+
+img:hover {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: contrast(150%);
+    z-index: 15;
+}
+.kuussa {
+    border: 5px solid ghostwhite;
+}
+
+.kuussa:hover {
+    -webkit-filter: none;
+    filter: none;
+}
+
+.imgkuu {
+    width: 15%;
+    height: auto;
+}
+
+.imgkapseli {
+    width: 21%;
+    height: auto;
+    padding: 5px;
+}
+
+.imgkirahvi {
+    width: 35%;
+    height: auto;
+}
+
+.imghiiri {
+    width: 15%;
+    height: auto;
+}
+
+.imgkala {
+    width: 20%;
+    height: auto;
+    margin-top: 14%;
+}
+
+
+
+.ylak {
+    flex: 1;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+
+}
+
+.keskik {
+    display: flex;
+    flex: 2;
+    flex-shrink: 0;
+    align-items: flex-start;
+
+
+}
+
+.alak {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.card {
+    width: 300px;
+    height: 400px;
+    box-shadow: black 10px 10px 10px;
+
+}
+
+.card2 {
+    height: 400px;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.card3 {
+    height: 100%;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+
+}
+
+
+
+.onTop1 {
+    flex: 1;
+
+    z-index: 5;
+    width: 50%;
+}
+
+.bottom {
+    bottom: 20px;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    color: black;
+    background: none;
+    font-size: 19px;
+    font-style: normal;
+    text-align: center;
+    border: none;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 5px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.arrow:hover {
+    border: solid orange;
+    border-width: 0 2px 2px 0;
+}
+
+section button:first-child {
+    display: none;
+}
+
+section:hover button:first-child {
+    display: block;
+}
+
+section:hover button:last-child {
+    display: none;
+}
+
+
+/*
+.child3 {
+    width: 150px;
+    height: 150px;
+    background-color: blue;
+    order: 2;
+    flex: 1;
+}
+
+.child4 {
+    width: 150px;
+    height: 150px;
+    background-color: pink;
+    order: 3;
+    flex: 1;
+    align-self: flex-end;
+}
+*/
+#game1 {
+    display: none;
+}
+
+canvas {
+    display: none;
+    margin: 9% auto;
+    border-color: grey;
+    border-radius: 5px;
+    border-style: groove;
+    border-width: 5px;
+    background: #ffffff repeating-radial-gradient(white, ghostwhite 1%, #E7E5E3 1%);
+}
+
+.button2{
+    font-family: "American Typewriter", serif;
+    font-size: 17px;
+    line-height: 2em;
+    border-radius: 10px;
+    width: 175px;
+    margin-top: 10%;
+    padding: 2%;
+}
+
+div{
+    text-align:center;
+}
+
+@media only screen and (max-width: 1100px) {
+
+    .card2 {
+        width: 351px;
+        height: 351px;
+    }
+    .imgkirahvi {
+        margin: auto 0;
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+    .parent {
+        flex-direction: column;
+    }
+    .child1 {
+        display: none;
+    }
+    .parent{
+        height: 93vh;
+    }
+
+
+    h2 {
+        font-size: 23px;
+        color: black;
+    }
+
+    li {
+        color: ghostwhite;
+    }
+
+    #gradientti1 {
+        background-color: beige;
+        background-image: repeating-radial-gradient(gold, goldenrod 1%, #E7E5E3 1%);
+
+        /*
+        background-image: repeating-radial-gradient(darkgoldenrod, goldenrod 1%, palegoldenrod 1%);
+        background-image: linear-gradient(to bottom, darkgoldenrod, beige);
+         */
+    }
+
+    .imgkirahvi {
+        width: 33%;
+        margin: auto 0;
+    }
+    .dropbtn {
+        width: 135px;
+        font-size: 15px;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 135px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .dropbtn {
+        width: 125px;
+        font-size: 15px;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 125px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    h2 {
+        font-size: 17px;
+        margin-top: 17%;
+    }
+    .imgkirahvi {
+        width: 35%;
+        margin: auto 0;
+    }
+}
+
+
+

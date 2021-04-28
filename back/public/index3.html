@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jalka leijuu</title>
+    <link rel="stylesheet" href="./css/styles3.css">
+</head>
+<body>
+
+<div class="header">
+
+    <div class="dropdown" id="addUser">
+        <button class="dropbtn">Lisää käyttäjä</button>
+        <div class="dropdown-content">
+            <div id="success_asshole">
+                <form class="light-border" id="add-user-form">
+                    <input class="light-border" type="text" name="username" placeholder="Käyttäjänimi" required>
+                    <input class="light-border" type="text" name="first_name" placeholder="Etunimi" required>
+                    <input class="light-border" type="text" name="last_name" placeholder="Takanimi" required>
+                    <input class="light-border" type="text" name="role" placeholder="Rooli" required>
+                    <input class="light-border" type="text" name="class" placeholder="Luokkatunnus" required>
+                    <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
+                           placeholder="Salasana" required>
+                    <button class="light-border" type="submit">Lisää käyttäjä</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="dropdown" id="addMedia">
+        <button class="dropbtn">Lisää kuva</button>
+        <div class="dropdown-content">
+            <form class="light-border"
+                  enctype="multipart/form-data"
+                  id="add-cat-form">
+                <div>
+                    <label>Kuvaus:</label>
+                    <input class="light-border" type="text" name="description" placeholder="Kuvaus" required>
+                </div>
+
+                <input class="light-border"
+                       type="file"
+                       name="media"
+                       accept="image/*"
+                       placeholder="Choose file">
+                <button class="light-border" type="submit">Upload</button>
+            </form>
+        </div>
+
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Kirjaudu</button>
+        <div class="dropdown-content">
+            <form id="login-form" class="light-border">
+                <div>
+                    <label>Käyttäjätunnus:</label>
+                    <input class="light-border" type="text" name="username" placeholder="Käyttäjätunnus"/>
+                </div>
+                <div>
+                    <label>Salasana:</label>
+                    <input class="light-border" type="password" name="password" placeholder="Salasana"/>
+                </div>
+                <div>
+                    <button class="light-border" type="submit">Kirjaudu</button>
+                </div>
+            </form>
+            <header id="log-out" style="display: none; margin: auto; text-align: center;">
+                <button class="light-border" id="painuvittuun">Uloskirjaudu</button>
+            </header>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="mockFeed">
+    <h2>Tahmea jalka ja pää</h2>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+    <p>Ylhäällä on päättäjä.</p>
+    <p>Alhaalla on jalattaja.</p>
+</div>
+
+
+<main style="display: none">
+    <br><br><br>
+    <h1>Luokkahässäkkää</h1>
+    <p id="user-info"></p>
+    <ul>
+        <!-- js creates list here -->
+    </ul>
+    <hr>
+
+</main>
+
+<div id="teacherFeed">
+    <h2>Ope tsiigaa kuvia.</h2>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+    <p>Ope open ope.</p>
+</div>
+
+<div id="gameView" class="center">
+
+    <div class="parent">
+        <div class="child1">
+            <div>
+                <div class="card2">
+                    <img class="card3 kuussa" src="img/kuussa.png" alt="pentu" id ="kuussa">
+                </div>
+            </div>
+
+        </div>
+        <div class="child2">
+            <div class="ylak">
+                <img src="img/kuu.png" class="imgkuu" alt="pentu" onclick="gameOneStarter();">
+                <img src="img/kapseli.png" class="imgkapseli" alt="pentu" onclick="alert('Peli 2');">
+            </div>
+            <div class="keskik">
+                <img src="img/kirahvit.png" class="imgkirahvi" alt="pentu" onclick="alert('Peli 3');">
+            </div>
+            <div class="alak">
+                <img src="img/hiiri.png" class="imghiiri" alt="pentu" onclick="alert('Peli 4');">
+                <img src="img/kala.png" class="imgkala" alt="pentu" onclick="alert('Peli 5');">
+            </div>
+            <!--
+            <div class="ala">Alalaatikko</div>
+            -->
+        </div>
+    </div>
+</div>
+
+<div class="hide modal" id="image-modal">
+    <a href="#" class="close">Close</a>
+    <img src="" alt="">
+    <div id="map"></div>
+</div>
+
+<div id="game1">
+    <canvas id="myCanvas" width="360" height="640"></canvas>
+    <div>
+        <button id="butt" class="button2"></button>
+    </div>
+</div>
+
+
+<div class="footer">
+    <button class="buttonDown">Pelit</button>
+</div>
+<script src="./js/serialize.js"></script>
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js"></script>
+<script src="./js/mapbox.js"></script>
+<script src="./js/main3.js"></script>
+<script src="./js/game1.js"></script>
+</body>
+</html>
