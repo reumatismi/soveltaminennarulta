@@ -104,7 +104,7 @@ const firstReset = () => {
   //document.location.reload();
   canvas.style.display = 'none';
   button.style.display = 'block';
-  button.style.margin = '10% auto';
+  button.style.margin = '14% auto';
   gameButton.style.visibility = 'visible';
   reset();
   which = Math.floor(Math.random()*2 );

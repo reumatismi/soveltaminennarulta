@@ -637,6 +637,7 @@ const revealGames = () => {
       main.style.display = 'none';
       if (teacherFeed.style.display === 'block') {
         teacherFeed.style.display = 'none';
+        teacherDropUp.style.display = 'none';
         teacherness = true;
       }
     }
@@ -650,6 +651,7 @@ const revealGames = () => {
     if (loggedIn) {
       if (teacherness) {
         teacherFeed.style.display = 'block';
+        teacherDropUp.style.display = 'flex';
       }
       main.style.display = 'block';
     } else {

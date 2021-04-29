@@ -255,7 +255,7 @@ h2 {
     padding: 0px;
     font-size: 17px;
     border: none;
-    width: 160px;
+    width: 130px;
     height: 100%;
 
     margin: 0;
@@ -459,8 +459,6 @@ img:hover {
 
 }
 
-
-
 .onTop1 {
     flex: 1;
 
@@ -605,6 +603,11 @@ div{
         width: 135px;
         font-size: 15px;
     }
+
+    .dropbtn2 {
+        font-size: 13px;
+    }
+
     .dropdown-content {
         display: none;
         position: absolute;
@@ -620,6 +623,11 @@ div{
         width: 125px;
         font-size: 15px;
     }
+
+    .dropbtn2 {
+        font-size: 13px;
+        width: 125px;
+    }
     .dropdown-content {
         display: none;
         position: absolute;
@@ -629,6 +637,10 @@ div{
         z-index: 1;
     }
 
+    .dropup-content {
+        min-width: 125px;
+    }
+
     h2 {
         font-size: 17px;
         margin-top: 17%;
@@ -636,5 +648,9 @@ div{
     .imgkirahvi {
         width: 35%;
         margin: auto 0;
+    }
+
+    .button2 {
+        margin-top: 130%;
     }
 }
