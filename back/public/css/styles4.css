@@ -23,7 +23,7 @@ p {
 .container {
     max-width: 200px;
     margin: auto;
-    padding: 1em;
+
 }
 
 .light-border {
@@ -172,7 +172,9 @@ h2 {
     text-align: center;
     font-size: 27px;
 }
-
+#mod-cat-form {
+ visibility: hidden;
+}
 
 #user-info {
     color: red;
@@ -244,7 +246,54 @@ h2 {
 .dropdown:hover .dropbtn {
     color: #3e8e41;
     background-color: ghostwhite;
+}
 
+.dropbtn2 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0px;
+    font-size: 17px;
+    border: none;
+    width: 160px;
+    height: 100%;
+
+    margin: 0;
+    transition: all 0.7s;
+}
+
+.dropup {
+    position: relative;
+    display: inline-block;
+}
+
+.dropup-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    bottom: 50px;
+    z-index: 1;
+}
+
+.dropup-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropup-content a:hover {background-color: #ccc}
+
+.dropup:hover .dropup-content {
+    display: block;
+}
+
+.dropup:hover .dropbtn2 {
+    background-color: lightskyblue;
+}
+
+#choose {
+    display: none;
 }
 
 #teacherFeed {
@@ -260,8 +309,6 @@ h2 {
 #addUser {
     display: none;
 }
-
-
 
 .center {
     margin: auto;

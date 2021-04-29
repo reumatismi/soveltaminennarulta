@@ -11,7 +11,7 @@ const loginForm = document.querySelector('#login-form');
 const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
-const ul = document.querySelector('ul');
+const ul = document.querySelector('#ul');
 const teacherUL = document.querySelector('#teacherPics')
 const studentUL = document.querySelector('#studentPics')
 const userLists = document.querySelectorAll('.add-owner');
@@ -27,6 +27,7 @@ const dropDownTwo = document.querySelector('#addMedia');
 dropDownTwo.style.display = 'none';
 const dropDownThree = document.querySelector('#addUser');
 dropDownThree.style.display = 'none';
+const teacherDropUp = document.querySelector('#choose');
 
 let loggedIn = false;
 let gamesVisible = false;
@@ -49,10 +50,10 @@ const createMediaCards = (mediaPosts) => {
     console.log("User stuff: " + mediaPost.visibility);
     // create li with DOM methods
     const h2 = document.createElement('h2');
-    if (teacherness === false && mediaPost.visibility ===1) {
-      h2.innerHTML = "Not for you asshole!"
+    if (mediaPost.visibility ===1) {
+      h2.innerHTML = "Uusi kuva:"
     } else {
-      h2.innerHTML = "For you asshole!"
+      h2.innerHTML = "Jo esillä:"
     }
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
@@ -90,18 +91,73 @@ const createMediaCards = (mediaPosts) => {
     */
     // add selected media's values to modify form
     const modButton = document.createElement('button');
-    modButton.innerHTML = 'Modify';
-    modButton.addEventListener('click', () => {
+    modButton.innerHTML = 'Luokkanäkymään';
+    modButton.addEventListener('click', async(evt) => {
+      evt.preventDefault();
+      loggedIn = true;
+      teacherness = true;
       console.log("modButton clicked" + mediaPost.id)
       const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = mediaPost.visibility;
+      inputs[0].value = 2;
+      console.log(inputs[0].value);
       inputs[1].value = mediaPost.id;
       // modForm.querySelector('select').value = cat.owner;
+
+      const data = serializeJson(modForm);
+      console.log(data);
+      const fetchOptions = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: JSON.stringify(data),
+      };
+      const response = await fetch(url + '/media', fetchOptions);
+      const json = await response.json();
+      console.log('modify response', json);
+      getMediaPosts();
+    });
+
+    const modButton2 = document.createElement('button');
+    modButton2.innerHTML = 'Etusivulle';
+    modButton2.addEventListener('click', async(evt) => {
+      console.log("modButton clicked" + mediaPost.id)
+      const inputs = modForm.querySelectorAll('input');
+      inputs[0].value = 3;
+      inputs[1].value = mediaPost.id;
+      // modForm.querySelector('select').value = cat.owner;
+      evt.preventDefault();
+      const data = serializeJson(modForm);
+      console.log(data);
+      const fetchOptions = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+        },
+        body: JSON.stringify(data),
+      };
+      try {
+        const response = await fetch(url + '/media', fetchOptions);
+        const json = await response.json();
+        console.log('delete response', json);
+        getMediaPosts();
+      }
+      catch (e) {
+        console.log(e.message());
+      }
+      /*
+      const response = await fetch(url + '/media', fetchOptions);
+      const json = await response.json();
+      console.log('modify response', json);
+      getMediaPosts();
+       */
     });
 
     // delete selected media
     const delButton = document.createElement('button');
-    delButton.innerHTML = 'Delete';
+    delButton.innerHTML = 'Poista';
     delButton.addEventListener('click', async () => {
       const fetchOptions = {
         method: 'DELETE',
@@ -119,28 +175,7 @@ const createMediaCards = (mediaPosts) => {
         console.log(e.message());
       }
     });
-    /*
-        // delete selected media
-        const delButton = document.createElement('button');
-        delButton.innerHTML = 'Delete';
-        delButton.addEventListener('click', async () => {
-          const fetchOptions = {
-            method: 'DELETE',
-            headers: {
-              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            },
-          };
-          try {
-            const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
-            const json = await response.json();
-            console.log('delete response', json);
-            getCat();
-          }
-          catch (e) {
-            console.log(e.message());
-          }
-        });
-    */
+
     const li = document.createElement('li');
     li.classList.add('light-border');
 
@@ -151,25 +186,32 @@ const createMediaCards = (mediaPosts) => {
     //li.appendChild(p2);
     //li.appendChild(p3);
     li.appendChild(modButton);
+    li.appendChild(modButton2);
     li.appendChild(delButton);
     ul.appendChild(li);
   });
 };
 
 
-const createMediaCardsForTeacherApproval = (mediaPosts) => {
+const createMediaCardsForStudent = (mediaPosts) => {
   // clear ul
   console.log("Creating media cards...");
   ul.innerHTML = '';
   const x =  sessionStorage.getItem('token');
-  if (teacherness !== false && mediaPost.visibility ===1) {
 
-  }
   //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
+    if (mediaPost.visibility > 1) {
+
+    }
     console.log("User stuff: " + mediaPost.visibility);
     // create li with DOM methods
     const h2 = document.createElement('h2');
+    if (mediaPost.visibility ===1) {
+      h2.innerHTML = "Tämän ei kuulu olla tässä."
+    } else {
+      h2.innerHTML = "Tämän kuuluu."
+    }
 
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
@@ -206,6 +248,7 @@ const createMediaCardsForTeacherApproval = (mediaPosts) => {
         p3.innerHTML = `Owner: ${cat.owner}`;
     */
     // add selected media's values to modify form
+    /*
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Modify';
     modButton.addEventListener('click', () => {
@@ -213,139 +256,103 @@ const createMediaCardsForTeacherApproval = (mediaPosts) => {
       const inputs = modForm.querySelectorAll('input');
       inputs[0].value = mediaPost.visibility;
       inputs[1].value = mediaPost.id;
-      // modForm.querySelector('select').value = cat.owner;
     });
-    /*
-        // delete selected media
-        const delButton = document.createElement('button');
-        delButton.innerHTML = 'Delete';
-        delButton.addEventListener('click', async () => {
-          const fetchOptions = {
-            method: 'DELETE',
-            headers: {
-              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            },
-          };
-          try {
-            const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
-            const json = await response.json();
-            console.log('delete response', json);
-            getCat();
-          }
-          catch (e) {
-            console.log(e.message());
-          }
-        });
-    */
+     */
+
     const li = document.createElement('li');
     li.classList.add('light-border');
 
     li.appendChild(h2);
     li.appendChild(figure);
     li.appendChild(p1);
-
-    //li.appendChild(p2);
-    //li.appendChild(p3);
-    li.appendChild(modButton);
-    //li.appendChild(delButton);
+    //li.appendChild(modButton);
     ul.appendChild(li);
   });
 };
 
-const createMediaCardsForStudents = (mediaPosts) => {
+const createMediaCardsForFrontpage = (mediaPosts) => {
   // clear ul
   console.log("Creating media cards...");
-  ul.innerHTML = '';
-  const x =  sessionStorage.getItem('token');
+  const ulli = document.getElementById('mock');
+  ulli.innerHTML = '';
+  //const x =  sessionStorage.getItem('token');
 
   //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
-    console.log("User stuff: " + mediaPost.visibility);
-    // create li with DOM methods
-    const h2 = document.createElement('h2');
-    if (teacherness === false && mediaPost.visibility ===1) {
-      h2.innerHTML = "Not for you asshole!"
-    } else {
-      h2.innerHTML = "For you asshole!"
-    }
-    const img = document.createElement('img');
-    img.src = url + '/thumbnails/' + mediaPost.mediafilename;
-    img.alt = mediaPost.vst;
-    img.classList.add('resp');
 
-    // open large image when clicking image
-    img.addEventListener('click', () => {
-      modalImage.src = url + '/' + mediaPost.mediafilename;
-      imageModal.alt = mediaPost.vst;
-      imageModal.classList.toggle('hide');
+      console.log("User stuff: " + mediaPost.visibility);
+      // create li with DOM methods
+      const h2 = document.createElement('h2');
+
+      const img = document.createElement('img');
+
+      if (mediaPost.visibility !==3) {
+        h2.innerHTML = "Tämän ei kuulu olla tässä."
+      } else {
+        h2.innerHTML = "Tämän kuuluu."
+      }
+      img.src = url + '/thumbnails/' + mediaPost.mediafilename;
+      img.alt = mediaPost.vst;
+      img.classList.add('resp');
+
+      // open large image when clicking image
+      img.addEventListener('click', () => {
+        modalImage.src = url + '/' + mediaPost.mediafilename;
+        imageModal.alt = mediaPost.vst;
+        imageModal.classList.toggle('hide');
+        /*
+        try {
+          const coords = JSON.parse(cat.coords);
+          // console.log(coords);
+          addMarker(coords);
+        }
+        catch (e) {
+        }
+         */
+      });
+
+      const figure = document.createElement('figure').appendChild(img);
+
+      //const h2 = document.createElement('h2');
+      //h2.innerHTML = mediaPost.vst;
+
+      const p1 = document.createElement('p');
+      p1.innerHTML = mediaPost.mediadesc;
       /*
-      try {
-        const coords = JSON.parse(cat.coords);
-        // console.log(coords);
-        addMarker(coords);
-      }
-      catch (e) {
-      }
+          const p2 = document.createElement('p');
+          p2.innerHTML = `Weight: ${cat.weight}kg`;
+          const p3 = document.createElement('p');
+          p3.innerHTML = `Owner: ${cat.owner}`;
+      */
+      // add selected media's values to modify form
+      /*
+      const modButton = document.createElement('button');
+      modButton.innerHTML = 'Modify';
+      modButton.addEventListener('click', () => {
+        console.log("modButton clicked" + mediaPost.id)
+        const inputs = modForm.querySelectorAll('input');
+        inputs[0].value = mediaPost.visibility;
+        inputs[1].value = mediaPost.id;
+        // modForm.querySelector('select').value = cat.owner;
+      });
        */
-    });
 
-    const figure = document.createElement('figure').appendChild(img);
+      const li = document.createElement('li');
+      li.classList.add('light-border');
 
-    //const h2 = document.createElement('h2');
-    //h2.innerHTML = mediaPost.vst;
+      li.appendChild(h2);
+      li.appendChild(figure);
+      li.appendChild(p1);
 
-    const p1 = document.createElement('p');
-    p1.innerHTML = mediaPost.mediadesc;
-    /*
-        const p2 = document.createElement('p');
-        p2.innerHTML = `Weight: ${cat.weight}kg`;
-        const p3 = document.createElement('p');
-        p3.innerHTML = `Owner: ${cat.owner}`;
-    */
-    // add selected media's values to modify form
-    const modButton = document.createElement('button');
-    modButton.innerHTML = 'Modify';
-    modButton.addEventListener('click', () => {
-      console.log("modButton clicked" + mediaPost.id)
-      const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = mediaPost.visibility;
-      inputs[1].value = mediaPost.id;
-      // modForm.querySelector('select').value = cat.owner;
-    });
-    /*
-        // delete selected media
-        const delButton = document.createElement('button');
-        delButton.innerHTML = 'Delete';
-        delButton.addEventListener('click', async () => {
-          const fetchOptions = {
-            method: 'DELETE',
-            headers: {
-              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-            },
-          };
-          try {
-            const response = await fetch(url + '/cat/' + cat.cat_id, fetchOptions);
-            const json = await response.json();
-            console.log('delete response', json);
-            getCat();
-          }
-          catch (e) {
-            console.log(e.message());
-          }
-        });
-    */
-    const li = document.createElement('li');
-    li.classList.add('light-border');
+      //li.appendChild(p2);
+      //li.appendChild(p3);
+      //li.appendChild(modButton);
+      //li.appendChild(delButton);
+      ulli.appendChild(li);
 
-    li.appendChild(h2);
-    li.appendChild(figure);
-    li.appendChild(p1);
 
-    //li.appendChild(p2);
-    //li.appendChild(p3);
-    li.appendChild(modButton);
-    //li.appendChild(delButton);
-    ul.appendChild(li);
+
+
   });
 };
 
@@ -371,7 +378,19 @@ const getMediaPosts = async () => {
     };
     const response = await fetch(url + '/media', options);
     const mediaPosts = await response.json();
-    createMediaCards(mediaPosts);
+    if (loggedIn) {
+      if (teacherness) {
+        console.log("Kuvia opeille");
+        createMediaCards(mediaPosts);
+      } else {
+        console.log("Kuvia oppilaille");
+        createMediaCardsForStudent(mediaPosts);
+      }
+    }
+    if (!loggedIn) {
+      console.log("Kuvia kaikille?");
+      createMediaCardsForFrontpage(mediaPosts);
+    }
   }
   catch (e) {
     console.log(e.message);
@@ -444,7 +463,6 @@ modForm.addEventListener('submit', async (evt) => {
     },
     body: JSON.stringify(data),
   };
-
   console.log(fetchOptions);
   const response = await fetch(url + '/media', fetchOptions);
   const json = await response.json();
@@ -502,6 +520,8 @@ loginForm.addEventListener('submit', async (evt) => {
       mockFeed.style.display = 'none';
       if (json.user.role === 2) {
         teacherFeed.style.display = 'block';
+        teacherDropUp.style.display = 'flex';
+        teacherness = true;
       }
     }
     dropDownTwo.style.display = 'inline-block';
@@ -537,7 +557,9 @@ logOut.addEventListener('click', async (evt) => {
     loggedIn = false;
     logOut.style.display = 'none';
     main.style.display = 'none';
+    ul.innerHTML = '';
     success.style.display = 'none';
+    teacherDropUp.style.display = 'none';
     if (!gamesVisible) {
       mockFeed.style.display = 'block';
     }
@@ -545,10 +567,12 @@ logOut.addEventListener('click', async (evt) => {
     dropDownThree.style.display = 'none';
     teacherFeed.style.display = 'none';
     userInfo.innerHTML = '';
+    teacherness = false;
 
   } catch (e) {
     console.log(e.message);
   }
+  getMediaPosts();
 });
 
 // submit register form
@@ -639,3 +663,5 @@ if (sessionStorage.getItem('token')) {
   getMediaPosts();
 }
  */
+
+getMediaPosts();

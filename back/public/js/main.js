@@ -65,7 +65,7 @@ const createMediaCards = (mediaPosts) => {
     modButton.addEventListener('click', () => {
       console.log("modButton clicked" + mediaPost.id)
       const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = mediaPost.visibility;
+      inputs[0].value = 6;
       inputs[1].value = mediaPost.id;
       // modForm.querySelector('select').value = cat.owner;
     });
