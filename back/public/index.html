@@ -67,11 +67,21 @@
             </div>
 
             <div class="form-wrapper">
-                <h3>Sapiskaa mummolle</h3>
+                <h3>Vaihda näkyvyyttä</h3>
                 <form id="mod-cat-form" class="light-border">
                     <input class="light-border" type="number" name="visibility" placeholder="taso" required>
                     <input type="hidden" name="id">
                     <button class="light-border" type="submit">Save changes</button>
+                </form>
+            </div>
+
+            <div class="form-wrapper">
+                <h3>Kommentoi</h3>
+                <form id="add-comment-form" class="light-border">
+                    <input class="light-border" type="text" name="comment" placeholder="Kommentti" required>
+                    <input type="hidden" name="mediaid">
+                    <input type="hidden" name="userid">
+                    <button class="light-border" type="submit">Kommentoi</button>
                 </form>
             </div>
         </div>

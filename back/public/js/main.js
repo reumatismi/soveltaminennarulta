@@ -10,6 +10,7 @@ const loginForm = document.querySelector('#login-form');
 const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
+const commentForm = document.querySelector('#add-comment-form');
 const ul = document.querySelector('ul');
 const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
@@ -63,11 +64,22 @@ const createMediaCards = (mediaPosts) => {
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Modify';
     modButton.addEventListener('click', () => {
-      console.log("modButton clicked" + mediaPost.id)
+      console.log("modButton clicked" + mediaPost.id);
       const inputs = modForm.querySelectorAll('input');
       inputs[0].value = mediaPost.visibility;
       inputs[1].value = mediaPost.id;
       // modForm.querySelector('select').value = cat.owner;
+    });
+
+    // add comment to selected media
+    const commentButton = document.createElement('button');
+    commentButton.innerHTML = 'Comment';
+    commentButton.addEventListener('click', () => {
+      console.log('commentButton clicked' + mediaPost);
+      const inputs = commentForm.querySelectorAll('input');
+      inputs[0].value = 'Testausta';
+      inputs[1].value = mediaPost.id;
+      inputs[2].value = mediaPost.userid;
     });
 
     // delete selected media
@@ -101,6 +113,7 @@ const createMediaCards = (mediaPosts) => {
     //li.appendChild(p2);
     //li.appendChild(p3);
     li.appendChild(modButton);
+    li.appendChild(commentButton);
     li.appendChild(delButton);
 
     ul.appendChild(li);
@@ -126,6 +139,22 @@ const getMediaPosts = async () => {
     const response = await fetch(url + '/media', options);
     const mediaPosts = await response.json();
     createMediaCards(mediaPosts);
+  }
+  catch (e) {
+    console.log(e.message);
+  }
+};
+
+const getMediaPost = async (id) => {
+  console.log('getMediaPost token ', sessionStorage.getItem('token'));
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    const response = await fetch(url + '/media', options);
+    const mediaPost = await response.json();
   }
   catch (e) {
     console.log(e.message);
@@ -184,6 +213,25 @@ modForm.addEventListener('submit', async (evt) => {
   const json = await response.json();
   console.log('modify response', json);
   getMediaPosts();
+});
+
+// submit comment form
+commentForm.addEventListener('submit', async (evt) => {
+  evt.preventDefault();
+  const data = serializeJson(commentForm);
+  const fetchOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+    },
+    body: JSON.stringify(data),
+  };
+
+  console.log(fetchOptions);
+  const response = await fetch(url + '/comment', fetchOptions);
+  const json = await response.json();
+  console.log('comment response', json);
 });
 
 // login
