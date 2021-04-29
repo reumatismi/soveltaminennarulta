@@ -207,71 +207,76 @@ const createMediaCardsForStudent = (mediaPosts) => {
   //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
     if (mediaPost.visibility > 1) {
+      console.log("User stuff: " + mediaPost.visibility);
+      // create li with DOM methods
+      const h2 = document.createElement('h2');
 
-    }
-    console.log("User stuff: " + mediaPost.visibility);
-    // create li with DOM methods
-    const h2 = document.createElement('h2');
-    if (mediaPost.visibility ===1) {
-      h2.innerHTML = "Tämän ei kuulu olla tässä."
-    } else {
-      h2.innerHTML = "Tämän kuuluu."
-    }
-
-    const img = document.createElement('img');
-    img.src = url + '/thumbnails/' + mediaPost.mediafilename;
-    img.alt = mediaPost.vst;
-    img.classList.add('resp');
-
-    // open large image when clicking image
-    img.addEventListener('click', () => {
-      modalImage.src = url + '/' + mediaPost.mediafilename;
-      imageModal.alt = mediaPost.vst;
-      imageModal.classList.toggle('hide');
       /*
-      try {
-        const coords = JSON.parse(cat.coords);
-        // console.log(coords);
-        addMarker(coords);
-      }
-      catch (e) {
+      if (mediaPost.visibility ===1) {
+        h2.innerHTML = "Tämän ei kuulu olla tässä."
+      } else {
+        h2.innerHTML = "Tämän kuuluu."
       }
        */
-    });
 
-    const figure = document.createElement('figure').appendChild(img);
+      const img = document.createElement('img');
+      img.src = url + '/thumbnails/' + mediaPost.mediafilename;
+      img.alt = mediaPost.vst;
+      img.classList.add('resp');
 
-    //const h2 = document.createElement('h2');
-    //h2.innerHTML = mediaPost.vst;
+      // open large image when clicking image
+      img.addEventListener('click', () => {
+        modalImage.src = url + '/' + mediaPost.mediafilename;
+        imageModal.alt = mediaPost.vst;
+        imageModal.classList.toggle('hide');
+        /*
+        try {
+          const coords = JSON.parse(cat.coords);
+          // console.log(coords);
+          addMarker(coords);
+        }
+        catch (e) {
+        }
+         */
+      });
 
-    const p1 = document.createElement('p');
-    p1.innerHTML = mediaPost.mediadesc;
-    /*
-        const p2 = document.createElement('p');
-        p2.innerHTML = `Weight: ${cat.weight}kg`;
-        const p3 = document.createElement('p');
-        p3.innerHTML = `Owner: ${cat.owner}`;
-    */
-    // add selected media's values to modify form
-    /*
-    const modButton = document.createElement('button');
-    modButton.innerHTML = 'Modify';
-    modButton.addEventListener('click', () => {
-      console.log("modButton clicked" + mediaPost.id)
-      const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = mediaPost.visibility;
-      inputs[1].value = mediaPost.id;
-    });
-     */
+      const figure = document.createElement('figure').appendChild(img);
 
-    const li = document.createElement('li');
-    li.classList.add('light-border');
+      //const h2 = document.createElement('h2');
+      h2.innerHTML = mediaPost.mediadesc;
 
-    li.appendChild(h2);
-    li.appendChild(figure);
-    li.appendChild(p1);
-    //li.appendChild(modButton);
-    ul.appendChild(li);
+      const p1 = document.createElement('p');
+      p1.innerHTML = mediaPost.vst;
+      /*
+          const p2 = document.createElement('p');
+          p2.innerHTML = `Weight: ${cat.weight}kg`;
+          const p3 = document.createElement('p');
+          p3.innerHTML = `Owner: ${cat.owner}`;
+      */
+      // add selected media's values to modify form
+      /*
+      const modButton = document.createElement('button');
+      modButton.innerHTML = 'Modify';
+      modButton.addEventListener('click', () => {
+        console.log("modButton clicked" + mediaPost.id)
+        const inputs = modForm.querySelectorAll('input');
+        inputs[0].value = mediaPost.visibility;
+        inputs[1].value = mediaPost.id;
+      });
+       */
+
+      const li = document.createElement('li');
+      li.classList.add('light-border');
+
+      li.appendChild(h2);
+      li.appendChild(figure);
+      li.appendChild(p1);
+      //li.appendChild(modButton);
+      ul.appendChild(li);
+
+    }
+
+    //end...
   });
 };
 
