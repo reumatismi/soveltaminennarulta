@@ -51,9 +51,9 @@ const createMediaCards = (mediaPosts) => {
     // create li with DOM methods
     const h2 = document.createElement('h2');
     if (mediaPost.visibility ===1) {
-      h2.innerHTML = "Uusi kuva:"
+      h2.innerHTML = "Uusi kuva:";
     } else {
-      h2.innerHTML = "Jo esillä:"
+      h2.innerHTML = "Jo esillä:";
     }
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
@@ -102,7 +102,7 @@ const createMediaCards = (mediaPosts) => {
       console.log(inputs[0].value);
       inputs[1].value = mediaPost.id;
       // modForm.querySelector('select').value = cat.owner;
-
+      h2.innerHTML = "Jo esillä:";
       const data = serializeJson(modForm);
       console.log(data);
       const fetchOptions = {
@@ -118,7 +118,8 @@ const createMediaCards = (mediaPosts) => {
       console.log('modify response', json);
       getMediaPosts();
     });
-
+    //TODO?
+    /*
     const modButton2 = document.createElement('button');
     modButton2.innerHTML = 'Etusivulle';
     modButton2.addEventListener('click', async(evt) => {
@@ -147,13 +148,17 @@ const createMediaCards = (mediaPosts) => {
       catch (e) {
         console.log(e.message());
       }
+
+     */
+      //TODO?
       /*
       const response = await fetch(url + '/media', fetchOptions);
       const json = await response.json();
       console.log('modify response', json);
       getMediaPosts();
-       */
+
     });
+       */
 
     // delete selected media
     const delButton = document.createElement('button');
@@ -186,7 +191,7 @@ const createMediaCards = (mediaPosts) => {
     //li.appendChild(p2);
     //li.appendChild(p3);
     li.appendChild(modButton);
-    li.appendChild(modButton2);
+    //li.appendChild(modButton2);
     li.appendChild(delButton);
     ul.appendChild(li);
   });
@@ -387,10 +392,13 @@ const getMediaPosts = async () => {
         createMediaCardsForStudent(mediaPosts);
       }
     }
+    //TODO:
+    /*
     if (!loggedIn) {
       console.log("Kuvia kaikille?");
       createMediaCardsForFrontpage(mediaPosts);
     }
+     */
   }
   catch (e) {
     console.log(e.message);
@@ -664,4 +672,4 @@ if (sessionStorage.getItem('token')) {
 }
  */
 
-getMediaPosts();
+//getMediaPosts();

@@ -5,7 +5,7 @@ const promisePool = pool.promise();
 const getAllMediaPost = async () => {
   try {
 
-    const [rows] = await promisePool.execute(`SELECT proj_mediafeed.id, proj_mediafeed.classid, userid, mediafilename, mediadesc, visibility, proj_mediafeed.vst, proj_user.username FROM proj_mediafeed LEFT JOIN proj_user ON userid = proj_user.id WHERE proj_mediafeed.vet IS NULL`);
+    const [rows] = await promisePool.execute(`SELECT proj_mediafeed.id, proj_mediafeed.classid, userid, mediafilename, mediadesc, visibility, proj_mediafeed.vst, proj_user.username FROM proj_mediafeed LEFT JOIN proj_user ON userid = proj_user.id WHERE proj_mediafeed.vet IS NULL ORDER BY vst DESC`);
     return rows;
   } catch (e) {
     console.error('mediaModel:', e.message);
