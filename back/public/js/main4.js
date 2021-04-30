@@ -206,7 +206,7 @@ const createMediaCardsForStudent = (mediaPosts) => {
 
   //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
-    if (mediaPost.visibility > 1) {
+    //if (mediaPost.visibility > 1) {
       console.log("User stuff: " + mediaPost.visibility);
       // create li with DOM methods
       const h2 = document.createElement('h2');
@@ -274,7 +274,7 @@ const createMediaCardsForStudent = (mediaPosts) => {
       //li.appendChild(modButton);
       ul.appendChild(li);
 
-    }
+    //}
 
     //end...
   });
