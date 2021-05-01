@@ -200,7 +200,7 @@ const drawSmallerBall = () => {
 
 const drawNumber = (number) => {
   ctx.font = '50px Monaco';
-  ctx.fillStyle = `rgb(${color7}, ${color8}, ${color9}`;
+  ctx.fillStyle = `rgb(${255 - color4}, ${255 - color5}, ${255 - color6}`;
   ctx.fillText(number, x - ballRadius / 3, y + ballRadius / 3);
 };
 
@@ -217,7 +217,7 @@ const drawPaddle = () => {
 
 const drawSymbol = () => {
   ctx.font = '50px Monaco';
-  ctx.fillStyle = `rgb(${color7}, ${color8}, ${color9}`;
+  ctx.fillStyle = `rgb(${255 -color3}, ${255 - color7}, ${255 -color1}`;
   ctx.fillText("?", paddleX + paddleWidth/(6/2), paddleY + paddleHeight/(4/3));
 };
 

@@ -5,6 +5,8 @@ const url = 'https://localhost:8000'; // change url when uploading to server
 //const loginWrapper = document.querySelector('#login-wrapper');
 //const loginWrapper = document.getElementById('#login-wrapper');
 const userInfo = document.querySelector('#user-info');
+const kirjaudu = document.getElementById('kirjaudu');
+const pelit = document.getElementById('pelit');
 const logOut = document.querySelector('#log-out');
 const main = document.querySelector('main');
 const loginForm = document.querySelector('#login-form');
@@ -18,6 +20,8 @@ const userLists = document.querySelectorAll('.add-owner');
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
+
+let gameButtonMode = 1;
 
 const mockFeed = document.querySelector('#mockFeed');
 const teacherFeed = document.querySelector('#teacherFeed');
@@ -94,6 +98,7 @@ const createMediaCards = (mediaPosts) => {
     modButton.innerHTML = 'Luokkanäkymään';
     modButton.addEventListener('click', async(evt) => {
       evt.preventDefault();
+      //getMediaPosts();
       loggedIn = true;
       teacherness = true;
       console.log("modButton clicked" + mediaPost.id)
@@ -116,7 +121,7 @@ const createMediaCards = (mediaPosts) => {
       const response = await fetch(url + '/media', fetchOptions);
       const json = await response.json();
       console.log('modify response', json);
-      getMediaPosts();
+      //getMediaPosts();
     });
     //TODO?
     /*
@@ -521,19 +526,21 @@ loginForm.addEventListener('submit', async (evt) => {
   if (!json.user) {
     alert(json.message);
   } else {
+    kirjaudu.innerText = "Kirjaudu ulos";
     // save token
     sessionStorage.setItem('token', json.token);
     // show/hide forms + cats
     loginForm.style.display = 'none';
     logOut.style.display = 'block';
     userInfo.innerHTML = `Hello ${json.user.firstname}!`;
+
     if (!gamesVisible) {
       main.style.display = 'block';
       success.style.display = 'block';
       mockFeed.style.display = 'none';
       if (json.user.role === 2) {
         teacherFeed.style.display = 'block';
-        teacherDropUp.style.display = 'flex';
+        //teacherDropUp.style.display = 'flex';
         teacherness = true;
       }
     }
@@ -568,6 +575,7 @@ logOut.addEventListener('click', async (evt) => {
 
     //loginWrapper.style.display = 'flex';
     loggedIn = false;
+    kirjaudu.innerText = "Kirjaudu";
     logOut.style.display = 'none';
     main.style.display = 'none';
     ul.innerHTML = '';
@@ -630,9 +638,67 @@ if (sessionStorage.getItem('token')) {
 
 const revealGames = () => {
   //game1.style.display = 'none';
+
+   if (gameButtonMode === 1) {
+     pelit.innerHTML = "Etusivu";
+     gameButtonMode = 2;
+     console.log(gameButtonMode);
+     gameView.style.display = 'block';
+     mockFeed.style.display = 'none';
+     //pelit.innerHTML = "Etusivu";
+     if (loggedIn) {
+       main.style.display = 'none';
+       if (teacherFeed.style.display === 'block') {
+         teacherFeed.style.display = 'none';
+         teacherDropUp.style.display = 'none';
+         teacherness = true;
+       }
+     }
+     gamesVisible = true;
+   } else if (gameButtonMode ===2) {
+    pelit.innerHTML = "Pelit";
+    gameButtonMode = 1;
+    console.log(gameButtonMode);
+    if (button.style.display === 'block') {
+      button.style.display = 'none';
+    }
+    //pelit.innerHTML = "Pelit";
+    button.style.display = 'none';
+    gameView.style.display = 'none';
+    if (loggedIn) {
+      if (teacherness) {
+        teacherFeed.style.display = 'block';
+        teacherDropUp.style.display = 'flex';
+      }
+      main.style.display = 'block';
+    } else {
+      mockFeed.style.display = 'block';
+    }
+    gamesVisible = false;
+  }else if (gameButtonMode ===3) {
+    //pelit.innerHTML = "Takaisin peleihin";
+     console.log(gameButtonMode);
+    gameButtonMode = 2;
+    pelit.innerHTML = "Etusivu";
+    gameView.style.display = 'block';
+    mockFeed.style.display = 'none';
+    //pelit.innerHTML = "Etusivu";
+    if (loggedIn) {
+      main.style.display = 'none';
+      if (teacherFeed.style.display === 'block') {
+        teacherFeed.style.display = 'none';
+        teacherDropUp.style.display = 'none';
+        teacherness = true;
+      }
+    }
+    gamesVisible = true;
+  }
+
+  /*
   if (!gamesVisible) {
     gameView.style.display = 'block';
     mockFeed.style.display = 'none';
+    pelit.innerHTML = "Etusivu";
     if (loggedIn) {
       main.style.display = 'none';
       if (teacherFeed.style.display === 'block') {
@@ -646,6 +712,46 @@ const revealGames = () => {
     if (button.style.display === 'block') {
       button.style.display = 'none';
     }
+    pelit.innerHTML = "Pelit";
+    button.style.display = 'none';
+    gameView.style.display = 'none';
+    if (loggedIn) {
+      if (teacherness) {
+        teacherFeed.style.display = 'block';
+        teacherDropUp.style.display = 'flex';
+      }
+      main.style.display = 'block';
+    } else {
+      mockFeed.style.display = 'block';
+    }
+    gamesVisible = false;
+  }
+
+   */
+};
+
+/*
+//original
+const revealGames = () => {
+  //game1.style.display = 'none';
+  if (!gamesVisible) {
+    gameView.style.display = 'block';
+    mockFeed.style.display = 'none';
+    pelit.innerHTML = "Etusivu";
+    if (loggedIn) {
+      main.style.display = 'none';
+      if (teacherFeed.style.display === 'block') {
+        teacherFeed.style.display = 'none';
+        teacherDropUp.style.display = 'none';
+        teacherness = true;
+      }
+    }
+    gamesVisible = true;
+  } else {
+    if (button.style.display === 'block') {
+      button.style.display = 'none';
+    }
+    pelit.innerHTML = "Pelit";
     button.style.display = 'none';
     gameView.style.display = 'none';
     if (loggedIn) {
@@ -660,9 +766,13 @@ const revealGames = () => {
     gamesVisible = false;
   }
 };
+ */
+
 
 const gameOneStarter = () => {
   //button.style.display = 'block';
+  gameButtonMode = 3;
+  pelit.innerHTML = "Takaisin peleihin";
   firstReset();
   game1.style.display = 'block';
   gameView.style.display = 'none';

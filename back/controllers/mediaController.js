@@ -22,6 +22,7 @@ const mediaPost_list_get = async (req, res) => {
     }
     //TODO filter post for student vs teacher = DONE!!!
     console.log("User role:" + req.user.role);
+
     if (req.user.role  >1) {
       const mediaPost = await mediaModel.getAllMediaPost(1);
       res.json(mediaPost);
