@@ -3,11 +3,12 @@
 const commentModel = require('../models/commentModel');
 const {validationResult} = require('express-validator');
 
+// get all comments from commentModel
 const comment_list_get = async (req, res) => {
-  console.log("Fetching comments");
+  console.log("Fetching all comments");
   try {
-    console.log('commentController try', req.query);
     const commentPost = await commentModel.getAllComment();
+    console.log('commentController checking for comment return' + commentPost);
     res.json(commentPost);
   } catch (e) {
     res.status(400).json({error: e.message});

@@ -19,7 +19,7 @@ const close = document.querySelector('#image-modal a');
 
 
 // create media cards
-const createMediaCards = (mediaPosts) => {
+const createMediaCards = (mediaPosts, comments) => {
   // clear ul
   console.log("Creating media cards...");
   ul.innerHTML = '';
@@ -35,15 +35,6 @@ const createMediaCards = (mediaPosts) => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
       imageModal.alt = mediaPost.vst;
       imageModal.classList.toggle('hide');
-      /*
-      try {
-        const coords = JSON.parse(cat.coords);
-        // console.log(coords);
-        addMarker(coords);
-      }
-      catch (e) {
-      }
-       */
     });
 
     const figure = document.createElement('figure').appendChild(img);
@@ -53,14 +44,7 @@ const createMediaCards = (mediaPosts) => {
 
     const p1 = document.createElement('p');
     p1.innerHTML = mediaPost.mediadesc;
-/*
-    const p2 = document.createElement('p');
-    p2.innerHTML = `Weight: ${cat.weight}kg`;
 
-    const p3 = document.createElement('p');
-    p3.innerHTML = `Owner: ${cat.owner}`;
-*/
-    // add selected media's values to modify form
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Modify';
     modButton.addEventListener('click', () => {
@@ -110,8 +94,14 @@ const createMediaCards = (mediaPosts) => {
     li.appendChild(figure);
     li.appendChild(p1);
 
-    //li.appendChild(p2);
-    //li.appendChild(p3);
+    comments.forEach((comment) => {
+      if (comment.mediaid === mediaPost.id && comment.visibility >= 2) {
+        const p = document.createElement('p');
+        p.innerHTML = comment.username + '<br>' + comment.commenttext;
+        li.appendChild(p);
+      }
+    })
+
     li.appendChild(modButton);
     li.appendChild(commentButton);
     li.appendChild(delButton);
@@ -126,6 +116,23 @@ close.addEventListener('click', (evt) => {
   imageModal.classList.toggle('hide');
 });
 
+const getComments = async () => {
+  console.log('getComments token ', sessionStorage.getItem('token'));
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    console.log("getComments testing");
+    const response = await fetch(url + '/comment', options);
+    const comments = await response.json();
+    console.log(comments);
+    return comments;
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 // AJAX call
 
 const getMediaPosts = async () => {
@@ -138,7 +145,8 @@ const getMediaPosts = async () => {
     };
     const response = await fetch(url + '/media', options);
     const mediaPosts = await response.json();
-    createMediaCards(mediaPosts);
+    const comments = await getComments();
+    createMediaCards(mediaPosts, comments);
   }
   catch (e) {
     console.log(e.message);

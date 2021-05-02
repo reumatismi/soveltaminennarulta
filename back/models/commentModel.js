@@ -2,16 +2,19 @@
 const pool = require('../database/db');
 const promisePool = pool.promise();
 
+// get all comments for database
 const getAllComment = async () => {
   try {
-
+    console.log('commentModel get all comments');
     const [rows] = await promisePool.execute(`SELECT userid, mediaid, commenttext, visibility, proj_comment.vst, proj_user.username FROM proj_comment LEFT JOIN proj_user ON userid = proj_user.id WHERE proj_comment.vet IS NULL`);
+    console.log('all comments fetched');
     return rows;
   } catch (e) {
     console.error('commentModel:', e.message);
   }
 };
 
+// insert comment into database
 const insertComment = async (req) => {
   try {
     console.log('insertComment try' + req.body.userid + ' ' + req.body.mediaid)
@@ -26,6 +29,7 @@ const insertComment = async (req) => {
   }
 };
 
+//
 const getComment = async (id) => {
   try {
     console.log('commentModel getComment', id);
