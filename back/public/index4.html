@@ -9,66 +9,70 @@
 <body>
 
 <div class="header" id = "theHeader">
-    <div class="dropdown" id="addUser">
-        <button class="dropbtn">Lisää käyttäjä</button>
-        <div class="dropdown-content">
-            <div id="success_asshole">
-                <form class="light-border" id="add-user-form">
-                    <input class="light-border" type="text" name="username" placeholder="Käyttäjänimi" required>
-                    <input class="light-border" type="text" name="first_name" placeholder="Etunimi" required>
-                    <input class="light-border" type="text" name="last_name" placeholder="Takanimi" required>
-                    <input class="light-border" type="text" name="role" placeholder="Rooli" required>
-                    <input class="light-border" type="text" name="class" placeholder="Luokkatunnus" required>
-                    <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
-                           placeholder="Salasana" required>
-                    <button class="light-border" type="submit">Lisää käyttäjä</button>
-                </form>
+    <div id="headerDiv">
+        <div class="dropdown" id="addUser">
+            <button class="dropbtn">Lisää käyttäjä</button>
+            <div class="dropdown-content">
+                <div id="success_asshole">
+                    <form class="light-border" id="add-user-form">
+                        <input class="light-border" type="text" name="username" placeholder="Käyttäjänimi" required>
+                        <input class="light-border" type="text" name="first_name" placeholder="Etunimi" required>
+                        <input class="light-border" type="text" name="last_name" placeholder="Takanimi" required>
+                        <input class="light-border" type="text" name="role" placeholder="Rooli" required>
+                        <input class="light-border" type="text" name="class" placeholder="Luokkatunnus" required>
+                        <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
+                               placeholder="Salasana" required>
+                        <button class="light-border" type="submit">Lisää käyttäjä</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="dropdown" id="addMedia">
-        <button class="dropbtn">Lisää kuva</button>
-        <div class="dropdown-content">
-            <form class="light-border"
-                  enctype="multipart/form-data"
-                  id="add-cat-form">
-                <div>
-                    <label>Kuvaus:</label>
-                    <input class="light-border" type="text" name="description" placeholder="Kuvaus" required>
-                </div>
+        <div class="dropdown" id="addMedia">
+            <button class="dropbtn">Lisää kuva</button>
+            <div class="dropdown-content">
+                <form class="light-border"
+                      enctype="multipart/form-data"
+                      id="add-cat-form">
+                    <div>
+                        <label>Kuvaus:</label>
+                        <input class="light-border" type="text" name="description" placeholder="Kuvaus" required>
+                    </div>
 
-                <input class="light-border"
-                       type="file"
-                       name="media"
-                       accept="image/*"
-                       placeholder="Choose file">
-                <button class="light-border" type="submit">Upload</button>
-            </form>
+                    <input class="light-border"
+                           type="file"
+                           name="media"
+                           accept="image/*"
+                           placeholder="Choose file">
+                    <button class="light-border" type="submit">Upload</button>
+                </form>
+            </div>
+
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" id ="kirjaudu">Kirjaudu</button>
+            <div class="dropdown-content">
+                <form id="login-form" class="light-border">
+                    <div>
+                        <label>Käyttäjätunnus:</label>
+                        <input class="light-border" type="text" name="username" placeholder="Käyttäjätunnus"/>
+                    </div>
+                    <div>
+                        <label>Salasana:</label>
+                        <input class="light-border" type="password" name="password" placeholder="Salasana"/>
+                    </div>
+                    <div>
+                        <button class="light-border" type="submit">Kirjaudu</button>
+                    </div>
+                </form>
+                <header id="log-out" style="display: none; margin: auto; text-align: center;">
+                    <button class="light-border" id="getOut">Uloskirjaudu</button>
+                </header>
+            </div>
         </div>
 
     </div>
-    <div class="dropdown">
-        <button class="dropbtn" id ="kirjaudu">Kirjaudu</button>
-        <div class="dropdown-content">
-            <form id="login-form" class="light-border">
-                <div>
-                    <label>Käyttäjätunnus:</label>
-                    <input class="light-border" type="text" name="username" placeholder="Käyttäjätunnus"/>
-                </div>
-                <div>
-                    <label>Salasana:</label>
-                    <input class="light-border" type="password" name="password" placeholder="Salasana"/>
-                </div>
-                <div>
-                    <button class="light-border" type="submit">Kirjaudu</button>
-                </div>
-            </form>
-            <header id="log-out" style="display: none; margin: auto; text-align: center;">
-                <button class="light-border" id="getOut">Uloskirjaudu</button>
-            </header>
-        </div>
-    </div>
+
 
 </div>
 

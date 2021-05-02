@@ -41,7 +41,7 @@ const gameButton = document.querySelector('.buttonDown');
 const gameView = document.querySelector('#gameView');
 const game1 = document.querySelector('#game1');
 
-const header = document.getElementById('theHeader');
+const header = document.getElementById('headerDiv');
 
 // create media cards
 const createMediaCards = (mediaPosts) => {
