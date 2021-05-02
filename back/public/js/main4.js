@@ -1019,9 +1019,9 @@ const drawSymbol = () => {
 const drawScore = () => {
   ctx.font = '23px Monaco';
   ctx.fillStyle = 'grey';
-  ctx.fillText('Pisteet: ', 95, canvas.height - 10);
+  ctx.fillText('Pisteet: ', 95, canvas.height - 13);
   ctx.fillStyle = 'dim grey';
-  ctx.fillText(score, 235, canvas.height - 10);
+  ctx.fillText(score, 235, canvas.height - 13);
 };
 
 //In case we want this:

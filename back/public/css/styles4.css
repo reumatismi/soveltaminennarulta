@@ -654,4 +654,10 @@ div{
     .button2 {
         margin-top: 130%;
     }
+
+    .buttonDown {
+        font-size: 13px;
+        width: 70px;
+        height: 70px;
+    }
 }
