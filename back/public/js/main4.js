@@ -22,6 +22,7 @@ const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 
 let gameButtonMode = 1;
+let stopMode = 0;
 
 const mockFeed = document.querySelector('#mockFeed');
 const teacherFeed = document.querySelector('#teacherFeed');
@@ -711,7 +712,9 @@ const revealGames = () => {
      number = 5;
      which = 1;
      pelit.innerHTML = "Peleihin";
-     gameButtonMode = 3;
+
+     stopMode = 1;
+     //gameButtonMode = 3;
      /*
      lives = 0;
      game1.style.display = 'none';
@@ -876,7 +879,7 @@ const superReset = () => {
   gameButton.style.visibility = 'visible';
   //
   gameButton.innerHTML = 'Peleihin';
-  gameButtonMode = 3;
+  //gameButtonMode = 3;
   //
   reset();
   which = Math.floor(Math.random()*2 );
@@ -887,11 +890,27 @@ const superReset = () => {
 
   button.style.color = `rgb(${255 - color1}, ${255 - color2}, ${255 - color3}`;
   button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, .7)`;
+   //ORIGINAL:
+  /*
   if (which === 1) {
     button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARITTOMIA NUMEROITA`;
   } else {
     button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARILLISIA NUMEROITA`;
   }
+   */
+  console.log("GameButtonMode: " + gameButtonMode);
+  if (which === 1 && stopMode === 0) {
+    button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARITTOMIA NUMEROITA`;
+  } else if (which === 1 && stopMode === 1) {
+    button.innerText = `KERÄÄ VAIN PARILLISIA NUMEROITA`;
+  } else if (which === 0 && stopMode === 0) {
+    button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARITTOMIA NUMEROITA`;
+  } else if (which === 0 && stopMode === 1) {
+    button.innerText = `KERÄÄ VAIN PARILLISIA NUMEROITA`;
+  }
+  gameButtonMode = 3;
+  stopMode = 0;
+
 }
 
 const firstReset = () => {
@@ -1036,6 +1055,7 @@ const drawLives = () => {
 
 
 const draw = () => {
+
   if (lives <1) {
     score = 0;
     lives = 1;
