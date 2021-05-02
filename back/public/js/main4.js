@@ -676,7 +676,7 @@ const revealGames = () => {
       mockFeed.style.display = 'block';
     }
     gamesVisible = false;
-  }else if (gameButtonMode ===3) {
+  }else if (gameButtonMode === 3) {
     //pelit.innerHTML = "Takaisin peleihin";
      console.log(gameButtonMode);
     gameButtonMode = 2;
@@ -685,6 +685,12 @@ const revealGames = () => {
     gameView.style.display = 'block';
     mockFeed.style.display = 'none';
     //pelit.innerHTML = "Etusivu";
+     game1.style.display = 'none';
+     button.style.display = 'none';
+     canvas.style.display = 'none';
+     lives = 0;
+     score = 0;
+     firstReset()
     if (loggedIn) {
       main.style.display = 'none';
       if (teacherFeed.style.display === 'block') {
@@ -694,7 +700,24 @@ const revealGames = () => {
       }
     }
     gamesVisible = true;
-  }
+  } else if(gameButtonMode === 4) {
+     lives = 0;
+     y = -150;
+     number = 5;
+     which = 1;
+     pelit.innerHTML = "Peleihin";
+     gameButtonMode = 3;
+     /*
+     lives = 0;
+     game1.style.display = 'none';
+     button.style.display = 'none';
+     canvas.style.display = 'none';
+     pelit.innerHTML = "Etusivu";
+     gameView.style.display = 'block';
+
+     gameButtonMode = 2;
+      */
+   }
 
   /*
   if (!gamesVisible) {
@@ -844,8 +867,12 @@ const superReset = () => {
   //document.location.reload();
   canvas.style.display = 'none';
   button.style.display = 'block';
-  button.style.margin = '10% auto';
+  button.style.margin = '14% auto';
   gameButton.style.visibility = 'visible';
+  //
+  gameButton.innerHTML = 'Peleihin';
+  gameButtonMode = 3;
+  //
   reset();
   which = Math.floor(Math.random()*2 );
   //console.log(which);
@@ -992,6 +1019,7 @@ const drawScore = () => {
   ctx.fillText(score, 235, canvas.height - 10);
 };
 
+//In case we want this:
 const drawLives = () => {
   ctx.font = '15px Monaco';
   ctx.fillStyle = 'grey';
@@ -1007,9 +1035,16 @@ const draw = () => {
     score = 0;
     lives = 1;
   }
+
   canvas.style.display = 'block';
   button.style.display = 'none';
-  gameButton.style.visibility = 'hidden';
+  ///////////////////////
+  //gamebutton is here://
+  ///////////////////////
+  //gameButton.style.visibility = 'hidden';
+  gameButton.style.visibility = 'visible';
+  gameButton.innerHTML = "STOP";
+  gameButtonMode = 4;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if (lives > 0) {
     drawBall();
@@ -1077,16 +1112,24 @@ button.addEventListener('click', draw);
 ///////////////////
 
 
-
-
 const gameOneStarter = () => {
   //button.style.display = 'block';
+
   gameButtonMode = 3;
   pelit.innerHTML = "Peleihin";
-  firstReset();
+
+
   game1.style.display = 'block';
   gameView.style.display = 'none';
-  //gameButton.style.visibility = 'hidden';
+  gameButton.style.visibility = 'hidden';
+  button.style.display = 'block';
+
+  //
+  //
+  canvas.style.display = 'none';
+  lives = 0;
+  score = 0;
+  firstReset();
 };
 
 gameButton.addEventListener('click', revealGames);
