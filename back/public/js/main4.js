@@ -41,6 +41,8 @@ const gameButton = document.querySelector('.buttonDown');
 const gameView = document.querySelector('#gameView');
 const game1 = document.querySelector('#game1');
 
+const header = document.getElementById('theHeader');
+
 // create media cards
 const createMediaCards = (mediaPosts) => {
   // clear ul
@@ -691,6 +693,9 @@ const revealGames = () => {
      lives = 0;
      score = 0;
      firstReset()
+
+     header.style.visibility = 'visible';
+
     if (loggedIn) {
       main.style.display = 'none';
       if (teacherFeed.style.display === 'block') {
@@ -1115,10 +1120,10 @@ button.addEventListener('click', draw);
 const gameOneStarter = () => {
   //button.style.display = 'block';
 
+  header.style.visibility = 'hidden';
+
   gameButtonMode = 3;
   pelit.innerHTML = "Peleihin";
-
-
   game1.style.display = 'block';
   gameView.style.display = 'none';
   gameButton.style.visibility = 'hidden';
