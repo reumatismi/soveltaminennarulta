@@ -1,5 +1,7 @@
 'use strict';
 const url = 'https://localhost:8000'; // change url when uploading to server
+//const url = 'https://10.114.32.88/app'; // change url when uploading to server
+
 
 // select existing html elements
 //const loginWrapper = document.querySelector('#login-wrapper');
@@ -254,7 +256,13 @@ const createMediaCardsForStudent = (mediaPosts) => {
       h2.innerHTML = mediaPost.mediadesc;
 
       const p1 = document.createElement('p');
-      p1.innerHTML = mediaPost.vst;
+    // Split timestamp into [ Y, M, D, h, m, s ]
+      let t = (mediaPost.vst).split(/[- :TZ]/);
+
+      // Apply each element to the Date function
+      //let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4]), t[5]);
+      p1.innerHTML = t[2] + "." + t[1] + "." + t[0] + " klo: " + t[3] +":" + t[4];
+      //p1.innerHTML = mediaPost.vst;
       /*
           const p2 = document.createElement('p');
           p2.innerHTML = `Weight: ${cat.weight}kg`;
@@ -367,9 +375,6 @@ const createMediaCardsForFrontpage = (mediaPosts) => {
       //li.appendChild(modButton);
       //li.appendChild(delButton);
       ulli.appendChild(li);
-
-
-
 
   });
 };
@@ -804,7 +809,7 @@ const revealGames = () => {
 /////PELI1/////
 ///////////////
 
-'use strict';
+
 //yes yes too much repetition
 const canvas = document.getElementById('myCanvas');
 canvas.style.display = 'none';
@@ -1132,9 +1137,9 @@ button.addEventListener('click', draw);
 
 //draw();
 
-///////////////////
+////////////////////
 ////PELI1 LOPPUU////
-///////////////////
+////////////////////
 
 
 const gameOneStarter = () => {
