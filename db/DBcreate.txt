@@ -31,19 +31,21 @@ CREATE TABLE proj_mediafeed(
  userid INT,
  mediafilename TEXT,
  mediadesc CHAR(100),
- approval TIMESTAMP NULL,
+ visibility INT,
  vst TIMESTAMP,
  vet TIMESTAMP NULL,
  PRIMARY KEY(id, vst)
 )engine=myisam;
 
 CREATE TABLE proj_comment(
+ id INT AUTO_INCREMENT,
  userid INT,
  mediaid INT,
  commenttext Char(100),
+ visibility INT,
  vst TIMESTAMP,
  vet TIMESTAMP NULL,
- PRIMARY KEY(userid, vst)
+ PRIMARY KEY(id, vst)
 )engine=myisam;
 
 CREATE TABLE proj_games(
@@ -69,3 +71,10 @@ CREATE TABLE proj_gamestats(
  vet TIMESTAMP,
  PRIMARY KEY(gameid, playerid, vst)
 )engine=myisam;
+
+CREATE TABLE proj_visibility(
+ id INT,
+ description CHAR(10),
+ PRIMARY KEY(id)
+)engine=myisam;
+

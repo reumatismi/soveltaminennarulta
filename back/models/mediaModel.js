@@ -25,8 +25,8 @@ const getMediaPost = async (id) => {
 const insertMediaPost = async (req) => {
   try {
     console.log(req.user.classid + req.user.id + req.file.filename + req.body.description);
-    const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (classid, userid, mediafilename, mediadesc, visibility, VST) VALUES (? , ?, ?, ?, 1, NOW())',
-        [req.user.classid, req.user.id, req.file.filename, req.body.description]);
+    const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (classid, userid, mediafilename, mediadesc, visibility, VST) VALUES (? , ?, ?, ?, ?, NOW())',
+        [req.user.classid, req.user.id, req.file.filename, req.body.description, req.user.role]);
     console.log('mediaModel insert:', rows);
     return rows.insertId;
   } catch (e) {

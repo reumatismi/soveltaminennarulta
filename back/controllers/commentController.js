@@ -7,9 +7,22 @@ const {validationResult} = require('express-validator');
 const comment_list_get = async (req, res) => {
   console.log("Fetching all comments");
   try {
-    const commentPost = await commentModel.getAllComment();
-    console.log('commentController checking for comment return' + commentPost);
-    res.json(commentPost);
+
+    console.log("commentController User role:" + req.user.role);
+
+    if (req.user.role  >1) {
+      const commentPost = await commentModel.getAllComment(1);
+      res.json(commentPost);
+    }
+
+    if (req.user.role  < 2) {
+      const commentPost = await commentModel.getAllComment(2);
+      res.json(commentPost);
+    }
+
+    //const commentPost = await commentModel.getAllComment();
+    //console.log('commentController checking for comment return' + commentPost);
+    //res.json(commentPost);
   } catch (e) {
     res.status(400).json({error: e.message});
   }

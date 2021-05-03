@@ -3,10 +3,10 @@ const pool = require('../database/db');
 const promisePool = pool.promise();
 
 // get all comments for database
-const getAllComment = async () => {
+const getAllComment = async (filter = 0) => {
   try {
     console.log('commentModel get all comments');
-    const [rows] = await promisePool.execute(`SELECT userid, mediaid, commenttext, visibility, proj_comment.vst, proj_user.username FROM proj_comment LEFT JOIN proj_user ON userid = proj_user.id WHERE proj_comment.vet IS NULL`);
+    const [rows] = await promisePool.execute(`SELECT userid, mediaid, commenttext, visibility, proj_comment.vst, proj_user.username FROM proj_comment LEFT JOIN proj_user ON userid = proj_user.id WHERE proj_comment.vet IS NULL AND visibility >= ? ORDER BY DESC`, [filter]);
     console.log('all comments fetched');
     return rows;
   } catch (e) {
