@@ -32,6 +32,17 @@ const comment_create = async (req, res) => {
   }
 };
 
+const comment_update = async (req, res) => {
+  try {
+    console.log('update commentPost visibility', req.body);
+    const comment = req.body;
+    const success = await commentModel.updateComment(comment);
+    res.send(`mediaPost updated ${success}`);
+  }catch (e) {
+    res.status(400).json({error: e.message})
+  }
+};
+
 const comment_delete = async (req, res) => {
   try {
     const deleteOk = await commentModel.deleteComment(req.params.id);
@@ -44,5 +55,6 @@ const comment_delete = async (req, res) => {
 module.exports = {
   comment_list_get,
   comment_create,
+  comment_update,
   comment_delete,
 };

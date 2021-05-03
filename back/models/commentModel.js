@@ -29,6 +29,17 @@ const insertComment = async (req) => {
   }
 };
 
+const updateComment = async (req) => {
+  try {
+    const [rows] = await promisePool.execute('UPDATE proj_comment SET visibility = ? WHERE id = ?;',
+        [req.visibility, req.id]);
+    console.log('commentModel update:', rows);
+    return rows.affectedRows === 1;
+  } catch (e) {
+    return false;
+  }
+};
+
 //
 const getComment = async (id) => {
   try {
@@ -56,5 +67,6 @@ module.exports = {
   insertComment,
   getAllComment,
   deleteComment,
+  updateComment,
   getComment
 };

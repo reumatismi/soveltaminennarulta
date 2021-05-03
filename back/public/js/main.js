@@ -95,12 +95,36 @@ const createMediaCards = (mediaPosts, comments) => {
     li.appendChild(p1);
 
     comments.forEach((comment) => {
+
       if (comment.mediaid === mediaPost.id && comment.visibility >= 2) {
         const p = document.createElement('p');
         p.innerHTML = comment.username + '<br>' + comment.commenttext;
         li.appendChild(p);
+
+        const hideCommentButton = document.createElement('button');
+        hideCommentButton.innerHTML = 'Hide';
+
+        commentButton.addEventListener('click', async () => {
+          const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+          };
+          try {
+            const response = await fetch(url + '/comment/' + comment.id, fetchOptions);
+            const json = await response.json();
+            console.log('comment hide  response', json);
+            getMediaPosts();
+          }
+          catch (e) {
+            console.log(e.message());
+          }
+        });
       }
-    })
+
+
+    });
 
     li.appendChild(modButton);
     li.appendChild(commentButton);
