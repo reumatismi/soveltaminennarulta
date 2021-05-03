@@ -2,10 +2,10 @@
 const pool = require('../database/db');
 const promisePool = pool.promise();
 
-const getAllMediaPost = async () => {
+const getAllMediaPost = async (filter = 0) => {
   try {
 
-    const [rows] = await promisePool.execute(`SELECT proj_mediafeed.id, proj_mediafeed.classid, userid, mediafilename, mediadesc, visibility, proj_mediafeed.vst, proj_user.username FROM proj_mediafeed LEFT JOIN proj_user ON userid = proj_user.id WHERE proj_mediafeed.vet IS NULL`);
+    const [rows] = await promisePool.execute(`SELECT proj_mediafeed.id, proj_mediafeed.classid, userid, mediafilename, mediadesc, visibility, proj_mediafeed.vst, proj_user.username FROM proj_mediafeed LEFT JOIN proj_user ON userid = proj_user.id WHERE proj_mediafeed.vet IS NULL AND visibility >= ? ORDER BY vst DESC`, [filter]);
     return rows;
   } catch (e) {
     console.error('mediaModel:', e.message);

@@ -20,8 +20,21 @@ const mediaPost_list_get = async (req, res) => {
       res.json(mediaPostSort);
       return;
     }
-    const mediaPost = await mediaModel.getAllMediaPost();
-    res.json(mediaPost);
+
+    console.log("User role:" + req.user.role);
+
+    if (req.user.role  >1) {
+      const mediaPost = await mediaModel.getAllMediaPost(1);
+      res.json(mediaPost);
+    }
+
+    if (req.user.role  < 2) {
+      const mediaPost = await mediaModel.getAllMediaPost(2);
+      res.json(mediaPost);
+    }
+
+    //const mediaPost = await mediaModel.getAllMediaPost();
+    //res.json(mediaPost);
   } catch (e) {
     res.status(400).json({error: e.message});
   }
