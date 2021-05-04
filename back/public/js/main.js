@@ -245,7 +245,6 @@ modForm.addEventListener('submit', async (evt) => {
   const json = await response.json();
   console.log('modify response', json);
   getMediaPosts();
-
 });
 
 // submit comment form
