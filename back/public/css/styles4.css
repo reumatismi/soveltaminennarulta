@@ -528,6 +528,10 @@ section:hover button:last-child {
     display: none;
 }
 
+#game2 {
+    display: none;
+}
+
 canvas {
     display: none;
     margin: 9% auto;

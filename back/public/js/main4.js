@@ -43,10 +43,11 @@ let teacherness = false;
 const gameButton = document.querySelector('.buttonDown');
 const gameView = document.querySelector('#gameView');
 const game1 = document.querySelector('#game1');
+const game2 = document.querySelector('#game2');
 
 const header = document.getElementById('headerDiv');
 
-// create media cards
+// create media cards for teacherview
 const createMediaCards = (mediaPosts) => {
   // clear ul
   console.log("Creating media cards...");
@@ -263,12 +264,8 @@ const createMediaCardsForStudent = (mediaPosts) => {
       //let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4]), t[5]);
       p1.innerHTML = t[2] + "." + t[1] + "." + t[0] + " klo: " + t[3] +":" + t[4];
       //p1.innerHTML = mediaPost.vst;
-      /*
-          const p2 = document.createElement('p');
-          p2.innerHTML = `Weight: ${cat.weight}kg`;
-          const p3 = document.createElement('p');
-          p3.innerHTML = `Owner: ${cat.owner}`;
-      */
+
+
       // add selected media's values to modify form
       /*
       const modButton = document.createElement('button');
@@ -296,6 +293,8 @@ const createMediaCardsForStudent = (mediaPosts) => {
   });
 };
 
+
+//Not in use
 const createMediaCardsForFrontpage = (mediaPosts) => {
   // clear ul
   console.log("Creating media cards...");
@@ -309,7 +308,6 @@ const createMediaCardsForFrontpage = (mediaPosts) => {
       console.log("User stuff: " + mediaPost.visibility);
       // create li with DOM methods
       const h2 = document.createElement('h2');
-
       const img = document.createElement('img');
 
       if (mediaPost.visibility !==3) {
@@ -344,24 +342,6 @@ const createMediaCardsForFrontpage = (mediaPosts) => {
 
       const p1 = document.createElement('p');
       p1.innerHTML = mediaPost.mediadesc;
-      /*
-          const p2 = document.createElement('p');
-          p2.innerHTML = `Weight: ${cat.weight}kg`;
-          const p3 = document.createElement('p');
-          p3.innerHTML = `Owner: ${cat.owner}`;
-      */
-      // add selected media's values to modify form
-      /*
-      const modButton = document.createElement('button');
-      modButton.innerHTML = 'Modify';
-      modButton.addEventListener('click', () => {
-        console.log("modButton clicked" + mediaPost.id)
-        const inputs = modForm.querySelectorAll('input');
-        inputs[0].value = mediaPost.visibility;
-        inputs[1].value = mediaPost.id;
-        // modForm.querySelector('select').value = cat.owner;
-      });
-       */
 
       const li = document.createElement('li');
       li.classList.add('light-border');
@@ -390,7 +370,6 @@ close.addEventListener('click', (evt) => {
 
 
 // AJAX call
-
 const getMediaPosts = async () => {
   console.log('getMediaPosts token ', sessionStorage.getItem('token'));
   try {
@@ -410,37 +389,15 @@ const getMediaPosts = async () => {
         createMediaCardsForStudent(mediaPosts);
       }
     }
-    //TODO:
-    /*
-    if (!loggedIn) {
-      console.log("Kuvia kaikille?");
-      createMediaCardsForFrontpage(mediaPosts);
-    }
-     */
   }
   catch (e) {
     console.log(e.message);
   }
 };
 
-//getMedia();
 
-// create user options to <select>
 
-const createUserOptions = (users) => {
-  userLists.forEach((list) => {
-    // clear user list
-    list.innerHTML = '';
-    users.forEach((user) => {
-      // create options with DOM methods
-      const option = document.createElement('option');
-      option.value = user.user_id;
-      option.innerHTML = user.name;
-      option.classList.add('light-border');
-      list.appendChild(option);
-    });
-  });
-};
+
 /*
 // get users to form options
 const getUsers = async () => {
@@ -460,7 +417,7 @@ const getUsers = async () => {
 };
 */
 
-// submit add media post form
+// Submit add media post form
 addForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const fd = new FormData(addForm);
@@ -477,7 +434,7 @@ addForm.addEventListener('submit', async (evt) => {
   getMediaPosts();
 });
 
-// submit modify form
+// Submit modify form
 modForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const data = serializeJson(modForm);
@@ -517,7 +474,8 @@ modForm.addEventListener('submit', async (evt) => {
   getCat();
 });
 */
-// login
+
+// Login
 loginForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const data = serializeJson(loginForm);
@@ -563,7 +521,7 @@ loginForm.addEventListener('submit', async (evt) => {
   }
 });
 
-// logout
+// Logout
 logOut.addEventListener('click', async (evt) => {
   evt.preventDefault();
   try {
@@ -604,7 +562,7 @@ logOut.addEventListener('click', async (evt) => {
   getMediaPosts();
 });
 
-// submit register form
+// Submit register form
 addUserForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const data = serializeJson(addUserForm);
@@ -644,9 +602,9 @@ if (sessionStorage.getItem('token')) {
 }*/
 //getMedia();
 
+//Controls the main view
 const revealGames = () => {
   //game1.style.display = 'none';
-
    if (gameButtonMode === 1) {
      pelit.innerHTML = "Etusivu";
      gameButtonMode = 2;
@@ -699,10 +657,8 @@ const revealGames = () => {
      lives = 0;
      score = 0;
      firstReset()
-
      header.style.visibility = 'visible';
-
-    if (loggedIn) {
+     if (loggedIn) {
       main.style.display = 'none';
       if (teacherFeed.style.display === 'block') {
         teacherFeed.style.display = 'none';
@@ -717,7 +673,6 @@ const revealGames = () => {
      number = 5;
      which = 1;
      pelit.innerHTML = "Peleihin";
-
      stopMode = 1;
      //gameButtonMode = 3;
      /*
@@ -805,12 +760,12 @@ const revealGames = () => {
   }
 };
  */
+
 ///////////////
-/////PELI1/////
+/////GAME1/////
 ///////////////
 
-
-//yes yes too much repetition
+//Creating canvas etc.
 const canvas = document.getElementById('myCanvas');
 canvas.style.display = 'none';
 const ctx = canvas.getContext('2d');
@@ -827,6 +782,8 @@ let rightPressed = false;
 let leftPressed = false;
 let upPressed = false;
 let downPressed = false;
+
+//Random colors for button other game elements
 let number = Math.floor(Math.random() * 9) + 1;
 let color1 = Math.floor(Math.random() * 256);
 let color2 = Math.floor(Math.random() * 256);
@@ -838,12 +795,13 @@ let color7 = Math.floor(Math.random() * 256);
 let color8 = Math.floor(Math.random() * 256);
 let color9 = Math.floor(Math.random() * 256);
 
+//Odd or even
 let which = Math.floor(Math.random()*2 );
-//console.log(which);
 
 let score = 0;
 let lives = 1;
 
+//Game start button
 let button = document.getElementById('butt');
 button.style.display = "block";
 button.style.margin = '10% auto';
@@ -856,6 +814,7 @@ if (which === 1) {
   button.innerText = "KERÄÄ VAIN PARILLISIA NUMEROITA!";
 }
 
+//Small reset
 const reset = () => {
   number = Math.floor(Math.random() * 9) + 1;
   color1 = Math.floor(Math.random() * 256);
@@ -875,6 +834,7 @@ const reset = () => {
   //paddleY = paddleHeight;
 };
 
+//Big reset
 const superReset = () => {
   number = Math.floor(Math.random() * 9) + 1;
   //document.location.reload();
@@ -903,13 +863,14 @@ const superReset = () => {
     button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARILLISIA NUMEROITA`;
   }
    */
+  //Game button text
   console.log("GameButtonMode: " + gameButtonMode);
   if (which === 1 && stopMode === 0) {
     button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARITTOMIA NUMEROITA`;
   } else if (which === 1 && stopMode === 1) {
-    button.innerText = `KERÄÄ VAIN PARILLISIA NUMEROITA`;
+    button.innerText = `KERÄÄ VAIN PARITTOMIA NUMEROITA`;
   } else if (which === 0 && stopMode === 0) {
-    button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARITTOMIA NUMEROITA`;
+    button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARILLISIA NUMEROITA`;
   } else if (which === 0 && stopMode === 1) {
     button.innerText = `KERÄÄ VAIN PARILLISIA NUMEROITA`;
   }
@@ -917,7 +878,7 @@ const superReset = () => {
   stopMode = 0;
 
 }
-
+//For first game
 const firstReset = () => {
   number = Math.floor(Math.random() * 9) + 1;
   //document.location.reload();
@@ -941,7 +902,7 @@ const firstReset = () => {
   }
 }
 
-//oldfashioned?
+//Handling keys (yes yes if really mobile should have touch functionality
 const keyDownHandler = (e) => {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
     rightPressed = true;
@@ -953,7 +914,6 @@ const keyDownHandler = (e) => {
     upPressed = true;
   }
 };
-//oldfashioned?
 const keyUpHandler = (e) => {
   if (e.key === 'Right' || e.key === 'ArrowRight') {
     rightPressed = false;
@@ -965,6 +925,7 @@ const keyUpHandler = (e) => {
     upPressed = false;
   }
 };
+//For mouse
 /*
 const mouseMoveHandler = (e)  => {
   const relativeX = e.clientX - canvas.offsetLeft;
@@ -978,6 +939,7 @@ const mouseMoveHandler = (e)  => {
 }
  */
 
+//Paddle hits the ball
 const hittingTheBall = () => {
   //if ((x > paddleX && x < paddleX + paddleWidth) && (y > paddleY && y < paddleY + paddleHeight))
   if ((x > (paddleX - ballRadius/(3/2)) && x < paddleX + paddleWidth + ballRadius/(3/2)) &&
@@ -989,11 +951,6 @@ const hittingTheBall = () => {
       lives--;
       if (lives < 1) {
         superReset();
-        //requestAnimationFrame(dontDraw);
-
-        //number = Math.floor(Math.random() * 9) + 1;
-
-        //document.location.reload();
       } else {
         reset();
       }
@@ -1001,6 +958,7 @@ const hittingTheBall = () => {
   }
 };
 
+//Draws number ball
 const drawBall = () => {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -1008,7 +966,6 @@ const drawBall = () => {
   ctx.fill();
   ctx.closePath();
 };
-
 const drawSmallerBall = () => {
   ctx.beginPath();
   ctx.arc(x, y, ballRadius - 13, 0, Math.PI * 2);
@@ -1016,13 +973,13 @@ const drawSmallerBall = () => {
   ctx.fill();
   ctx.closePath();
 };
-
 const drawNumber = (number) => {
   ctx.font = '50px Monaco';
   ctx.fillStyle = `rgb(${255 - color4}, ${255 - color5}, ${255 - color6}`;
   ctx.fillText(number, x - ballRadius / 3, y + ballRadius / 3);
 };
 
+//Draws paddle
 const drawPaddle = () => {
   ctx.beginPath();
   ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
@@ -1033,13 +990,13 @@ const drawPaddle = () => {
   ctx.stroke();
   ctx.closePath();
 };
-
 const drawSymbol = () => {
   ctx.font = '50px Monaco';
   ctx.fillStyle = `rgb(${255 -color3}, ${255 - color7}, ${255 -color1}`;
   ctx.fillText("?", paddleX + paddleWidth/(6/2), paddleY + paddleHeight/(4/3));
 };
 
+//Displays score
 const drawScore = () => {
   ctx.font = '23px Monaco';
   ctx.fillStyle = 'grey';
@@ -1047,8 +1004,7 @@ const drawScore = () => {
   ctx.fillStyle = 'dim grey';
   ctx.fillText(score, 235, canvas.height - 13);
 };
-
-//In case we want this:
+//Displays lives, but currently just one life
 const drawLives = () => {
   ctx.font = '15px Monaco';
   ctx.fillStyle = 'grey';
@@ -1057,15 +1013,13 @@ const drawLives = () => {
   ctx.fillText(lives, canvas.width - 15, canvas.height - 10);
 };
 
-
-
+//Handles the game
 const draw = () => {
 
   if (lives <1) {
     score = 0;
     lives = 1;
   }
-
   canvas.style.display = 'block';
   button.style.display = 'none';
   ///////////////////////
@@ -1086,14 +1040,11 @@ const draw = () => {
     //drawLives();
     hittingTheBall();
   }
-
-
-  //hitting the x walls
+  //Hitting the x walls
   if (x > canvas.width - ballRadius || x < ballRadius) {
     dx = -dx;
   }
-
-  //hitting the y walls
+  //Hitting the y walls
   if (y + ballRadius > canvas.height) {
     dy = -dy;
   } else if (y < 0 - ballRadius) {
@@ -1109,8 +1060,7 @@ const draw = () => {
       reset();
     }
   }
-
-  //moving the paddle
+  //Moving the paddle
   if (rightPressed && paddleX < canvas.width - paddleWidth) {
     paddleX += 7;
   } else if (leftPressed && paddleX > 0) {
@@ -1120,33 +1070,28 @@ const draw = () => {
   } else if (downPressed && paddleY < canvas.height - paddleHeight) {
     paddleY += 7;
   }
-
   x += dx;
   y += dy;
 
   if (lives > 0) {
     requestAnimationFrame(draw);
   }
-
 };
-
+//Listeners
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 button.addEventListener('click', draw);
 //document.addEventListener("mousemove", mouseMoveHandler, false);
-
 //draw();
 
 ////////////////////
-////PELI1 LOPPUU////
+////GAME 1 ENDS////
 ////////////////////
 
-
+//Starts game one from the moon
 const gameOneStarter = () => {
   //button.style.display = 'block';
-
   header.style.visibility = 'hidden';
-
   gameButtonMode = 3;
   pelit.innerHTML = "Peleihin";
   game1.style.display = 'block';
@@ -1154,13 +1099,21 @@ const gameOneStarter = () => {
   gameButton.style.visibility = 'hidden';
   button.style.display = 'block';
 
-  //
-  //
   canvas.style.display = 'none';
   lives = 0;
   score = 0;
   firstReset();
 };
+
+const gameTwoStarter = () => {
+  header.style.visibility = 'hidden';
+  gameButtonMode = 3;
+  pelit.innerHTML = "Peleihin";
+  game2.style.display = 'block';
+  gameView.style.display = 'none';
+  gameButton.style.visibility = 'hidden';
+  button.style.display = 'block';
+}
 
 gameButton.addEventListener('click', revealGames);
 
@@ -1172,5 +1125,3 @@ if (sessionStorage.getItem('token')) {
   getMediaPosts();
 }
  */
-
-//getMediaPosts();
