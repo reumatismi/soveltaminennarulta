@@ -775,6 +775,7 @@ let upPressed = false;
 let downPressed = false;
 
 //Random colors for button other game elements
+
 let number = Math.floor(Math.random() * 9) + 1;
 let color1 = Math.floor(Math.random() * 256);
 let color2 = Math.floor(Math.random() * 256);
@@ -796,8 +797,8 @@ let lives = 1;
 let button = document.getElementById('butt');
 button.style.display = 'block';
 button.style.margin = '10% auto';
-button.style.color = `rgb(${255 - color1}, ${255 - color2}, ${255 - color3}`;
-button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, .7)`;
+button.style.color = `ghostwhite`;
+button.style.backgroundColor = `gray`;
 
 if (which === 1) {
   button.innerText = 'KERÄÄ VAIN PARITTOMIA NUMEROITA!';
@@ -844,8 +845,8 @@ const superReset = () => {
   paddleX = (canvas.width - paddleWidth) / 2;
   paddleY = paddleHeight;
 
-  button.style.color = `rgb(${255 - color1}, ${255 - color2}, ${255 - color3}`;
-  button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, .7)`;
+  button.style.color = `ghostwhite`;
+  button.style.backgroundColor = `gray`;
   //ORIGINAL:
   /*
   if (which === 1) {
@@ -884,51 +885,56 @@ const firstReset = () => {
   paddleX = (canvas.width - paddleWidth) / 2;
   paddleY = paddleHeight;
 
-  button.style.color = `rgb(${255 - color1}, ${255 - color2}, ${255 - color3}`;
-  button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, .7)`;
-  if (which === 1) {
-    button.innerText = 'KERÄÄ VAIN PARITTOMIA NUMEROITA!';
-  } else {
-    button.innerText = 'KERÄÄ VAIN PARILLISIA NUMEROITA!';
-  }
-};
+  button.style.color = `ghostwhite`;
+  button.style.backgroundColor = `gray`;
+  /*
+    button.style.color = `rgb(${255 - color1}, ${255 - color2}, ${255 - color3}`;
+    button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, 1)`;
+  */
 
-//Handling keys (yes yes if really mobile should have touch functionality
-const keyDownHandler = (e) => {
-  if (e.key === 'Right' || e.key === 'ArrowRight') {
-    rightPressed = true;
-  } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
-    leftPressed = true;
-  } else if (e.key === 'Down' || e.key === 'ArrowDown') {
-    downPressed = true;
-  } else if (e.key === 'Up' || e.key === 'ArrowUp') {
-    upPressed = true;
+    if (which === 1) {
+      button.innerText = 'KERÄÄ VAIN PARITTOMIA NUMEROITA!';
+    } else {
+      button.innerText = 'KERÄÄ VAIN PARILLISIA NUMEROITA!';
+    }
+  };
+
+  //Handling keys (yes yes if really mobile should have touch functionality)
+  const keyDownHandler = (e) => {
+    if (e.key === 'Right' || e.key === 'ArrowRight') {
+      rightPressed = true;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+      leftPressed = true;
+    } else if (e.key === 'Down' || e.key === 'ArrowDown') {
+      downPressed = true;
+    } else if (e.key === 'Up' || e.key === 'ArrowUp') {
+      upPressed = true;
+    }
+  };
+  const keyUpHandler = (e) => {
+    if (e.key === 'Right' || e.key === 'ArrowRight') {
+      rightPressed = false;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+      leftPressed = false;
+    } else if (e.key === 'Down' || e.key === 'ArrowDown') {
+      downPressed = false;
+    } else if (e.key === 'Up' || e.key === 'ArrowUp') {
+      upPressed = false;
+    }
+  };
+  //For mouse
+  /*
+  const mouseMoveHandler = (e)  => {
+    const relativeX = e.clientX - canvas.offsetLeft;
+    if(relativeX > 0 && relativeX < canvas.width) {
+      paddleX = relativeX - paddleWidth/2;
+    }
+    const relativeY = e.clientY - canvas.offsetTop;
+    if(relativeY > 0 && relativeY < canvas.height) {
+      paddleY = relativeY - paddleWidth/2;
+    }
   }
-};
-const keyUpHandler = (e) => {
-  if (e.key === 'Right' || e.key === 'ArrowRight') {
-    rightPressed = false;
-  } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
-    leftPressed = false;
-  } else if (e.key === 'Down' || e.key === 'ArrowDown') {
-    downPressed = false;
-  } else if (e.key === 'Up' || e.key === 'ArrowUp') {
-    upPressed = false;
-  }
-};
-//For mouse
-/*
-const mouseMoveHandler = (e)  => {
-  const relativeX = e.clientX - canvas.offsetLeft;
-  if(relativeX > 0 && relativeX < canvas.width) {
-    paddleX = relativeX - paddleWidth/2;
-  }
-  const relativeY = e.clientY - canvas.offsetTop;
-  if(relativeY > 0 && relativeY < canvas.height) {
-    paddleY = relativeY - paddleWidth/2;
-  }
-}
- */
+   */
 
 //Paddle hits the ball
 const hittingTheBall = () => {
