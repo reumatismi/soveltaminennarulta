@@ -49,31 +49,31 @@ const createMediaCards = (mediaPosts, comments) => {
   // clear ul
   console.log("Creating media cards...");
   ul.innerHTML = '';
+
   const x =  sessionStorage.getItem('token');
+
+  //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
     console.log("User stuff: " + mediaPost.visibility + JSON.stringify(mediaPost));
     // create li with DOM methods
     const cardTop = document.createElement('p');
     cardTop.className="cardTop";
     cardTop.innerHTML= mediaPost.classid + " - Herttoniemen Ala-aste";
-    const h2 = document.createElement('h2');
-
-    const p1 = document.createElement('p');
-    // Split timestamp into [ Y, M, D, h, m, s ]
+    const cardTopP = document.createElement('p');
     let t = (mediaPost.vst).split(/[- :TZ]/);
-
-    p1.innerHTML = t[2] + '.' + t[1] + '.' + t[0] + ' klo: ' + t[3] + ':' +
+    cardTopP.innerHTML = t[2] + '.' + t[1] + '.' + t[0] + ' klo: ' + t[3] + ':' +
         t[4];
+    cardTopP.style.textAlign = 'center';
 
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
-    img.alt = mediaPost.vst;
+    img.alt = "Missä kuva?";
     img.classList.add('resp');
 
     // open large image when clicking image
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
-      imageModal.alt = mediaPost.vst;
+      imageModal.alt = "Missä kuva?";
       imageModal.classList.toggle('hide');
     });
 
@@ -174,7 +174,7 @@ const createMediaCards = (mediaPosts, comments) => {
     li.className="mediaCard";
 
     li.appendChild(cardTop);
-    li.appendChild(p1);
+    li.appendChild(cardTopP);
     li.appendChild(figure);
     li.appendChild(cardDescription);
 
@@ -183,23 +183,18 @@ const createMediaCards = (mediaPosts, comments) => {
         const commentPost = document.createElement('p');
         const commentUsername = document.createElement('span');
         const commentText = document.createElement('span');
-        const teacherButton = document.createElement('p')
         const commentDelete = document.createElement('span');
         const commentApprove = document.createElement('span');
-
 
         commentPost.className = "commentPost";
         commentUsername.innerHTML = comment.username;
         commentText.innerHTML = " " + comment.commenttext + " ";
         commentDelete.className = "deleteCommentButton";
-        commentDelete.innerText = " Poista";
+        commentDelete.innerText = " delete ";
         commentApprove.className = "approveCommentButton";
-        commentApprove.innerText = "Hyväksy";
-        teacherButton.appendChild(commentDelete);
-        teacherButton.appendChild(commentApprove);
+        commentApprove.innerText = "approve";
         commentPost.appendChild(commentUsername);
         commentPost.appendChild(commentText);
-        commentPost.appendChild(teacherButton);
 
         commentApprove.addEventListener('click', async () => {
           document.querySelector('.approveCommentButton').style.display="hidden";
@@ -249,6 +244,8 @@ const createMediaCards = (mediaPosts, comments) => {
       }
     });
 
+    //li.appendChild(p2);
+    //li.appendChild(p3);
     li.appendChild(openCommentFormButton);
     li.appendChild(commentPopup);
     if (mediaPost.visibility === 1) {
@@ -310,13 +307,13 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
 
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
-    img.alt = mediaPost.vst;
+    img.alt = "Missä kuva?";
     img.classList.add('resp');
 
     // open large image when clicking image
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
-      imageModal.alt = mediaPost.vst;
+      imageModal.alt = "Missä kuva?";
       imageModal.classList.toggle('hide');
     });
 
@@ -658,7 +655,7 @@ const revealGames = () => {
     if (loggedIn) {
       if (teacherness) {
         teacherFeed.style.display = 'block';
-        teacherDropUp.style.display = 'flex';
+        //teacherDropUp.style.display = 'flex';
       }
       main.style.display = 'block';
     } else {
