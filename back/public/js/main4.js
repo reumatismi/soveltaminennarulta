@@ -1096,20 +1096,21 @@ const gameTwo = () => {
 
   const leftButton = document.getElementById('vaihtoehto1');
   const rightButton = document.getElementById('vaihtoehto2');
-
   const pStory = document.getElementById('storyP');
   pStory.innerText = 'Olet avaruusaluksen kapteeni. Kesken rutiinilennon Jupiteriin on edessäsi yhtäkkiä musta aukko. Mitä teet?';
-
+  //Tells in which part of the story we are
   let situation = 0;
 
+  //Left (top) button chosen
   const leftChoice = () => {
     storyContinuesLeft(situation);
   };
-
+  //Right (top) button chosen
   const rightChoice = () => {
     storyContinuesRight(situation);
   };
 
+  //Story when left button pushed
   let lefts = [
     [
       'Huokaiset helpotuksesta. Vältit mustan aukon. Samassa kojelautaan syttyy välkkyvä valo. Mitä teet?',
@@ -1157,6 +1158,7 @@ const gameTwo = () => {
       'mukava avaruusolio ja antaa anteeksi. Loppu!', 'Jos haluat,',
       'palaa alkuun', null],
   ];
+  //Story when right button pushed
   let rights = [
     [
       'Suljet silmäsi. Kun avaat ne uudestaan huomaat että musta aukko onkin juustonpalalta ' +
@@ -1215,7 +1217,7 @@ const gameTwo = () => {
       'palaa alkuun',
       null],
   ];
-
+  //Handles left (top) button push functionality
   const storyContinuesLeft = (number) => {
     if (number === null) {
       pStory.innerText = 'Olet avaruusaluksen kapteeni. Kesken rutiinilennon Jupiteriin on edessäsi yhtäkkiä musta aukko. Mitä teet?';
@@ -1228,11 +1230,12 @@ const gameTwo = () => {
       rightButton.innerText = lefts[number][2];
       situation = lefts[number][3];
     }
+    // Helps the story maker to keep track
     console.log(situation);
   };
-
+  //Handles right (lower) button push functionality
   const storyContinuesRight = (number) => {
-    if (number ===null) {
+    if (number === null) {
       pStory.innerText = 'Olet avaruusaluksen kapteeni. Kesken rutiinilennon Jupiteriin on edessäsi yhtäkkiä musta aukko. Mitä teet?';
       leftButton.innerText = 'Käännän aluksen poispäin aukosta.';
       rightButton.innerText = 'En usko silmiäni';
@@ -1243,15 +1246,14 @@ const gameTwo = () => {
       rightButton.innerText = rights[number][2];
       situation = rights[number][3];
     }
+    // Helps the story maker to keep track
     console.log(situation);
   };
 
+  //Button listening
   leftButton.addEventListener('click', leftChoice);
   rightButton.addEventListener('click', rightChoice);
-
 }
-
-
 
 ////////////////////
 ////GAME 2 ENDS/////
@@ -1273,7 +1275,7 @@ const gameOneStarter = () => {
   score = 0;
   firstReset();
 };
-
+//Starts game one from the space capsule
 const gameTwoStarter = () => {
   header.style.visibility = 'hidden';
   gameButtonMode = 3;
@@ -1285,6 +1287,7 @@ const gameTwoStarter = () => {
   gameTwo();
 }
 
+//Gamebutton listener
 gameButton.addEventListener('click', revealGames);
 
 /*

@@ -4,21 +4,38 @@
     padding: 0;
     /*
     font-family: 'Baloo Tammudu 2', cursive;
-     */
     font-family: "Baskerville", serif;
+     */
+
+    font-family: Orbritron, serif;
     text-align: center;
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: Verdana, serif;
+    font-family: Orbritron, serif;
+    background-image: url('../img/projektiTausta1.png');
+}
+
+.frontPageBox {
+    width: 40%;
+    height: auto;
+    color:  #565656;
+    text-align: center;
+    margin: 15% auto;
+    border-style: dashed;
+    border-width: 5px;
+    border-color: skyblue;
+    background-image: repeating-radial-gradient(ghostwhite, papayawhip 1%, #E7E5E3 1%);
+
 }
 
 p {
     line-height: 2em;
     text-align: center;
     color: #565656;
+
 }
 
 .container {
@@ -562,10 +579,11 @@ div{
     font-size: 17px;
     border-width: 5px;
     border-style: dashed;
-    background-color: red;
+    background-image: repeating-radial-gradient(lightskyblue, grey 1%, #E7E5E3 1%);
     color: ghostwhite;
     margin-bottom: 5px;
     text-align: center;
+    font-family: 'Orbitron', sans-serif;
 }
 
 #storyBoard {
@@ -579,6 +597,8 @@ div{
     margin-top: 3%;
     margin-bottom: 7%;
     font-size: 23px;
+    font-family: 'Orbitron', sans-serif;
+    color: dimgray;
 }
 
 
