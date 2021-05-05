@@ -6,12 +6,17 @@
 }
 
 .mediaCard {
+    box-sizing: border-box;
+
     width: 400px;
     max-height: 500px;
     margin: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid grey;
     box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+
+    /*
     background-image: repeating-radial-gradient(whitesmoke, white 1%, navajowhite 1%);
+     */
     overflow: auto;
 }
 
@@ -38,10 +43,11 @@
 }
 
 .mediaCard button {
-    background: gray;
+    background: #ccc;
     border: 0;
     color: white;
     padding: 10px;
+    font-size: 15px;
 }
 
 .commentPost p span:first-of-type {
@@ -75,6 +81,22 @@
     right: 15px;
     border: 3px solid #f1f1f1;
     z-index: 9;
+}
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    padding: 12px 16px;
+    transform: translate(105%, -140%);
+    background: #565656;
+}
+
+.close:hover {background: #bbb;}
+
+li {
+    color: black;
 }
 
 .commentForm {
@@ -750,6 +772,14 @@ input
         width: 140px;
         font-size: 12px;
     }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 140px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -775,6 +805,10 @@ input
 
 p {
     font-size: 15px;
+}
+
+#storyBoard {
+    margin: 15% auto;
 }
 
 
@@ -862,6 +896,11 @@ p {
     }
     .frontPageBox {
         width: 55%;
+    }
+
+    #storyBoard {
+        margin: 20% auto;
+
     }
 
 }
@@ -972,6 +1011,17 @@ p {
         margin-top: 59px;
     }
 
+    #storyBoard {
+        margin: 25% auto;
+        width: 375px;
+        height: auto;
+        /*
+        height: 550px;
+         */
+        overflow: auto;
+        background-color: ghostwhite;
+    }
+
 }
 
 @media only screen and (max-width: 400px) {
@@ -987,6 +1037,16 @@ p {
         margin-top: 43px;
         width: 360px;
     }
+
+    #storyBoard {
+        width: 350px;
+        height: auto;
+        /*
+        height: 550px;
+         */
+        overflow: auto;
+        background-color: ghostwhite;
+    }
 }
 
 @media only screen and (min-height: 700px) and (max-width: 361px) {
@@ -994,5 +1054,9 @@ p {
         height: 635px;
         margin-top: 43px;
         width: 360px;
+    }
+    #storyBoard {
+        width: 350px;
+
     }
 }

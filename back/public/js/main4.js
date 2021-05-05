@@ -47,33 +47,35 @@ const header = document.getElementById('headerDiv');
 //Create media cards for teacherview
 const createMediaCards = (mediaPosts, comments) => {
   // clear ul
-  console.log("Creating media cards...");
+  console.log('Creating media cards...');
   ul.innerHTML = '';
 
-  const x =  sessionStorage.getItem('token');
+  const x = sessionStorage.getItem('token');
 
   //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
-    console.log("User stuff: " + mediaPost.visibility + JSON.stringify(mediaPost));
+    console.log(
+        'User stuff: ' + mediaPost.visibility + JSON.stringify(mediaPost));
     // create li with DOM methods
     const cardTop = document.createElement('p');
-    cardTop.className="cardTop";
-    cardTop.innerHTML= mediaPost.classid + " - Herttoniemen Ala-aste";
+    cardTop.className = 'cardTop';
+    cardTop.innerHTML = mediaPost.classid + ' - Herttoniemen Ala-aste';
     const cardTopP = document.createElement('p');
     let t = (mediaPost.vst).split(/[- :TZ]/);
-    cardTopP.innerHTML = t[2] + '.' + t[1] + '.' + t[0] + ' klo: ' + t[3] + ':' +
+    cardTopP.innerHTML = t[2] + '.' + t[1] + '.' + t[0] + ' klo: ' + t[3] +
+        ':' +
         t[4];
     cardTopP.style.textAlign = 'center';
 
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
-    img.alt = "Missä kuva?";
+    img.alt = 'Missä kuva?';
     img.classList.add('resp');
 
     // open large image when clicking image
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
-      imageModal.alt = "Missä kuva?";
+      imageModal.alt = 'Missä kuva?';
       imageModal.classList.toggle('hide');
     });
 
@@ -83,35 +85,39 @@ const createMediaCards = (mediaPosts, comments) => {
     const cardDescUsername = document.createElement('span');
     const cardDescText = document.createElement('span');
     cardDescUsername.innerHTML = mediaPost.username;
-    cardDescText.innerHTML = " " + mediaPost.mediadesc;
+    cardDescText.innerHTML = ' ' + mediaPost.mediadesc;
     cardDescription.appendChild(cardDescUsername);
     cardDescription.appendChild(cardDescText);
 
 // Creating a popup comment form with dom elements
     const openCommentFormButton = document.createElement('button');
     const commentPopup = document.createElement('div');
+    const commentPopupX = document.createElement('p');
     const commentForm = document.createElement('form');
     const commentInput = document.createElement('input');
     const mediaId = document.createElement('input');
     const userId = document.createElement('input');
     const commentButton = document.createElement('button');
 
-    commentPopup.className = "commentPopup";
-    commentButton.innerText = "Lähetä";
-    commentForm.className = "commentForm";
+    commentPopup.className = 'commentPopup';
+    commentButton.innerText = 'Lähetä';
+    commentForm.className = 'commentForm';
+    commentPopupX.className = 'close';
+    commentPopupX.innerHTML = 'x';
+    commentPopup.appendChild(commentPopupX);
 
-    commentInput.className = "commentInput";
-    commentInput.name = "comment";
-    mediaId.name = "mediaid";
-    mediaId.type = "hidden";
-    userId.name = "userid";
-    userId.type = "hidden";
+    commentInput.className = 'commentInput';
+    commentInput.name = 'comment';
+    mediaId.name = 'mediaid';
+    mediaId.type = 'hidden';
+    userId.name = 'userid';
+    userId.type = 'hidden';
 
-    openCommentFormButton.className = "openCommentFormButton";
-    openCommentFormButton.innerText = "Kommentoi";
+    openCommentFormButton.className = 'openCommentFormButton';
+    openCommentFormButton.innerText = 'Kommentoi';
 
-    commentButton.className = "commentButton";
-    commentButton.type = "submit";
+    commentButton.className = 'commentButton';
+    commentButton.type = 'submit';
 
     commentForm.appendChild(commentInput);
     commentForm.appendChild(mediaId);
@@ -122,12 +128,12 @@ const createMediaCards = (mediaPosts, comments) => {
     // add selected media's values to modify form
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Luokkanäkymään';
-    modButton.addEventListener('click', async(evt) => {
+    modButton.addEventListener('click', async (evt) => {
       evt.preventDefault();
       //getMediaPosts();
       loggedIn = true;
       teacherness = true;
-      console.log("modButton clicked" + mediaPost.id)
+      console.log('modButton clicked' + mediaPost.id);
       const inputs = modForm.querySelectorAll('input');
       inputs[0].value = 2;
       console.log(inputs[0].value);
@@ -160,18 +166,18 @@ const createMediaCards = (mediaPosts, comments) => {
         },
       };
       try {
-        const response = await fetch(url + '/media/' + mediaPost.id, fetchOptions);
+        const response = await fetch(url + '/media/' + mediaPost.id,
+            fetchOptions);
         const json = await response.json();
         console.log('delete response', json);
         getMediaPosts();
-      }
-      catch (e) {
+      } catch (e) {
         console.log(e.message());
       }
     });
 
     const li = document.createElement('li');
-    li.className="mediaCard";
+    li.className = 'mediaCard';
 
     li.appendChild(cardTop);
     li.appendChild(cardTopP);
@@ -186,18 +192,19 @@ const createMediaCards = (mediaPosts, comments) => {
         const commentDelete = document.createElement('span');
         const commentApprove = document.createElement('span');
 
-        commentPost.className = "commentPost";
+        commentPost.className = 'commentPost';
         commentUsername.innerHTML = comment.username;
-        commentText.innerHTML = " " + comment.commenttext + " ";
-        commentDelete.className = "deleteCommentButton";
-        commentDelete.innerText = " delete ";
-        commentApprove.className = "approveCommentButton";
-        commentApprove.innerText = "approve";
+        commentText.innerHTML = ' ' + comment.commenttext + ' ';
+        commentDelete.className = 'deleteCommentButton';
+        commentDelete.innerText = ' delete ';
+        commentApprove.className = 'approveCommentButton';
+        commentApprove.innerText = 'approve';
         commentPost.appendChild(commentUsername);
         commentPost.appendChild(commentText);
 
         commentApprove.addEventListener('click', async () => {
-          document.querySelector('.approveCommentButton').style.display="hidden";
+          document.querySelector(
+              '.approveCommentButton').style.display = 'hidden';
           const fetchOptions = {
             method: 'PUT',
             headers: {
@@ -205,12 +212,12 @@ const createMediaCards = (mediaPosts, comments) => {
             },
           };
           try {
-            console.log("Testing comment approval " + comment.id);
-            const response = await fetch(url + '/comment/' + comment.id, fetchOptions);
+            console.log('Testing comment approval ' + comment.id);
+            const response = await fetch(url + '/comment/' + comment.id,
+                fetchOptions);
             const json = await response.json();
             console.log('approval response', json);
-          }
-          catch (e) {
+          } catch (e) {
             getMediaPosts();
             console.log(e.message());
           }
@@ -228,12 +235,12 @@ const createMediaCards = (mediaPosts, comments) => {
             },
           };
           try {
-            console.log("Testing comment delete " + comment.id);
-            const response = await fetch(url + '/comment/' + comment.id, fetchOptions);
+            console.log('Testing comment delete ' + comment.id);
+            const response = await fetch(url + '/comment/' + comment.id,
+                fetchOptions);
             const json = await response.json();
             console.log('delete response', json);
-          }
-          catch (e) {
+          } catch (e) {
             getMediaPosts();
             console.log(e.message());
           }
@@ -255,7 +262,7 @@ const createMediaCards = (mediaPosts, comments) => {
     ul.appendChild(li);
 
     openCommentFormButton.addEventListener('click', () => {
-      document.querySelector('.commentPopup').style.visibility="visible";
+      document.querySelector('.commentPopup').style.visibility = 'visible';
       console.log('commentButton clicked' + mediaPost);
       const inputs = commentForm.querySelectorAll('input');
       inputs[0].value = '';
@@ -263,10 +270,14 @@ const createMediaCards = (mediaPosts, comments) => {
       inputs[2].value = mediaPost.userid;
     });
 
+    commentPopupX.addEventListener("click", function() {
+      this.parentElement.style.visibility = 'hidden';
+    });
+
     commentForm.addEventListener('submit', async (evt) => {
       evt.preventDefault();
       const commentCheck = document.querySelector('.commentInput');
-      const commentForm = document.querySelector('.commentForm')
+      const commentForm = document.querySelector('.commentForm');
       if (commentCheck.value.length !== 0) {
         const data = serializeJson(commentForm);
         const fetchOptions = {
@@ -282,38 +293,43 @@ const createMediaCards = (mediaPosts, comments) => {
         const response = await fetch(url + '/comment', fetchOptions);
         const json = await response.json();
         console.log('comment response', json);
-        document.querySelector('.commentPopup').style.visibility="hidden";
+        document.querySelector('.commentPopup').style.visibility = 'hidden';
         getMediaPosts();
       } else {
-        alert("Kommenttikenttä on tyhjä");
-      };
+        alert('Kommenttikenttä on tyhjä');
+      }
+      ;
     });
   });
 };
 
 const createMediaCardsForStudent = (mediaPosts, comments) => {
   // clear ul
-  console.log("Creating media cards...");
+  console.log('Creating media cards...');
   ul.innerHTML = '';
-  const x =  sessionStorage.getItem('token');
+  const x = sessionStorage.getItem('token');
   mediaPosts.forEach((mediaPost) => {
-    console.log("Media post: " + JSON.stringify(mediaPost));
+    console.log('Media post: ' + JSON.stringify(mediaPost));
 
     // create li with DOM methods
     const cardTop = document.createElement('p');
-    cardTop.className="cardTop";
-    cardTop.innerHTML= mediaPost.classid + " - Herttoniemen Ala-aste";
-    const h2 = document.createElement('h2');
-
+    cardTop.className = 'cardTop';
+    cardTop.innerHTML = mediaPost.classid + ' - Herttoniemen Ala-aste';
+    const cardTopP = document.createElement('p');
+    let t = (mediaPost.vst).split(/[- :TZ]/);
+    cardTopP.innerHTML = t[2] + '.' + t[1] + '.' + t[0] + ' klo: ' + t[3] +
+        ':' +
+        t[4];
+    cardTopP.style.textAlign = 'center';
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
-    img.alt = "Missä kuva?";
+    img.alt = 'Missä kuva?';
     img.classList.add('resp');
 
     // open large image when clicking image
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
-      imageModal.alt = "Missä kuva?";
+      imageModal.alt = 'Missä kuva?';
       imageModal.classList.toggle('hide');
     });
 
@@ -323,35 +339,38 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     const cardDescUsername = document.createElement('span');
     const cardDescText = document.createElement('span');
     cardDescUsername.innerHTML = mediaPost.username;
-    cardDescText.innerHTML = " " + mediaPost.mediadesc;
+    cardDescText.innerHTML = ' ' + mediaPost.mediadesc;
     cardDescription.appendChild(cardDescUsername);
     cardDescription.appendChild(cardDescText);
 
 // Creating a popup comment form with dom elements
     const openCommentFormButton = document.createElement('button');
     const commentPopup = document.createElement('div');
+    const commentPopupX = document.createElement('p');
     const commentForm = document.createElement('form');
     const commentInput = document.createElement('input');
     const mediaId = document.createElement('input');
     const userId = document.createElement('input');
     const commentButton = document.createElement('button');
 
-    commentPopup.className = "commentPopup";
-    commentButton.innerText = "Lähetä";
-    commentForm.className = "commentForm";
+    commentPopup.className = 'commentPopup';
+    commentPopupX.className = 'close';
+    commentPopupX.innerHTML = 'x';
+    commentPopup.appendChild(commentPopupX);
+    commentButton.innerText = 'Lähetä';
+    commentForm.className = 'commentForm';
+    commentInput.className = 'commentInput';
+    commentInput.name = 'comment';
+    mediaId.name = 'mediaid';
+    mediaId.type = 'hidden';
+    userId.name = 'userid';
+    userId.type = 'hidden';
 
-    commentInput.className = "commentInput";
-    commentInput.name = "comment";
-    mediaId.name = "mediaid";
-    mediaId.type = "hidden";
-    userId.name = "userid";
-    userId.type = "hidden";
+    openCommentFormButton.className = 'openCommentFormButton';
+    openCommentFormButton.innerText = 'Kommentoi';
 
-    openCommentFormButton.className = "openCommentFormButton";
-    openCommentFormButton.innerText = "Kommentoi";
-
-    commentButton.className = "commentButton";
-    commentButton.type = "submit";
+    commentButton.className = 'commentButton';
+    commentButton.type = 'submit';
 
     commentForm.appendChild(commentInput);
     commentForm.appendChild(mediaId);
@@ -360,11 +379,14 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     commentPopup.appendChild(commentForm);
 
     const li = document.createElement('li');
-    li.className="mediaCard";
+    li.className = 'mediaCard';
 
     li.appendChild(cardTop);
+    li.appendChild(cardTopP);
     li.appendChild(figure);
     li.appendChild(cardDescription);
+
+
 
     comments.forEach((comment) => {
       if (comment.mediaid === mediaPost.id) {
@@ -372,9 +394,9 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
         const commentUsername = document.createElement('span');
         const commentText = document.createElement('span');
 
-        commentPost.className = "commentPost";
+        commentPost.className = 'commentPost';
         commentUsername.innerHTML = comment.username;
-        commentText.innerHTML = " " + comment.commenttext + " ";
+        commentText.innerHTML = ' ' + comment.commenttext + ' ';
         commentPost.appendChild(commentUsername);
         commentPost.appendChild(commentText);
 
@@ -387,7 +409,7 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     ul.appendChild(li);
 
     openCommentFormButton.addEventListener('click', () => {
-      document.querySelector('.commentPopup').style.visibility="visible";
+      document.querySelector('.commentPopup').style.visibility = 'visible';
       console.log('commentButton clicked at mediaPost ' + mediaPost.id);
       const inputs = commentForm.querySelectorAll('input');
       inputs[0].value = '';
@@ -395,10 +417,14 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
       inputs[2].value = mediaPost.userid;
     });
 
+    commentPopupX.addEventListener("click", function() {
+      this.parentElement.style.visibility = 'hidden';
+    });
+
     commentForm.addEventListener('submit', async (evt) => {
       evt.preventDefault();
       const commentCheck = document.querySelector('.commentInput');
-      const commentForm = document.querySelector('.commentForm')
+      const commentForm = document.querySelector('.commentForm');
       if (commentCheck.value.length !== 0) {
         const data = serializeJson(commentForm);
         const fetchOptions = {
@@ -414,11 +440,12 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
         const response = await fetch(url + '/comment', fetchOptions);
         const json = await response.json();
         console.log('comment response', json);
-        document.querySelector('.commentPopup').style.visibility="hidden";
+        document.querySelector('.commentPopup').style.visibility = 'hidden';
         getMediaPosts();
       } else {
-        alert("Kommenttikenttä on tyhjä");
-      };
+        alert('Kommenttikenttä on tyhjä');
+      }
+      ;
     });
   });
 };
@@ -432,7 +459,7 @@ const getComments = async () => {
         'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
       },
     };
-    console.log("getComments testing");
+    console.log('getComments testing');
     const response = await fetch(url + '/comment', options);
     const comments = await response.json();
     console.log(comments);
@@ -440,7 +467,7 @@ const getComments = async () => {
   } catch (e) {
     console.log(e.message);
   }
-}
+};
 
 // close modal
 close.addEventListener('click', (evt) => {
@@ -826,37 +853,36 @@ const firstReset = () => {
     button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, 1)`;
   */
 
-    if (which === 1) {
-      button.innerText = 'KERÄÄ VAIN PARITTOMIA NUMEROITA!';
-    } else {
-      button.innerText = 'KERÄÄ VAIN PARILLISIA NUMEROITA!';
-    }
-  };
+  if (which === 1) {
+    button.innerText = 'KERÄÄ VAIN PARITTOMIA NUMEROITA!';
+  } else {
+    button.innerText = 'KERÄÄ VAIN PARILLISIA NUMEROITA!';
+  }
+};
 
-  //Handling keys (yes yes if really mobile should have touch functionality)
-  const keyDownHandler = (e) => {
-    if (e.key === 'Right' || e.key === 'ArrowRight') {
-      rightPressed = true;
-    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
-      leftPressed = true;
-    } else if (e.key === 'Down' || e.key === 'ArrowDown') {
-      downPressed = true;
-    } else if (e.key === 'Up' || e.key === 'ArrowUp') {
-      upPressed = true;
-    }
-  };
-  const keyUpHandler = (e) => {
-    if (e.key === 'Right' || e.key === 'ArrowRight') {
-      rightPressed = false;
-    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
-      leftPressed = false;
-    } else if (e.key === 'Down' || e.key === 'ArrowDown') {
-      downPressed = false;
-    } else if (e.key === 'Up' || e.key === 'ArrowUp') {
-      upPressed = false;
-    }
-  };
-
+//Handling keys (yes yes if really mobile should have touch functionality)
+const keyDownHandler = (e) => {
+  if (e.key === 'Right' || e.key === 'ArrowRight') {
+    rightPressed = true;
+  } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+    leftPressed = true;
+  } else if (e.key === 'Down' || e.key === 'ArrowDown') {
+    downPressed = true;
+  } else if (e.key === 'Up' || e.key === 'ArrowUp') {
+    upPressed = true;
+  }
+};
+const keyUpHandler = (e) => {
+  if (e.key === 'Right' || e.key === 'ArrowRight') {
+    rightPressed = false;
+  } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+    leftPressed = false;
+  } else if (e.key === 'Down' || e.key === 'ArrowDown') {
+    downPressed = false;
+  } else if (e.key === 'Up' || e.key === 'ArrowUp') {
+    upPressed = false;
+  }
+};
 
 //Paddle hits the ball
 const hittingTheBall = () => {
@@ -897,13 +923,13 @@ const drawSmallerBall = () => {
 };
 const drawNumber = (number) => {
   ctx.font = '50px Monaco';
-  if ( 255 - color4 < 50) {
+  if (255 - color4 < 50) {
     color4 -= 100;
   }
-  if ( 255 - color5 < 50) {
+  if (255 - color5 < 50) {
     color5 -= 100;
   }
-  if ( 255 - color6 < 50) {
+  if (255 - color6 < 50) {
     color6 -= 100;
   }
   ctx.fillStyle = `rgb(${255 - color4}, ${255 - color5}, ${255 - color6}`;
@@ -923,13 +949,13 @@ const drawPaddle = () => {
 };
 const drawSymbol = () => {
   ctx.font = '50px Monaco';
-  if ( 255 - color3 < 50) {
+  if (255 - color3 < 50) {
     color3 -= 100;
   }
-  if ( 255 - color7 < 50) {
+  if (255 - color7 < 50) {
     color7 -= 100;
   }
-  if ( 255 - color1 < 50) {
+  if (255 - color1 < 50) {
     color1 -= 100;
   }
   ctx.fillStyle = `rgb(${255 - color3}, ${255 - color7}, ${255 - color1}`;
