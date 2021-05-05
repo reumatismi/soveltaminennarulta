@@ -7,21 +7,24 @@
     font-family: "Baskerville", serif;
      */
 
-    font-family: Orbritron, serif;
+    font-family: 'Orbitron', sans-serif;
     text-align: center;
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: Orbritron, serif;
-    background-image: url('../img/projektiTausta1.png');
+    font-family: 'Orbitron', sans-serif;
+    /*
+    background-color: deeppink;
+     */
+    background-image: url('../img/projektiTausta1v2.png');
 }
 
 .frontPageBox {
     width: 40%;
     height: auto;
-    color:  #565656;
+    color: #565656;
     text-align: center;
     margin: 15% auto;
     border-style: dashed;
@@ -108,7 +111,7 @@ select {
     background-size: .65em auto, 100%;
 }
 
-button{
+button {
     background-color: #ccc;
     color: #fff;
 
@@ -128,7 +131,7 @@ button{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.5);
+    background-color: rgba(0, 0, 0, .5);
 }
 
 .modal img {
@@ -159,7 +162,6 @@ button{
 }
 
 
-
 .header {
     position: fixed;
     left: 0;
@@ -181,17 +183,20 @@ button{
     text-align: center;
     height: 8%;
 }
+
 h1 {
     text-align: center;
 }
+
 h2 {
     margin-top: 10%;
     margin-bottom: 2%;
     text-align: center;
     font-size: 27px;
 }
+
 #mod-cat-form {
- visibility: hidden;
+    visibility: hidden;
 }
 
 #user-info {
@@ -244,7 +249,7 @@ h2 {
     position: absolute;
     background-color: #f1f1f1;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -259,7 +264,9 @@ h2 {
     background-color: #ddd;
 }
 
-.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
 .dropdown:hover .dropbtn {
     color: #3e8e41;
@@ -300,7 +307,9 @@ h2 {
     display: block;
 }
 
-.dropup-content a:hover {background-color: #ccc}
+.dropup-content a:hover {
+    background-color: #ccc
+}
 
 .dropup:hover .dropup-content {
     display: block;
@@ -321,9 +330,11 @@ h2 {
 #gameView {
     display: none;
 }
+
 #addMedia {
     display: none;
 }
+
 #addUser {
     display: none;
 }
@@ -346,7 +357,7 @@ h2 {
     /*
     background-image: repeating-radial-gradient( gold,  goldenrod 1%, #E7E5E3 1%);
      */
-    background-image: repeating-radial-gradient( gold,  goldenrod 1%, #E7E5E3 1%);
+    background-image: repeating-radial-gradient(gold, goldenrod 1%, #E7E5E3 1%);
     flex: 1;
     display: flex;
     justify-content: center;
@@ -372,6 +383,7 @@ h2 {
     background-repeat: no-repeat;
     background-size: auto;
 }
+
 .ala {
     flex: 1;
     background-image: url("../img/kala.png");
@@ -386,6 +398,7 @@ img:hover {
     filter: contrast(150%);
     z-index: 15;
 }
+
 .kuussa {
     border: 5px solid ghostwhite;
 }
@@ -421,7 +434,6 @@ img:hover {
     height: auto;
     margin-top: 14%;
 }
-
 
 
 .ylak {
@@ -559,7 +571,7 @@ canvas {
     background: #ffffff repeating-radial-gradient(white, ghostwhite 1%, #E7E5E3 1%);
 }
 
-.button2{
+.button2 {
     font-family: "American Typewriter", serif;
     font-size: 17px;
     line-height: 2em;
@@ -569,8 +581,8 @@ canvas {
     padding: 2%;
 }
 
-div{
-    text-align:center;
+div {
+    text-align: center;
 }
 
 .buttonG2 {
@@ -589,13 +601,17 @@ div{
 #storyBoard {
     margin: 10% auto;
     width: 400px;
+    height: auto;
+    /*
     height: 550px;
+     */
     overflow: auto;
+    background-color: ghostwhite;
 }
 
 #storyP {
     margin-top: 3%;
-    margin-bottom: 7%;
+    margin-bottom: 3%;
     font-size: 23px;
     font-family: 'Orbitron', sans-serif;
     color: dimgray;
@@ -608,6 +624,7 @@ div{
         width: 351px;
         height: 351px;
     }
+
     .imgkirahvi {
         margin: auto 0;
     }
@@ -618,10 +635,12 @@ div{
     .parent {
         flex-direction: column;
     }
+
     .child1 {
         display: none;
     }
-    .parent{
+
+    .parent {
         height: 93vh;
     }
 
@@ -649,6 +668,7 @@ div{
         width: 33%;
         margin: auto 0;
     }
+
     .dropbtn {
         width: 135px;
         font-size: 15px;
@@ -663,7 +683,7 @@ div{
         position: absolute;
         background-color: #f1f1f1;
         min-width: 135px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
     }
 }
@@ -679,12 +699,13 @@ div{
         font-size: 13px;
         width: 125px;
     }
+
     .dropdown-content {
         display: none;
         position: absolute;
         background-color: #f1f1f1;
         min-width: 125px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
         z-index: 1;
     }
 
@@ -696,6 +717,7 @@ div{
         font-size: 17px;
         margin-top: 17%;
     }
+
     .imgkirahvi {
         width: 35%;
         margin: auto 0;
