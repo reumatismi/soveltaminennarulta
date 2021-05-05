@@ -393,11 +393,7 @@ h2 {
     align-self: flex-end;
 }
 
-img:hover {
-    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-    filter: contrast(150%);
-    z-index: 15;
-}
+
 
 .kuussa {
     border: 5px solid ghostwhite;
@@ -412,21 +408,41 @@ img:hover {
     width: 15%;
     height: auto;
 }
+.imgkuu:hover {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: contrast(150%);
+    z-index: 15;
+}
 
 .imgkapseli {
     width: 21%;
     height: auto;
     padding: 5px;
 }
+.imgkapseli:hover {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: contrast(150%);
+    z-index: 15;
+}
 
 .imgkirahvi {
     width: 35%;
     height: auto;
 }
+.imgkirahvi:hover {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: contrast(150%);
+    z-index: 15;
+}
 
 .imghiiri {
     width: 15%;
     height: auto;
+}
+.imghiiri:hover {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: contrast(150%);
+    z-index: 15;
 }
 
 .imgkala {
@@ -434,6 +450,12 @@ img:hover {
     height: auto;
     margin-top: 14%;
 }
+.imgkala:hover {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: contrast(150%);
+    z-index: 15;
+}
+
 
 
 .ylak {
