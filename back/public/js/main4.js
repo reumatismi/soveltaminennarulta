@@ -897,6 +897,15 @@ const drawSmallerBall = () => {
 };
 const drawNumber = (number) => {
   ctx.font = '50px Monaco';
+  if ( 255 - color4 < 50) {
+    color4 -= 100;
+  }
+  if ( 255 - color5 < 50) {
+    color5 -= 100;
+  }
+  if ( 255 - color6 < 50) {
+    color6 -= 100;
+  }
   ctx.fillStyle = `rgb(${255 - color4}, ${255 - color5}, ${255 - color6}`;
   ctx.fillText(number, x - ballRadius / 3, y + ballRadius / 3);
 };
@@ -914,6 +923,15 @@ const drawPaddle = () => {
 };
 const drawSymbol = () => {
   ctx.font = '50px Monaco';
+  if ( 255 - color3 < 50) {
+    color3 -= 100;
+  }
+  if ( 255 - color7 < 50) {
+    color7 -= 100;
+  }
+  if ( 255 - color1 < 50) {
+    color1 -= 100;
+  }
   ctx.fillStyle = `rgb(${255 - color3}, ${255 - color7}, ${255 - color1}`;
   ctx.fillText('?', paddleX + paddleWidth / (6 / 2),
       paddleY + paddleHeight / (4 / 3));

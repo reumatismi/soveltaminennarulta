@@ -967,4 +967,32 @@ p {
         color: dimgray;
     }
 
+    #myCanvas {
+        height: 565px;
+        margin-top: 59px;
+    }
+
+}
+
+@media only screen and (max-width: 400px) {
+    #myCanvas {
+        height: 555px;
+        margin-top: 49px;
+    }
+}
+
+@media only screen and (min-height: 700px) and (max-width: 400px) {
+    #myCanvas {
+        height: 645px;
+        margin-top: 43px;
+        width: 360px;
+    }
+}
+
+@media only screen and (min-height: 700px) and (max-width: 361px) {
+    #myCanvas {
+        height: 635px;
+        margin-top: 43px;
+        width: 360px;
+    }
 }
