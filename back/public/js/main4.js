@@ -3,8 +3,6 @@ const url = 'https://localhost:8000'; // change url when uploading to server
 //const url = 'https://10.114.32.88/app'; // change url when uploading to server
 
 // select existing html elements
-//const loginWrapper = document.querySelector('#login-wrapper');
-//const loginWrapper = document.getElementById('#login-wrapper');
 const userInfo = document.querySelector('#user-info');
 const kirjaudu = document.getElementById('kirjaudu');
 const pelit = document.getElementById('pelit');
@@ -46,16 +44,12 @@ const game2 = document.querySelector('#game2');
 
 const header = document.getElementById('headerDiv');
 
-// create media cards for teacherview
-// create media cards
+//Create media cards for teacherview
 const createMediaCards = (mediaPosts, comments) => {
   // clear ul
   console.log("Creating media cards...");
   ul.innerHTML = '';
-
   const x =  sessionStorage.getItem('token');
-
-  //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
     console.log("User stuff: " + mediaPost.visibility + JSON.stringify(mediaPost));
     // create li with DOM methods
@@ -63,6 +57,13 @@ const createMediaCards = (mediaPosts, comments) => {
     cardTop.className="cardTop";
     cardTop.innerHTML= mediaPost.classid + " - Herttoniemen Ala-aste";
     const h2 = document.createElement('h2');
+
+    const p1 = document.createElement('p');
+    // Split timestamp into [ Y, M, D, h, m, s ]
+    let t = (mediaPost.vst).split(/[- :TZ]/);
+
+    p1.innerHTML = t[2] + '.' + t[1] + '.' + t[0] + ' klo: ' + t[3] + ':' +
+        t[4];
 
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
@@ -173,6 +174,7 @@ const createMediaCards = (mediaPosts, comments) => {
     li.className="mediaCard";
 
     li.appendChild(cardTop);
+    li.appendChild(p1);
     li.appendChild(figure);
     li.appendChild(cardDescription);
 
@@ -181,18 +183,23 @@ const createMediaCards = (mediaPosts, comments) => {
         const commentPost = document.createElement('p');
         const commentUsername = document.createElement('span');
         const commentText = document.createElement('span');
+        const teacherButton = document.createElement('p')
         const commentDelete = document.createElement('span');
         const commentApprove = document.createElement('span');
+
 
         commentPost.className = "commentPost";
         commentUsername.innerHTML = comment.username;
         commentText.innerHTML = " " + comment.commenttext + " ";
         commentDelete.className = "deleteCommentButton";
-        commentDelete.innerText = " delete ";
+        commentDelete.innerText = " Poista";
         commentApprove.className = "approveCommentButton";
-        commentApprove.innerText = "approve";
+        commentApprove.innerText = "Hyväksy";
+        teacherButton.appendChild(commentDelete);
+        teacherButton.appendChild(commentApprove);
         commentPost.appendChild(commentUsername);
         commentPost.appendChild(commentText);
+        commentPost.appendChild(teacherButton);
 
         commentApprove.addEventListener('click', async () => {
           document.querySelector('.approveCommentButton').style.display="hidden";
@@ -242,8 +249,6 @@ const createMediaCards = (mediaPosts, comments) => {
       }
     });
 
-    //li.appendChild(p2);
-    //li.appendChild(p3);
     li.appendChild(openCommentFormButton);
     li.appendChild(commentPopup);
     if (mediaPost.visibility === 1) {
@@ -293,10 +298,7 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
   // clear ul
   console.log("Creating media cards...");
   ul.innerHTML = '';
-
   const x =  sessionStorage.getItem('token');
-
-  //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
     console.log("Media post: " + JSON.stringify(mediaPost));
 
@@ -443,15 +445,7 @@ const getComments = async () => {
   }
 }
 
-///////////////////////////////////////////////////////////////////////////////
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-
-
 // close modal
-
 close.addEventListener('click', (evt) => {
   evt.preventDefault();
   imageModal.classList.toggle('hide');
@@ -482,25 +476,6 @@ const getMediaPosts = async () => {
     console.log(e.message);
   }
 };
-
-/*
-// get users to form options
-const getUsers = async () => {
-  try {
-    const options = {
-      headers: {
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-      },
-    };
-    const response = await fetch(url + '/user', options);
-    const users = await response.json();
-    createUserOptions(users);
-  }
-  catch (e) {
-    console.log(e.message);
-  }
-};
-*/
 
 // Submit add media post form
 addForm.addEventListener('submit', async (evt) => {
@@ -537,27 +512,6 @@ modForm.addEventListener('submit', async (evt) => {
   console.log('modify response', json);
   getMediaPosts();
 });
-
-/*
-// submit modify form
-modForm.addEventListener('submit', async (evt) => {
-  evt.preventDefault();
-  const data = serializeJson(modForm);
-  const fetchOptions = {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-    },
-    body: JSON.stringify(data),
-  };
-  console.log(fetchOptions);
-  const response = await fetch(url + '/cat', fetchOptions);
-  const json = await response.json();
-  console.log('modify response', json);
-  getCat();
-});
-*/
 
 // Login
 loginForm.addEventListener('submit', async (evt) => {
@@ -661,18 +615,6 @@ addUserForm.addEventListener('submit', async (evt) => {
   const response = await fetch(url + '/auth/register', fetchOptions);
   const json = await response.json();
   console.log('user add response', json);
-  //console.log('user add response', json);
-  // save token
-  //sessionStorage.setItem('token', json.token);
-  /*
-  // show/hide forms + cats
-  loginWrapper.style.display = 'none';
-  logOut.style.display = 'block';
-  main.style.display = 'block';
-  userInfo.innerHTML = `Hello ${json.user.FName}`;
-  // getCat();
-  //getUsers();
-   */
 });
 
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
@@ -681,10 +623,8 @@ if (sessionStorage.getItem('token')) {
   loginWrapper.style.display = 'none';
   logOut.style.display = 'block';
   main.style.display = 'block';
-  // getCat();
-  //getUsers();
+  getMedia();
 }*/
-//getMedia();
 
 //Controls the main view
 const revealGames = () => {
@@ -713,7 +653,6 @@ const revealGames = () => {
     if (button.style.display === 'block') {
       button.style.display = 'none';
     }
-    //pelit.innerHTML = "Pelit";
     button.style.display = 'none';
     gameView.style.display = 'none';
     if (loggedIn) {
@@ -734,7 +673,6 @@ const revealGames = () => {
     pelit.innerHTML = 'Etusivu';
     gameView.style.display = 'block';
     mockFeed.style.display = 'none';
-    //pelit.innerHTML = "Etusivu";
     game1.style.display = 'none';
     game2.style.display = 'none';
     button.style.display = 'none';
@@ -760,97 +698,12 @@ const revealGames = () => {
     pelit.innerHTML = 'Peleihin';
     game2.style.display = 'none';
     stopMode = 1;
-    //gameButtonMode = 3;
-    /*
-    lives = 0;
-    game1.style.display = 'none';
-    button.style.display = 'none';
-    canvas.style.display = 'none';
-    pelit.innerHTML = "Etusivu";
-    gameView.style.display = 'block';
-
-    gameButtonMode = 2;
-     */
-  }
-
-  /*
-  if (!gamesVisible) {
-    gameView.style.display = 'block';
-    mockFeed.style.display = 'none';
-    pelit.innerHTML = "Etusivu";
-    if (loggedIn) {
-      main.style.display = 'none';
-      if (teacherFeed.style.display === 'block') {
-        teacherFeed.style.display = 'none';
-        teacherDropUp.style.display = 'none';
-        teacherness = true;
-      }
-    }
-    gamesVisible = true;
-  } else {
-    if (button.style.display === 'block') {
-      button.style.display = 'none';
-    }
-    pelit.innerHTML = "Pelit";
-    button.style.display = 'none';
-    gameView.style.display = 'none';
-    if (loggedIn) {
-      if (teacherness) {
-        teacherFeed.style.display = 'block';
-        teacherDropUp.style.display = 'flex';
-      }
-      main.style.display = 'block';
-    } else {
-      mockFeed.style.display = 'block';
-    }
-    gamesVisible = false;
-  }
-
-   */
-};
-
-/*
-//original
-const revealGames = () => {
-  //game1.style.display = 'none';
-  if (!gamesVisible) {
-    gameView.style.display = 'block';
-    mockFeed.style.display = 'none';
-    pelit.innerHTML = "Etusivu";
-    if (loggedIn) {
-      main.style.display = 'none';
-      if (teacherFeed.style.display === 'block') {
-        teacherFeed.style.display = 'none';
-        teacherDropUp.style.display = 'none';
-        teacherness = true;
-      }
-    }
-    gamesVisible = true;
-  } else {
-    if (button.style.display === 'block') {
-      button.style.display = 'none';
-    }
-    pelit.innerHTML = "Pelit";
-    button.style.display = 'none';
-    gameView.style.display = 'none';
-    if (loggedIn) {
-      if (teacherness) {
-        teacherFeed.style.display = 'block';
-        teacherDropUp.style.display = 'flex';
-      }
-      main.style.display = 'block';
-    } else {
-      mockFeed.style.display = 'block';
-    }
-    gamesVisible = false;
   }
 };
- */
 
 ///////////////
 /////GAME1/////
 ///////////////
-
 //Creating canvas etc.
 const canvas = document.getElementById('myCanvas');
 canvas.style.display = 'none';
@@ -870,7 +723,6 @@ let upPressed = false;
 let downPressed = false;
 
 //Random colors for button other game elements
-
 let number = Math.floor(Math.random() * 9) + 1;
 let color1 = Math.floor(Math.random() * 256);
 let color2 = Math.floor(Math.random() * 256);
@@ -917,8 +769,6 @@ const reset = () => {
   y = canvas.height - 195;
   dx = Math.floor(Math.random() * 3) + 2;
   dy = (Math.floor(Math.random() * 3) + 2);
-  //paddleX = (canvas.width - paddleWidth) / 2;
-  //paddleY = paddleHeight;
 };
 
 //Big reset
@@ -942,14 +792,6 @@ const superReset = () => {
 
   button.style.color = `ghostwhite`;
   button.style.backgroundColor = `gray`;
-  //ORIGINAL:
-  /*
-  if (which === 1) {
-    button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARITTOMIA NUMEROITA`;
-  } else {
-    button.innerText = `SAIT ${score} PISTETTÄ.\nKERÄÄ VAIN PARILLISIA NUMEROITA`;
-  }
-   */
   //Game button text
   console.log('GameButtonMode: ' + gameButtonMode);
   if (which === 1 && stopMode === 0) {
@@ -1017,19 +859,7 @@ const firstReset = () => {
       upPressed = false;
     }
   };
-  //For mouse
-  /*
-  const mouseMoveHandler = (e)  => {
-    const relativeX = e.clientX - canvas.offsetLeft;
-    if(relativeX > 0 && relativeX < canvas.width) {
-      paddleX = relativeX - paddleWidth/2;
-    }
-    const relativeY = e.clientY - canvas.offsetTop;
-    if(relativeY > 0 && relativeY < canvas.height) {
-      paddleY = relativeY - paddleWidth/2;
-    }
-  }
-   */
+
 
 //Paddle hits the ball
 const hittingTheBall = () => {
@@ -1379,7 +1209,6 @@ const gameTwoStarter = () => {
   pelit.innerHTML = 'Peleihin';
   game2.style.display = 'block';
   gameView.style.display = 'none';
-  //gameButton.style.visibility = 'hidden';
   button.style.display = 'block';
   gameTwo();
 };
@@ -1387,14 +1216,11 @@ const gameTwoStarter = () => {
 //Gamebutton listener
 gameButton.addEventListener('click', revealGames);
 
-
-
+// when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
 /*
 if (sessionStorage.getItem('token')) {
-  //loginWrapper.style.display = 'none';
-
+  loginWrapper.style.display = 'none';
   logOut.style.display = 'block';
   main.style.display = 'block';
-  getMediaPosts();
-}
- */
+  getMedia();
+}*/

@@ -46,6 +46,14 @@
     text-align: left;
 }
 
+.commentPost p:nth-child(3) {
+    display: inline-block;
+}
+.commentPost p:nth-child(4) {
+    display: inline-block;
+}
+
+
 .deleteCommentButton {
     color: white;
     background-color: red;
