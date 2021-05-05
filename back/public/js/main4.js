@@ -47,23 +47,23 @@ const game2 = document.querySelector('#game2');
 const header = document.getElementById('headerDiv');
 
 // create media cards for teacherview
-const createMediaCards = (mediaPosts) => {
+// create media cards
+const createMediaCards = (mediaPosts, comments) => {
   // clear ul
-  console.log('Creating media cards...');
+  console.log("Creating media cards...");
   ul.innerHTML = '';
 
-  const x = sessionStorage.getItem('token');
+  const x =  sessionStorage.getItem('token');
 
   //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
-    console.log('User stuff: ' + mediaPost.visibility);
+    console.log("User stuff: " + mediaPost.visibility + JSON.stringify(mediaPost));
     // create li with DOM methods
+    const cardTop = document.createElement('p');
+    cardTop.className="cardTop";
+    cardTop.innerHTML= mediaPost.classid + " - Herttoniemen Ala-aste";
     const h2 = document.createElement('h2');
-    if (mediaPost.visibility === 1) {
-      h2.innerHTML = 'Uusi kuva:';
-    } else {
-      h2.innerHTML = 'Jo esillä:';
-    }
+
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
     img.alt = mediaPost.vst;
@@ -74,45 +74,64 @@ const createMediaCards = (mediaPosts) => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
       imageModal.alt = mediaPost.vst;
       imageModal.classList.toggle('hide');
-      /*
-      try {
-        const coords = JSON.parse(cat.coords);
-        // console.log(coords);
-        addMarker(coords);
-      }
-      catch (e) {
-      }
-       */
     });
 
     const figure = document.createElement('figure').appendChild(img);
 
-    //const h2 = document.createElement('h2');
-    //h2.innerHTML = mediaPost.vst;
+    const cardDescription = document.createElement('p');
+    const cardDescUsername = document.createElement('span');
+    const cardDescText = document.createElement('span');
+    cardDescUsername.innerHTML = mediaPost.username;
+    cardDescText.innerHTML = " " + mediaPost.mediadesc;
+    cardDescription.appendChild(cardDescUsername);
+    cardDescription.appendChild(cardDescText);
 
-    const p1 = document.createElement('p');
-    p1.innerHTML = mediaPost.mediadesc;
-    /*
-        const p2 = document.createElement('p');
-        p2.innerHTML = `Weight: ${cat.weight}kg`;
-        const p3 = document.createElement('p');
-        p3.innerHTML = `Owner: ${cat.owner}`;
-    */
+// Creating a popup comment form with dom elements
+    const openCommentFormButton = document.createElement('button');
+    const commentPopup = document.createElement('div');
+    const commentForm = document.createElement('form');
+    const commentInput = document.createElement('input');
+    const mediaId = document.createElement('input');
+    const userId = document.createElement('input');
+    const commentButton = document.createElement('button');
+
+    commentPopup.className = "commentPopup";
+    commentButton.innerText = "Lähetä";
+    commentForm.className = "commentForm";
+
+    commentInput.className = "commentInput";
+    commentInput.name = "comment";
+    mediaId.name = "mediaid";
+    mediaId.type = "hidden";
+    userId.name = "userid";
+    userId.type = "hidden";
+
+    openCommentFormButton.className = "openCommentFormButton";
+    openCommentFormButton.innerText = "Kommentoi";
+
+    commentButton.className = "commentButton";
+    commentButton.type = "submit";
+
+    commentForm.appendChild(commentInput);
+    commentForm.appendChild(mediaId);
+    commentForm.appendChild(userId);
+    commentForm.appendChild(commentButton);
+    commentPopup.appendChild(commentForm);
+
     // add selected media's values to modify form
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Luokkanäkymään';
-    modButton.addEventListener('click', async (evt) => {
+    modButton.addEventListener('click', async(evt) => {
       evt.preventDefault();
       //getMediaPosts();
       loggedIn = true;
       teacherness = true;
-      console.log('modButton clicked' + mediaPost.id);
+      console.log("modButton clicked" + mediaPost.id)
       const inputs = modForm.querySelectorAll('input');
       inputs[0].value = 2;
       console.log(inputs[0].value);
       inputs[1].value = mediaPost.id;
       // modForm.querySelector('select').value = cat.owner;
-      h2.innerHTML = 'Jo esillä:';
       const data = serializeJson(modForm);
       console.log(data);
       const fetchOptions = {
@@ -124,53 +143,12 @@ const createMediaCards = (mediaPosts) => {
         body: JSON.stringify(data),
       };
       const response = await fetch(url + '/media', fetchOptions);
-      const json = await response.json();
+      getMediaPosts();
+      // const json = await response.json();
       console.log('modify response', json);
-      //getMediaPosts();
     });
-    //TODO?
-    /*
-    const modButton2 = document.createElement('button');
-    modButton2.innerHTML = 'Etusivulle';
-    modButton2.addEventListener('click', async(evt) => {
-      console.log("modButton clicked" + mediaPost.id)
-      const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = 3;
-      inputs[1].value = mediaPost.id;
-      // modForm.querySelector('select').value = cat.owner;
-      evt.preventDefault();
-      const data = serializeJson(modForm);
-      console.log(data);
-      const fetchOptions = {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
-        },
-        body: JSON.stringify(data),
-      };
-      try {
-        const response = await fetch(url + '/media', fetchOptions);
-        const json = await response.json();
-        console.log('delete response', json);
-        getMediaPosts();
-      }
-      catch (e) {
-        console.log(e.message());
-      }
 
-     */
-    //TODO?
-    /*
-    const response = await fetch(url + '/media', fetchOptions);
-    const json = await response.json();
-    console.log('modify response', json);
-    getMediaPosts();
-
-  });
-     */
-
-    // delete selected media
+    // delete (archive) selected media
     const delButton = document.createElement('button');
     delButton.innerHTML = 'Poista';
     delButton.addEventListener('click', async () => {
@@ -181,52 +159,152 @@ const createMediaCards = (mediaPosts) => {
         },
       };
       try {
-        const response = await fetch(url + '/media/' + mediaPost.id,
-            fetchOptions);
+        const response = await fetch(url + '/media/' + mediaPost.id, fetchOptions);
         const json = await response.json();
         console.log('delete response', json);
         getMediaPosts();
-      } catch (e) {
+      }
+      catch (e) {
         console.log(e.message());
       }
     });
 
     const li = document.createElement('li');
-    li.classList.add('light-border');
+    li.className="mediaCard";
 
-    li.appendChild(h2);
+    li.appendChild(cardTop);
     li.appendChild(figure);
-    li.appendChild(p1);
+    li.appendChild(cardDescription);
+
+    comments.forEach((comment) => {
+      if (comment.mediaid === mediaPost.id) {
+        const commentPost = document.createElement('p');
+        const commentUsername = document.createElement('span');
+        const commentText = document.createElement('span');
+        const commentDelete = document.createElement('span');
+        const commentApprove = document.createElement('span');
+
+        commentPost.className = "commentPost";
+        commentUsername.innerHTML = comment.username;
+        commentText.innerHTML = " " + comment.commenttext + " ";
+        commentDelete.className = "deleteCommentButton";
+        commentDelete.innerText = " delete ";
+        commentApprove.className = "approveCommentButton";
+        commentApprove.innerText = "approve";
+        commentPost.appendChild(commentUsername);
+        commentPost.appendChild(commentText);
+
+        commentApprove.addEventListener('click', async () => {
+          document.querySelector('.approveCommentButton').style.display="hidden";
+          const fetchOptions = {
+            method: 'PUT',
+            headers: {
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+          };
+          try {
+            console.log("Testing comment approval " + comment.id);
+            const response = await fetch(url + '/comment/' + comment.id, fetchOptions);
+            const json = await response.json();
+            console.log('approval response', json);
+          }
+          catch (e) {
+            getMediaPosts();
+            console.log(e.message());
+          }
+        });
+
+        if (comment.visibility === 1) {
+          commentPost.appendChild(commentApprove);
+        }
+
+        commentDelete.addEventListener('click', async () => {
+          const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+            },
+          };
+          try {
+            console.log("Testing comment delete " + comment.id);
+            const response = await fetch(url + '/comment/' + comment.id, fetchOptions);
+            const json = await response.json();
+            console.log('delete response', json);
+          }
+          catch (e) {
+            getMediaPosts();
+            console.log(e.message());
+          }
+        });
+
+        commentPost.appendChild(commentDelete);
+        li.appendChild(commentPost);
+      }
+    });
 
     //li.appendChild(p2);
     //li.appendChild(p3);
-    li.appendChild(modButton);
-    //li.appendChild(modButton2);
+    li.appendChild(openCommentFormButton);
+    li.appendChild(commentPopup);
+    if (mediaPost.visibility === 1) {
+      li.appendChild(modButton);
+    }
     li.appendChild(delButton);
     ul.appendChild(li);
+
+    openCommentFormButton.addEventListener('click', () => {
+      document.querySelector('.commentPopup').style.visibility="visible";
+      console.log('commentButton clicked' + mediaPost);
+      const inputs = commentForm.querySelectorAll('input');
+      inputs[0].value = '';
+      inputs[1].value = mediaPost.id;
+      inputs[2].value = mediaPost.userid;
+    });
+
+    commentForm.addEventListener('submit', async (evt) => {
+      evt.preventDefault();
+      const commentCheck = document.querySelector('.commentInput');
+      const commentForm = document.querySelector('.commentForm')
+      if (commentCheck.value.length !== 0) {
+        const data = serializeJson(commentForm);
+        const fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          },
+          body: JSON.stringify(data),
+        };
+
+        console.log(fetchOptions);
+        const response = await fetch(url + '/comment', fetchOptions);
+        const json = await response.json();
+        console.log('comment response', json);
+        document.querySelector('.commentPopup').style.visibility="hidden";
+        getMediaPosts();
+      } else {
+        alert("Kommenttikenttä on tyhjä");
+      };
+    });
   });
 };
 
-const createMediaCardsForStudent = (mediaPosts) => {
+const createMediaCardsForStudent = (mediaPosts, comments) => {
   // clear ul
-  console.log('Creating media cards...');
+  console.log("Creating media cards...");
   ul.innerHTML = '';
-  const x = sessionStorage.getItem('token');
+
+  const x =  sessionStorage.getItem('token');
 
   //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
-    //if (mediaPost.visibility > 1) {
-    console.log('User stuff: ' + mediaPost.visibility);
-    // create li with DOM methods
-    const h2 = document.createElement('h2');
+    console.log("Media post: " + JSON.stringify(mediaPost));
 
-    /*
-    if (mediaPost.visibility ===1) {
-      h2.innerHTML = "Tämän ei kuulu olla tässä."
-    } else {
-      h2.innerHTML = "Tämän kuuluu."
-    }
-     */
+    // create li with DOM methods
+    const cardTop = document.createElement('p');
+    cardTop.className="cardTop";
+    cardTop.innerHTML= mediaPost.classid + " - Herttoniemen Ala-aste";
+    const h2 = document.createElement('h2');
 
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
@@ -238,123 +316,139 @@ const createMediaCardsForStudent = (mediaPosts) => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
       imageModal.alt = mediaPost.vst;
       imageModal.classList.toggle('hide');
-      /*
-      try {
-        const coords = JSON.parse(cat.coords);
-        // console.log(coords);
-        addMarker(coords);
-      }
-      catch (e) {
-      }
-       */
     });
 
     const figure = document.createElement('figure').appendChild(img);
 
-    //const h2 = document.createElement('h2');
-    h2.innerHTML = mediaPost.mediadesc;
+    const cardDescription = document.createElement('p');
+    const cardDescUsername = document.createElement('span');
+    const cardDescText = document.createElement('span');
+    cardDescUsername.innerHTML = mediaPost.username;
+    cardDescText.innerHTML = " " + mediaPost.mediadesc;
+    cardDescription.appendChild(cardDescUsername);
+    cardDescription.appendChild(cardDescText);
 
-    const p1 = document.createElement('p');
-    // Split timestamp into [ Y, M, D, h, m, s ]
-    let t = (mediaPost.vst).split(/[- :TZ]/);
+// Creating a popup comment form with dom elements
+    const openCommentFormButton = document.createElement('button');
+    const commentPopup = document.createElement('div');
+    const commentForm = document.createElement('form');
+    const commentInput = document.createElement('input');
+    const mediaId = document.createElement('input');
+    const userId = document.createElement('input');
+    const commentButton = document.createElement('button');
 
-    // Apply each element to the Date function
-    //let d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4]), t[5]);
-    p1.innerHTML = t[2] + '.' + t[1] + '.' + t[0] + ' klo: ' + t[3] + ':' +
-        t[4];
-    //p1.innerHTML = mediaPost.vst;
+    commentPopup.className = "commentPopup";
+    commentButton.innerText = "Lähetä";
+    commentForm.className = "commentForm";
 
-    // add selected media's values to modify form
-    /*
-    const modButton = document.createElement('button');
-    modButton.innerHTML = 'Modify';
-    modButton.addEventListener('click', () => {
-      console.log("modButton clicked" + mediaPost.id)
-      const inputs = modForm.querySelectorAll('input');
-      inputs[0].value = mediaPost.visibility;
-      inputs[1].value = mediaPost.id;
-    });
-     */
+    commentInput.className = "commentInput";
+    commentInput.name = "comment";
+    mediaId.name = "mediaid";
+    mediaId.type = "hidden";
+    userId.name = "userid";
+    userId.type = "hidden";
+
+    openCommentFormButton.className = "openCommentFormButton";
+    openCommentFormButton.innerText = "Kommentoi";
+
+    commentButton.className = "commentButton";
+    commentButton.type = "submit";
+
+    commentForm.appendChild(commentInput);
+    commentForm.appendChild(mediaId);
+    commentForm.appendChild(userId);
+    commentForm.appendChild(commentButton);
+    commentPopup.appendChild(commentForm);
 
     const li = document.createElement('li');
-    li.classList.add('light-border');
+    li.className="mediaCard";
 
-    li.appendChild(h2);
+    li.appendChild(cardTop);
     li.appendChild(figure);
-    li.appendChild(p1);
-    //li.appendChild(modButton);
+    li.appendChild(cardDescription);
+
+    comments.forEach((comment) => {
+      if (comment.mediaid === mediaPost.id) {
+        const commentPost = document.createElement('p');
+        const commentUsername = document.createElement('span');
+        const commentText = document.createElement('span');
+
+        commentPost.className = "commentPost";
+        commentUsername.innerHTML = comment.username;
+        commentText.innerHTML = " " + comment.commenttext + " ";
+        commentPost.appendChild(commentUsername);
+        commentPost.appendChild(commentText);
+
+        li.appendChild(commentPost);
+      }
+    });
+
+    li.appendChild(openCommentFormButton);
+    li.appendChild(commentPopup);
     ul.appendChild(li);
 
-    //}
-
-    //end...
-  });
-};
-
-//Not in use
-const createMediaCardsForFrontpage = (mediaPosts) => {
-  // clear ul
-  console.log('Creating media cards...');
-  const ulli = document.getElementById('mock');
-  ulli.innerHTML = '';
-  //const x =  sessionStorage.getItem('token');
-
-  //console.log("User stuff: " + x.json.role);
-  mediaPosts.forEach((mediaPost) => {
-
-    console.log('User stuff: ' + mediaPost.visibility);
-    // create li with DOM methods
-    const h2 = document.createElement('h2');
-    const img = document.createElement('img');
-
-    if (mediaPost.visibility !== 3) {
-      h2.innerHTML = 'Tämän ei kuulu olla tässä.';
-    } else {
-      h2.innerHTML = 'Tämän kuuluu.';
-    }
-    img.src = url + '/thumbnails/' + mediaPost.mediafilename;
-    img.alt = mediaPost.vst;
-    img.classList.add('resp');
-
-    // open large image when clicking image
-    img.addEventListener('click', () => {
-      modalImage.src = url + '/' + mediaPost.mediafilename;
-      imageModal.alt = mediaPost.vst;
-      imageModal.classList.toggle('hide');
-      /*
-      try {
-        const coords = JSON.parse(cat.coords);
-        // console.log(coords);
-        addMarker(coords);
-      }
-      catch (e) {
-      }
-       */
+    openCommentFormButton.addEventListener('click', () => {
+      document.querySelector('.commentPopup').style.visibility="visible";
+      console.log('commentButton clicked at mediaPost ' + mediaPost.id);
+      const inputs = commentForm.querySelectorAll('input');
+      inputs[0].value = '';
+      inputs[1].value = mediaPost.id;
+      inputs[2].value = mediaPost.userid;
     });
 
-    const figure = document.createElement('figure').appendChild(img);
+    commentForm.addEventListener('submit', async (evt) => {
+      evt.preventDefault();
+      const commentCheck = document.querySelector('.commentInput');
+      const commentForm = document.querySelector('.commentForm')
+      if (commentCheck.value.length !== 0) {
+        const data = serializeJson(commentForm);
+        const fetchOptions = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+          },
+          body: JSON.stringify(data),
+        };
 
-    //const h2 = document.createElement('h2');
-    //h2.innerHTML = mediaPost.vst;
-
-    const p1 = document.createElement('p');
-    p1.innerHTML = mediaPost.mediadesc;
-
-    const li = document.createElement('li');
-    li.classList.add('light-border');
-
-    li.appendChild(h2);
-    li.appendChild(figure);
-    li.appendChild(p1);
-
-    //li.appendChild(p2);
-    //li.appendChild(p3);
-    //li.appendChild(modButton);
-    //li.appendChild(delButton);
-    ulli.appendChild(li);
-
+        console.log(fetchOptions);
+        const response = await fetch(url + '/comment', fetchOptions);
+        const json = await response.json();
+        console.log('comment response', json);
+        document.querySelector('.commentPopup').style.visibility="hidden";
+        getMediaPosts();
+      } else {
+        alert("Kommenttikenttä on tyhjä");
+      };
+    });
   });
 };
+
+// get comments
+const getComments = async () => {
+  console.log('getComments token ', sessionStorage.getItem('token'));
+  try {
+    const options = {
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'),
+      },
+    };
+    console.log("getComments testing");
+    const response = await fetch(url + '/comment', options);
+    const comments = await response.json();
+    console.log(comments);
+    return comments;
+  } catch (e) {
+    console.log(e.message);
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+
 
 // close modal
 
@@ -374,13 +468,14 @@ const getMediaPosts = async () => {
     };
     const response = await fetch(url + '/media', options);
     const mediaPosts = await response.json();
+    const comments = await getComments();
     if (loggedIn) {
       if (teacherness) {
         console.log('Kuvia opeille');
-        createMediaCards(mediaPosts);
+        createMediaCards(mediaPosts, comments);
       } else {
         console.log('Kuvia oppilaille');
-        createMediaCardsForStudent(mediaPosts);
+        createMediaCardsForStudent(mediaPosts, comments);
       }
     }
   } catch (e) {
@@ -1292,9 +1387,12 @@ const gameTwoStarter = () => {
 //Gamebutton listener
 gameButton.addEventListener('click', revealGames);
 
+
+
 /*
 if (sessionStorage.getItem('token')) {
   //loginWrapper.style.display = 'none';
+
   logOut.style.display = 'block';
   main.style.display = 'block';
   getMediaPosts();

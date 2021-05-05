@@ -1,3 +1,77 @@
+.mediaCardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.mediaCard {
+    width: 400px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+}
+
+.mediaCard img {
+    max-width: 100%;
+}
+
+.mediaCard .cardTop {
+    font-size: 15pt;
+    font-weight: bold;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.mediaCard p {
+    padding: 0 5px 0 10px;
+    margin: 0;
+    line-height: normal;
+    text-align: left;
+}
+
+.mediaCard p span:first-of-type {
+    font-weight: bold;
+}
+
+.mediaCard button {
+    background: gray;
+    border: 0;
+    color: white;
+    padding: 10px;
+}
+
+.commentPost p span:first-of-type {
+    font-weight: bold;
+    text-align: left;
+}
+
+.deleteCommentButton {
+    color: white;
+    background-color: red;
+}
+
+.approveCommentButton {
+    color: white;
+    background-color: green;
+}
+
+.commentPopup {
+    display: block;
+    visibility: hidden;
+    position: fixed;
+    right: 15px;
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+.commentForm {
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+}
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,8 +91,9 @@ body {
     font-family: 'Orbitron', sans-serif;
     /*
     background-color: deeppink;
-     */
     background-image: url('../img/projektiTausta1v2.png');
+     */
+
 }
 
 .frontPageBox {
@@ -114,7 +189,6 @@ select {
 button {
     background-color: #ccc;
     color: #fff;
-
 }
 
 #getOut {
@@ -160,7 +234,6 @@ button {
     width: 30vw;
     height: 30vh;
 }
-
 
 .header {
     position: fixed;
@@ -230,7 +303,7 @@ h2 {
     background-color: #4CAF50;
     color: white;
     padding: 16px;
-    font-size: 17px;
+    font-size: 13px;
     border: none;
     width: 160px;
     height: 100%;

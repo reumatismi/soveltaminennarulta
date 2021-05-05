@@ -16,7 +16,8 @@ if (process.env.NODE_ENV === 'production') {
 const mediaRoute = require('./routes/mediaRoute');
 const userRoute = require('./routes/userRoute');
 const passport = require('./utils/pass');
-const authRoute = require('./routes/authRoute')
+const authRoute = require('./routes/authRoute');
+const commentRoute = require('./routes/commentRoute');
 
 app.use(express.static('public')); // Define public folder
 app.use(express.static('uploads')); // Define uploads folder
@@ -28,3 +29,4 @@ app.use(express.urlencoded({ extended: true })); // for parsing application/x-ww
 app.use('/auth', authRoute);
 app.use('/media', passport.authenticate('jwt', {session: false}), mediaRoute);
 app.use('/user', passport.authenticate('jwt', {session: false}), userRoute);
+app.use('/comment', passport.authenticate('jwt', {session: false}), commentRoute);
