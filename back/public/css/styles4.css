@@ -49,9 +49,11 @@
 }
 
 .mediaCard button {
-    background: #ccc;
+    background: #EDE574;
+    background: -webkit-linear-gradient(to right, #E1F5C4, #EDE574);
+    background: linear-gradient(to right, #E1F5C4, #EDE574);
     border: 0;
-    color: white;
+    color: black;
     padding: 10px;
     font-size: 15px;
 }
@@ -138,11 +140,9 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Orbitron', sans-serif;
-    /*
-    background-color: deeppink;
-    background-image: url('../img/projektiTausta1v2.png');
-     */
-
+    background: #FFEFBA;
+    background: -webkit-linear-gradient(to right, #FFEFBA, #FFFFFF, #FFEFBA);
+    background: linear-gradient(to right, #FFEFBA, #FFFFFF, #FFEFBA);
 }
 
 .frontPageBox {
@@ -155,7 +155,6 @@ body {
     border-width: 5px;
     border-color: skyblue;
     background-image: repeating-radial-gradient(ghostwhite, papayawhip 1%, #E7E5E3 1%);
-
 }
 
 p {
@@ -169,7 +168,6 @@ p {
 .container {
     max-width: 200px;
     margin: auto;
-
 }
 
 .light-border {
@@ -195,7 +193,7 @@ ul {
 }
 
 li {
-    width: 30%;
+
     margin: .5em;
 }
 
@@ -243,8 +241,10 @@ img {
 
 
 button {
-    background-color: #ccc;
-    color: #fff;
+    background: #EDE574;
+    background: -webkit-linear-gradient(to right, #E1F5C4, #EDE574);
+    background: linear-gradient(to right, #E1F5C4, #EDE574);
+    color: black;
 }
 
 #getOut {
@@ -297,10 +297,32 @@ button {
     left: 0;
     top: 0;
     width: 100%;
-    background-color: lightskyblue;
+    background: -webkit-linear-gradient(to right, #0ED2F7, #B2FEFA, #0ED2F7);
+    background: linear-gradient(to right, #0ED2F7, #B2FEFA, #0ED2F7);
     color: white;
     text-align: right;
     font-size: 0;
+}
+
+#header1{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #B2FEFA;
+    background: -webkit-linear-gradient(to right, #0ED2F7, #B2FEFA, #0ED2F7);
+    background: linear-gradient(to right, #0ED2F7, #B2FEFA, #0ED2F7);
+    color: white;
+    text-shadow: 0 0 5px black;
+    text-align: center;
+    height: 6%;
+}
+
+.tuokio{
+    color:white;
+    font-size: 35px;
+    margin-top:-13px;
+    font-family: 'Lobster', cursive;
 }
 
 .footer {
@@ -308,7 +330,9 @@ button {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: lightskyblue;
+    background: #B2FEFA;
+    background: -webkit-linear-gradient(to right, #0ED2F7, #B2FEFA), #0ED2F7;
+    background: linear-gradient(to right, #0ED2F7, #B2FEFA, #0ED2F7);
     color: white;
     text-align: center;
     height: 8%;
@@ -341,9 +365,11 @@ h2 {
     border-radius: 100px;
     bottom: -150px;
     margin: -15% auto;
-    background-color: deeppink;
+    background: #ffb347;
+    background: -webkit-linear-gradient(to right, #ffcc33, #ffb347);
+    background: linear-gradient(to right, #ffcc33, #ffb347);
     font-size: 19px;
-    color: ghostwhite;
+    color: black;
     border-style: dot-dot-dash;
     border-width: 5px;
     /*
@@ -357,7 +383,9 @@ h2 {
 }
 
 .dropbtn {
-    background-color: #4CAF50;
+    background: #ffe259;
+    background: -webkit-linear-gradient(to left, #ffa751, #ffe259);
+    background: linear-gradient(to left, #ffa751, #ffe259);
     color: white;
     padding: 16px;
     font-size: 13px;
@@ -377,7 +405,9 @@ h2 {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    background: #ffe259;
+    background: -webkit-linear-gradient(to left, #ffa751, #ffe259);
+    background: linear-gradient(to left, #ffa751, #ffe259);
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
@@ -392,10 +422,6 @@ h2 {
 
 .dropdown-content a:hover {
     background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 
 .dropdown:hover .dropbtn {
@@ -448,6 +474,8 @@ h2 {
 .dropup:hover .dropbtn2 {
     background-color: lightskyblue;
 }
+
+.show {display:block;}
 
 #choose {
     display: none;
@@ -772,6 +800,90 @@ input
     font-size:12px;
 }
 
+/* nav toggle */
+.nav-toggle {
+    cursor: pointer;
+    height: 2rem;
+    right: 0.5rem;
+    position: fixed;
+    top: 0.1rem;
+    width: 2.6rem;
+    z-index: 2;
+}
+.nav-toggle:hover {
+    opacity: 0.8;
+}
+.nav-toggle .nav-toggle-bar,
+.nav-toggle .nav-toggle-bar::after,
+.nav-toggle .nav-toggle-bar::before {
+    position: absolute;
+    top: 60%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background: #5c5c5c;
+    content: "";
+    height: 0.3rem;
+    transition: all 0.5s;
+    width: 100%;
+    color:black;
+}
+
+.nav-toggle .nav-toggle-bar {
+    margin-top: 0;
+}
+.nav-toggle .nav-toggle-bar::after {
+    margin-top: 0.55rem;
+    margin-left:-1.3rem;
+}
+.nav-toggle .nav-toggle-bar::before {
+    margin-top: -0.6rem;
+    margin-left:-1.3rem;
+}
+.nav-toggle.expanded .nav-toggle-bar {
+    background: transparent;
+}
+.nav-toggle.expanded .nav-toggle-bar::after, .nav-toggle.expanded .nav-toggle-bar::before {
+    background: #ffffff;
+    margin-top: 0;
+}
+.nav-toggle.expanded .nav-toggle-bar::after {
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.nav-toggle.expanded .nav-toggle-bar::before {
+    -ms-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+/* nav */
+.nav {
+    background: #B2FEFA;
+    background: -webkit-linear-gradient(to left, #0ED2F7, #B2FEFA);
+    background: linear-gradient(to left, #0ED2F7, #B2FEFA);
+    color: black;
+    cursor: pointer;
+    display: flex;
+    font-size: 2rem;
+    height: 100vh;
+    right: -20rem;
+    /*padding: 6rem 2rem 2rem 2rem;*/
+    position: fixed;
+    top: 0;
+    transition: all 0.5s;
+    /*width: 20rem;*/
+    z-index: 1;
+}
+.nav.expanded {
+    right: 0;
+}
+.nav ul {
+    list-style: none;
+    margin-top: 30%;
+}
+
 
 @media only screen and (max-width: 1100px) {
 
@@ -1085,3 +1197,5 @@ p {
 
     }
 }
+
+.show {display:block;}

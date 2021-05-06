@@ -643,6 +643,7 @@ addUserForm.addEventListener('submit', async (evt) => {
 
   const response = await fetch(url + '/auth/register', fetchOptions);
   const json = await response.json();
+  togbutton2();
   //console.log('user add response', json);
 });
 
@@ -1266,3 +1267,36 @@ if (sessionStorage.getItem('token')) {
   main.style.display = 'block';
   getMedia();
 }*/
+
+(function() {
+
+  let hamburger = {
+    nav: document.querySelector('#nav'),
+    navToggle: document.querySelector('.nav-toggle'),
+
+    initialize() {
+      this.navToggle.addEventListener('click', () => { this.toggle(); });
+    },
+
+    toggle() {
+      this.navToggle.classList.toggle('expanded');
+      this.nav.classList.toggle('expanded');
+    },
+  };
+
+  hamburger.initialize();
+
+}());
+
+function togbutton() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+function togbutton2() {
+  document.getElementById("myDropdown2").classList.toggle("show");
+}
+function togbutton3() {
+  document.getElementById("myDropdown3").classList.toggle("show");
+}
+function togbutton4() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}

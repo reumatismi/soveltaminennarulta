@@ -7,16 +7,26 @@
     <link rel="stylesheet" href="./css/styles4.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="header" id="theHeader">
-    <div id="headerDiv">
-        <div class="dropdown" id="addUser">
-            <button class="dropbtn">Lisää käyttäjä</button>
-            <div class="dropdown-content">
+<div class="header" id="header1">
+    <p class="tuokio">Tuokio</p>
+</div>
+
+<div class="nav-toggle">
+    <div class="nav-toggle-bar"></div>
+</div>
+
+<nav id="nav" class="nav">
+    <ul>
+        <li><div class="dropdown" id="addUser" style="margin:20px" style="color:black">
+            <button onclick="togbutton2()" class="dropbtn" style="border-radius: 8px; color:black">Lisää käyttäjä</button>
+            <div id="myDropdown2"  class="dropdown-content" style="border-radius: 8px">
                 <div id="success">
-                    <form class="light-border" id="add-user-form">
+                    <form class="light-border" id="add-user-form" style="color:black" style="border-radius: 8px">
                         <input class="light-border" type="text" name="username" placeholder="Käyttäjänimi" required minlength="2" autocomplete="off">
                         <input class="light-border" type="text" name="first_name" placeholder="Etunimi" required minlength="2" autocomplete="off">
                         <input class="light-border" type="text" name="last_name" placeholder="Sukunimi" required minlength="2" autocomplete="off">
@@ -30,37 +40,36 @@
                         <input class="light-border" type="text" name="class" placeholder="Luokkatunnus" required minlength="3" maxlength="3" autocomplete="off">
                         <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
                                placeholder="Salasana" required autocomplete="off">
-                        <button class="light-border" type="submit">Lisää käyttäjä</button>
+                        <button onclick="togbutton2()" class="light-border" type="submit">Lisää käyttäjä</button>
                     </form>
                 </div>
             </div>
-        </div>
+        </div></li>
 
-        <div class="dropdown" id="addMedia">
-            <button class="dropbtn">Lisää kuva</button>
-            <div class="dropdown-content">
-                <form class="light-border"
-                      enctype="multipart/form-data"
-                      id="add-cat-form">
-                    <div>
-                        <label>Kuvaus:</label>
-                        <input class="light-border" type="text" name="description" placeholder="Kuvaus" required minlength="3" maxlength="80" autocomplete="off">
-                    </div>
+        <li><div class="dropdown" id="addMedia" style="border-radius: 8px; color:black">
+            <button onclick="togbutton3()" class="dropbtn" style="border-radius: 8px; color:black">Lisää kuva</button>
+            <div id="myDropdown3" class="dropdown-content" style="border-radius: 8px">
+                <form class="light-border" enctype="multipart/form-data"
+                      id="add-cat-form" style="color:black" style="border-radius: 8px">
+                        <div>
+                            <label>Kuvaus:</label>
+                            <input class="light-border" type="text" name="description" placeholder="Kuvaus" required minlength="3" maxlength="80" autocomplete="off">
+                        </div>
 
-                    <input class="light-border"
-                           type="file"
-                           name="media"
-                           accept="image/*"
-                           placeholder="Choose file">
+                        <input class="light-border"
+                               type="file"
+                               name="media"
+                               accept="image/*"
+                               placeholder="Choose file">
                     <button class="light-border" type="submit">Upload</button>
                 </form>
             </div>
+        </div></li>
 
-        </div>
-        <div class="dropdown">
-            <button class="dropbtn" id="kirjaudu">Kirjaudu</button>
-            <div class="dropdown-content">
-                <form id="login-form" class="light-border">
+        <li><div class="dropdown" style="margin:20px" style="color:black">
+            <button onclick="togbutton()" class="dropbtn" id ="kirjaudu" style="border-radius: 8px; color:black">Kirjaudu</button>
+            <div id="myDropdown" class="dropdown-content" style="border-radius: 8px; color:black">
+                <form id="login-form" class="light-border" style="color:black" >
                     <div>
                         <label>Käyttäjätunnus:</label>
                         <input class="light-border" type="text" name="username" placeholder="Käyttäjätunnus" autocomplete="off" onfocus="this.value=''"/>
@@ -70,19 +79,18 @@
                         <input class ="light-border" type="password" id = "password" name = "password" placeholder="Salasana" autocomplete="off"/>
                     </div>
                     <div>
-                        <button class="light-border" type="submit">Kirjaudu</button>
+                        <button onclick="togbutton()" class="light-border" type="submit">Kirjaudu</button>
                     </div>
+
                 </form>
-                <header id="log-out" style="display: none; margin: auto; text-align: center;">
-                    <button class="light-border" id="getOut">Uloskirjaudu</button>
-                </header>
+            <header id="log-out" style="display: none; margin: auto; text-align: center;">
+                <button onclick="togbutton4()" class="light-border" id="getOut">Uloskirjaudu</button>
+            </header>
             </div>
-        </div>
+        </div></li>
 
-    </div>
-
-
-</div>
+    </ul>
+</nav>
 
 
 <div id="mockFeed">
