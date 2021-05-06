@@ -8,7 +8,9 @@ const router = express.Router();
 router.get('/', commentController.comment_list_get);
 
 router.post('/',
-    body('comment').isLength({min: 5}).blacklist(';'),
+    body('comment').isLength({min: 3}).blacklist(';'),
+    body('mediaid').blacklist(';'),
+    body('userid').blacklist(';'),
     commentController.comment_create);
 
 router.put('/:id',

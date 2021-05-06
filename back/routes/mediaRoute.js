@@ -31,12 +31,11 @@ router.post('/',
     upload.single('media'),
     testFile,
     mediaController.make_thumbnail,
-    body('description').isLength({min: 1}),
+    body('description').isLength({min: 3}).blacklist(';'),
     mediaController.mediaPost_create);
 
 router.get('/:id', mediaController.mediaPost_get_by_user_id);
 router.put('/',
-//    body('visibility').isLength({max: 1}).isNumeric().blacklist(';'),
     mediaController.mediaPost_update3);
 router.delete('/:id', mediaController.mediaPost_delete);
 

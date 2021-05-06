@@ -9,14 +9,20 @@
     box-sizing: border-box;
 
     width: 400px;
-    max-height: 500px;
+    height: auto;
     margin: 10px;
     border: 1px solid grey;
     box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
 
     /*
     background-image: repeating-radial-gradient(whitesmoke, white 1%, navajowhite 1%);
+    overflow: auto;
      */
+
+}
+
+.commentcontainer {
+    height: 50px;
     overflow: auto;
 }
 
@@ -50,6 +56,7 @@
     font-size: 15px;
 }
 
+
 .commentPost p span:first-of-type {
     font-weight: bold;
     text-align: left;
@@ -78,7 +85,8 @@
     display: block;
     visibility: hidden;
     position: fixed;
-    right: 15px;
+    right: 40%;
+    bottom: 50%;
     border: 3px solid #f1f1f1;
     z-index: 9;
 }
@@ -102,8 +110,9 @@ li {
 .commentForm {
     max-width: 300px;
     padding: 10px;
-    background-color: white;
+    background-color: black;
 }
+
 
 
 * {
@@ -753,7 +762,7 @@ div {
 
 input
 {
-    font-size:13px;
+    font-size:12px;
 }
 
 
@@ -783,19 +792,19 @@ input
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    font-size: 11px;
+    font-size: 10px;
 }
 
 ::-moz-placeholder { /* Firefox 19+ */
-    font-size: 11px;
+    font-size: 10px;
 }
 
 :-ms-input-placeholder { /* IE 10+ */
-    font-size: 11px;
+    font-size: 10px;
 }
-
+
 :-moz-placeholder { /* Firefox 18- */
-    font-size: 11px;
+    font-size: 10px;
 }
 
 input
@@ -809,6 +818,10 @@ p {
 
 #storyBoard {
     margin: 15% auto;
+}
+
+.commentPopup {
+    right: 40%;
 }
 
 
@@ -870,19 +883,19 @@ p {
     }
 
     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        font-size: 10px;
+        font-size: 9px;
     }
 
     ::-moz-placeholder { /* Firefox 19+ */
-        font-size: 10px;
+        font-size: 9px;
     }
 
     :-ms-input-placeholder { /* IE 10+ */
-        font-size: 10px;
+        font-size: 9px;
     }
 
     :-moz-placeholder { /* Firefox 18- */
-        font-size: 10px;
+        font-size: 9px;
     }
 
     input
@@ -902,6 +915,9 @@ p {
         margin: 20% auto;
 
     }
+    .commentPopup {
+        right: 35%;
+    }
 
 }
 
@@ -909,7 +925,6 @@ p {
 
     .mediaCard {
         width: 350px;
-        max-height: 400px;
         margin: 10px;
         border: 1px solid #ccc;
         box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
@@ -968,19 +983,19 @@ p {
     }
 
     ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-        font-size: 9px;
+        font-size: 8px;
     }
 
     ::-moz-placeholder { /* Firefox 19+ */
-        font-size: 9px;
+        font-size: 8px;
     }
 
     :-ms-input-placeholder { /* IE 10+ */
-        font-size: 9px;
+        font-size: 8px;
     }
 
     :-moz-placeholder { /* Firefox 18- */
-        font-size: 9px;
+        font-size: 8px;
     }
     input
     {
@@ -1020,6 +1035,9 @@ p {
          */
         overflow: auto;
         background-color: ghostwhite;
+    }
+    .commentPopup {
+        right: 25%;
     }
 
 }

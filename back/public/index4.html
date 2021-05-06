@@ -15,15 +15,21 @@
         <div class="dropdown" id="addUser">
             <button class="dropbtn">Lisää käyttäjä</button>
             <div class="dropdown-content">
-                <div id="success_asshole">
+                <div id="success">
                     <form class="light-border" id="add-user-form">
-                        <input class="light-border" type="text" name="username" placeholder="Käyttäjänimi" required>
-                        <input class="light-border" type="text" name="first_name" placeholder="Etunimi" required>
-                        <input class="light-border" type="text" name="last_name" placeholder="Takanimi" required>
-                        <input class="light-border" type="text" name="role" placeholder="Rooli" required>
-                        <input class="light-border" type="text" name="class" placeholder="Luokkatunnus" required>
+                        <input class="light-border" type="text" name="username" placeholder="Käyttäjänimi" required minlength="2" autocomplete="off">
+                        <input class="light-border" type="text" name="first_name" placeholder="Etunimi" required minlength="2" autocomplete="off">
+                        <input class="light-border" type="text" name="last_name" placeholder="Sukunimi" required minlength="2" autocomplete="off">
+                        <!--
+                        <input class="light-border" type="text" name="role" placeholder="Rooli" required maxlength="1">
+                        -->
+                        <select class="light-border" name="role">
+                            <option value=1>Oppilas
+                            <option value=2>Opettaja
+                        </select>
+                        <input class="light-border" type="text" name="class" placeholder="Luokkatunnus" required minlength="3" maxlength="3" autocomplete="off">
                         <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
-                               placeholder="Salasana" required>
+                               placeholder="Salasana" required autocomplete="off">
                         <button class="light-border" type="submit">Lisää käyttäjä</button>
                     </form>
                 </div>
@@ -38,7 +44,7 @@
                       id="add-cat-form">
                     <div>
                         <label>Kuvaus:</label>
-                        <input class="light-border" type="text" name="description" placeholder="Kuvaus" required>
+                        <input class="light-border" type="text" name="description" placeholder="Kuvaus" required minlength="3" maxlength="80" autocomplete="off">
                     </div>
 
                     <input class="light-border"
@@ -57,11 +63,11 @@
                 <form id="login-form" class="light-border">
                     <div>
                         <label>Käyttäjätunnus:</label>
-                        <input class="light-border" type="text" name="username" placeholder="Käyttäjätunnus"/>
+                        <input class="light-border" type="text" name="username" placeholder="Käyttäjätunnus" autocomplete="off" onfocus="this.value=''"/>
                     </div>
                     <div>
                         <label>Salasana:</label>
-                        <input class="light-border" type="password" name="password" placeholder="Salasana"/>
+                        <input class ="light-border" type="password" id = "password" name = "password" placeholder="Salasana" autocomplete="off"/>
                     </div>
                     <div>
                         <button class="light-border" type="submit">Kirjaudu</button>
@@ -155,9 +161,6 @@
                 <img src="img/hiiri.png" class="imghiiri" alt="pentu" onclick="alert('Peli 4');">
                 <img src="img/kala.png" class="imgkala" alt="pentu" onclick="alert('Peli 5');">
             </div>
-            <!--
-            <div class="ala">Alalaatikko</div>
-            -->
         </div>
     </div>
 </div>

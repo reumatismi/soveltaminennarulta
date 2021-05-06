@@ -25,7 +25,7 @@ let stopMode = 0;
 
 const mockFeed = document.querySelector('#mockFeed');
 const teacherFeed = document.querySelector('#teacherFeed');
-const success = document.getElementById('success_asshole');
+const success = document.getElementById('success');
 success.style.display = 'none';
 const dropDownTwo = document.querySelector('#addMedia');
 dropDownTwo.style.display = 'none';
@@ -52,10 +52,7 @@ const createMediaCards = (mediaPosts, comments) => {
 
   const x = sessionStorage.getItem('token');
 
-  //console.log("User stuff: " + x.json.role);
   mediaPosts.forEach((mediaPost) => {
-    console.log(
-        'User stuff: ' + mediaPost.visibility + JSON.stringify(mediaPost));
     // create li with DOM methods
     const cardTop = document.createElement('p');
     cardTop.className = 'cardTop';
@@ -108,6 +105,7 @@ const createMediaCards = (mediaPosts, comments) => {
 
     commentInput.className = 'commentInput';
     commentInput.name = 'comment';
+    commentInput.minLength = 3;
     mediaId.name = 'mediaid';
     mediaId.type = 'hidden';
     userId.name = 'userid';
@@ -118,7 +116,6 @@ const createMediaCards = (mediaPosts, comments) => {
 
     commentButton.className = 'commentButton';
     commentButton.type = 'submit';
-
     commentForm.appendChild(commentInput);
     commentForm.appendChild(mediaId);
     commentForm.appendChild(userId);
@@ -152,7 +149,7 @@ const createMediaCards = (mediaPosts, comments) => {
       const response = await fetch(url + '/media', fetchOptions);
       getMediaPosts();
       // const json = await response.json();
-      console.log('modify response', json);
+      //console.log('modify response', json);
     });
 
     // delete (archive) selected media
@@ -183,7 +180,8 @@ const createMediaCards = (mediaPosts, comments) => {
     li.appendChild(cardTopP);
     li.appendChild(figure);
     li.appendChild(cardDescription);
-
+    const commentContainer = document.createElement('div');
+    commentContainer.className = 'commentcontainer';
     comments.forEach((comment) => {
       if (comment.mediaid === mediaPost.id) {
         const commentPost = document.createElement('p');
@@ -216,10 +214,10 @@ const createMediaCards = (mediaPosts, comments) => {
             const response = await fetch(url + '/comment/' + comment.id,
                 fetchOptions);
             const json = await response.json();
-            console.log('approval response', json);
+            //console.log('approval response', json);
           } catch (e) {
             getMediaPosts();
-            console.log(e.message());
+            //console.log(e.message());
           }
         });
 
@@ -239,7 +237,7 @@ const createMediaCards = (mediaPosts, comments) => {
             const response = await fetch(url + '/comment/' + comment.id,
                 fetchOptions);
             const json = await response.json();
-            console.log('delete response', json);
+            //console.log('delete response', json);
           } catch (e) {
             getMediaPosts();
             console.log(e.message());
@@ -247,12 +245,11 @@ const createMediaCards = (mediaPosts, comments) => {
         });
 
         commentPost.appendChild(commentDelete);
-        li.appendChild(commentPost);
+        commentContainer.appendChild(commentPost);
       }
     });
 
-    //li.appendChild(p2);
-    //li.appendChild(p3);
+    li.appendChild(commentContainer);
     li.appendChild(openCommentFormButton);
     li.appendChild(commentPopup);
     if (mediaPost.visibility === 1) {
@@ -270,7 +267,7 @@ const createMediaCards = (mediaPosts, comments) => {
       inputs[2].value = mediaPost.userid;
     });
 
-    commentPopupX.addEventListener("click", function() {
+    commentPopupX.addEventListener('click', function() {
       this.parentElement.style.visibility = 'hidden';
     });
 
@@ -291,8 +288,8 @@ const createMediaCards = (mediaPosts, comments) => {
 
         console.log(fetchOptions);
         const response = await fetch(url + '/comment', fetchOptions);
-        const json = await response.json();
-        console.log('comment response', json);
+        //const json = await response.json();
+        //console.log('comment response', json);
         document.querySelector('.commentPopup').style.visibility = 'hidden';
         getMediaPosts();
       } else {
@@ -309,7 +306,7 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
   ul.innerHTML = '';
   const x = sessionStorage.getItem('token');
   mediaPosts.forEach((mediaPost) => {
-    console.log('Media post: ' + JSON.stringify(mediaPost));
+    //console.log('Media post: ' + JSON.stringify(mediaPost));
 
     // create li with DOM methods
     const cardTop = document.createElement('p');
@@ -386,8 +383,6 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     li.appendChild(figure);
     li.appendChild(cardDescription);
 
-
-
     comments.forEach((comment) => {
       if (comment.mediaid === mediaPost.id) {
         const commentPost = document.createElement('p');
@@ -417,7 +412,7 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
       inputs[2].value = mediaPost.userid;
     });
 
-    commentPopupX.addEventListener("click", function() {
+    commentPopupX.addEventListener('click', function() {
       this.parentElement.style.visibility = 'hidden';
     });
 
@@ -514,6 +509,7 @@ addForm.addEventListener('submit', async (evt) => {
   };
   const response = await fetch(url + '/media', fetchOptions);
   const json = await response.json();
+  addForm.reset();
   console.log('add response', json);
   getMediaPosts();
 });
@@ -541,6 +537,7 @@ modForm.addEventListener('submit', async (evt) => {
 loginForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const data = serializeJson(loginForm);
+  loginForm.value = '';
   const fetchOptions = {
     method: 'POST',
     headers: {
@@ -550,6 +547,7 @@ loginForm.addEventListener('submit', async (evt) => {
   };
   const response = await fetch(url + '/auth/login', fetchOptions);
   const json = await response.json();
+  loginForm.reset();
   console.log('login response', json);
   if (!json.user) {
     alert(json.message);
@@ -580,6 +578,7 @@ loginForm.addEventListener('submit', async (evt) => {
     getMediaPosts();
     // getCat();
     //getUsers();
+    //document.getElementsByClassName('password').placeholder = 'Salasana';
   }
 });
 
@@ -621,7 +620,8 @@ logOut.addEventListener('click', async (evt) => {
   } catch (e) {
     console.log(e.message);
   }
-  getMediaPosts();
+  document.getElementById('password').placeholder = 'Salasana';
+  //getMediaPosts();
 });
 
 // Submit register form
