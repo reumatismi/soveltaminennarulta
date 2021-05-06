@@ -15,7 +15,6 @@ router.post('/register',
     body('class').isLength({max: 3}).blacklist(';'),
     body('password').matches('(?=.*[A-Z]).{8,}'),
     userController.user_create
-//    authController.login
 );
 
 router.get('/logout', authController.logout);

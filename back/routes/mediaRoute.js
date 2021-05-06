@@ -34,9 +34,9 @@ router.post('/',
     body('description').isLength({min: 3}).blacklist(';'),
     mediaController.mediaPost_create);
 
-router.get('/:id', mediaController.mediaPost_get_by_user_id);
+//router.get('/:id', mediaController.mediaPost_get_by_user_id);
 router.put('/',
-    mediaController.mediaPost_update3);
+    mediaController.mediaPost_update);
 router.delete('/:id', mediaController.mediaPost_delete);
 
 module.exports = router;

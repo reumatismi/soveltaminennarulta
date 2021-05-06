@@ -2,7 +2,7 @@
 const pool = require('../database/db');
 const promisePool = pool.promise();
 
-// get all comments for database
+//Gets all comments for database
 const getAllComment = async (filter = 0) => {
   try {
     console.log('commentModel get all comments');
@@ -14,7 +14,7 @@ const getAllComment = async (filter = 0) => {
   }
 };
 
-// insert comment into database
+//Inserts a comment into database
 const insertComment = async (req) => {
   try {
     console.log('insertComment try' + req.body.userid + ' ' + req.body.mediaid)
@@ -23,12 +23,12 @@ const insertComment = async (req) => {
     console.log('commentModel insert:', rows);
     return rows.insertId;
   } catch (e) {
-    console.log('erroroium' + req);
     console.error('insertComment:', e.message);
     throw new Error('insertComment failed');
   }
 };
 
+//Updates comment visibility
 const updateComment = async (req) => {
   console.log('updateComment' + req.id);
   try {
@@ -41,7 +41,6 @@ const updateComment = async (req) => {
   }
 };
 
-//
 const getComment = async (id) => {
   try {
     console.log('commentModel getComment', id);
@@ -53,6 +52,7 @@ const getComment = async (id) => {
   }
 };
 
+//"Deletes" a comment
 const deleteComment = async (id) => {
   try {
     console.log('commentModel deleteComment', id);

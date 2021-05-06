@@ -1,7 +1,8 @@
 'use strict';
 const pool = require('../database/db');
 const promisePool = pool.promise();
-//tätä
+
+//Gets all mediaPosts based on filter value
 const getAllMediaPost = async (filter = 0) => {
   try {
     const [rows] = await promisePool.execute(`SELECT proj_mediafeed.id, proj_mediafeed.classid, userid, mediafilename, mediadesc, visibility, proj_mediafeed.vst, proj_user.username FROM proj_mediafeed LEFT JOIN proj_user ON userid = proj_user.id WHERE proj_mediafeed.vet IS NULL AND visibility >= ? ORDER BY vst DESC`, [filter]);
@@ -21,23 +22,22 @@ const getMediaPost = async (id) => {
   }
 };
 
+//Inserts a new mediaPost to database
 const insertMediaPost = async (req) => {
   try {
-    console.log(req.user.classid + req.user.id + req.file.filename + req.body.description);
     const [rows] = await promisePool.execute('INSERT INTO proj_mediafeed (classid, userid, mediafilename, mediadesc, visibility, VST) VALUES (? , ?, ?, ?, ?, NOW())',
         [req.user.classid, req.user.id, req.file.filename, req.body.description,req.user.role]);
     console.log('mediaModel insert:', rows);
     return rows.insertId;
   } catch (e) {
-    console.log('erroroium' + req);
     console.error('insertMediaPost:', e.message);
     throw new Error('insertMediaPost failed');
   }
 };
 
+//Updates mediaPost visibility
 const updateMediaPost = async (req) => {
   try {
-//    console.log(req.visibility + ' ' + req.id);
     const [rows] = await promisePool.execute('UPDATE proj_mediafeed SET visibility = ? WHERE id = ?;',
         [req.visibility, req.id]);
     console.log('mediaModel update:', rows);
@@ -47,6 +47,7 @@ const updateMediaPost = async (req) => {
   }
 };
 
+//"Deletes" mediaPost
 const deleteMediaPost = async (id) => {
   try {
     console.log('mediaModel deleteMediaPost', id);

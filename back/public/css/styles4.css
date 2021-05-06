@@ -22,7 +22,7 @@
 }
 
 .commentcontainer {
-    height: 50px;
+    height: 75px;
     overflow: auto;
 }
 
@@ -89,6 +89,12 @@
     bottom: 50%;
     border: 3px solid #f1f1f1;
     z-index: 9;
+}
+
+#commentInput {
+    text-align: left;
+    padding: 2px;
+    resize: none;
 }
 
 .close {
@@ -270,11 +276,12 @@ button {
 
 .close {
     position: absolute;
-    top: 1em;
-    right: 1em;
+    top: 5em;
+    right: 5em;
     color: #fff;
     text-shadow: #000;
     font-size: 2em;
+    border-radius: 100%;
 }
 
 #map {

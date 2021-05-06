@@ -3,7 +3,7 @@
 const commentModel = require('../models/commentModel');
 const {validationResult} = require('express-validator');
 
-// get comments from commentModel
+//Gets comments from commentModel
 const comment_list_get = async (req, res) => {
   try {
     console.log("commentController User role:" + req.user.role);
@@ -19,10 +19,6 @@ const comment_list_get = async (req, res) => {
       const commentPost = await commentModel.getAllComment(2);
       res.json(commentPost);
     }
-
-    //const commentPost = await commentModel.getAllComment();
-    //console.log('commentController checking for comment return' + commentPost);
-    //res.json(commentPost);
   } catch (e) {
     res.status(400).json({error: e.message});
   }
@@ -45,6 +41,7 @@ const comment_create = async (req, res) => {
   }
 };
 
+//Calls commentModel to change the comment visibility so it is visible in student feed
 const comment_update = async (req, res) => {
   try {
     console.log('update commentPost visibility', req.params);
@@ -55,6 +52,7 @@ const comment_update = async (req, res) => {
   }
 };
 
+//Calls the commentModel to add the VET-value to comment row
 const comment_delete = async (req, res) => {
   try {
     console.log(req.params.id);

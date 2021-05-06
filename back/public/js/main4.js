@@ -13,13 +13,15 @@ const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
 const ul = document.querySelector('#ul');
+/*
 const teacherUL = document.querySelector('#teacherPics');
 const studentUL = document.querySelector('#studentPics');
 const userLists = document.querySelectorAll('.add-owner');
+ */
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
-
+//Game button control stuff
 let gameButtonMode = 1;
 let stopMode = 0;
 
@@ -32,7 +34,7 @@ dropDownTwo.style.display = 'none';
 const dropDownThree = document.querySelector('#addUser');
 dropDownThree.style.display = 'none';
 const teacherDropUp = document.querySelector('#choose');
-
+//For different
 let loggedIn = false;
 let gamesVisible = false;
 let teacherness = false;
@@ -44,14 +46,12 @@ const game2 = document.querySelector('#game2');
 
 const header = document.getElementById('headerDiv');
 
-//Create media cards for teacherview
+//Creates media cards for teacherview
 const createMediaCards = (mediaPosts, comments) => {
   // clear ul
   console.log('Creating media cards...');
   ul.innerHTML = '';
-
   const x = sessionStorage.getItem('token');
-
   mediaPosts.forEach((mediaPost) => {
     // create li with DOM methods
     const cardTop = document.createElement('p');
@@ -63,12 +63,10 @@ const createMediaCards = (mediaPosts, comments) => {
         ':' +
         t[4];
     cardTopP.style.textAlign = 'center';
-
     const img = document.createElement('img');
     img.src = url + '/thumbnails/' + mediaPost.mediafilename;
     img.alt = 'Missä kuva?';
     img.classList.add('resp');
-
     // open large image when clicking image
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
@@ -77,7 +75,6 @@ const createMediaCards = (mediaPosts, comments) => {
     });
 
     const figure = document.createElement('figure').appendChild(img);
-
     const cardDescription = document.createElement('p');
     const cardDescUsername = document.createElement('span');
     const cardDescText = document.createElement('span');
@@ -91,7 +88,7 @@ const createMediaCards = (mediaPosts, comments) => {
     const commentPopup = document.createElement('div');
     const commentPopupX = document.createElement('p');
     const commentForm = document.createElement('form');
-    const commentInput = document.createElement('input');
+    const commentInput = document.createElement('textarea');
     const mediaId = document.createElement('input');
     const userId = document.createElement('input');
     const commentButton = document.createElement('button');
@@ -103,13 +100,16 @@ const createMediaCards = (mediaPosts, comments) => {
     commentPopupX.innerHTML = 'x';
     commentPopup.appendChild(commentPopupX);
 
-    commentInput.className = 'commentInput';
+    commentInput.id = 'commentInput';
     commentInput.name = 'comment';
     commentInput.minLength = 3;
+    commentInput.className = "inPut";
     mediaId.name = 'mediaid';
     mediaId.type = 'hidden';
+    mediaId.className = "inPut";
     userId.name = 'userid';
     userId.type = 'hidden';
+    userId.className = "inPut";
 
     openCommentFormButton.className = 'openCommentFormButton';
     openCommentFormButton.innerText = 'Kommentoi';
@@ -152,7 +152,7 @@ const createMediaCards = (mediaPosts, comments) => {
       //console.log('modify response', json);
     });
 
-    // delete (archive) selected media
+    //Deletes (archives) selected media
     const delButton = document.createElement('button');
     delButton.innerHTML = 'Poista';
     delButton.addEventListener('click', async () => {
@@ -182,6 +182,7 @@ const createMediaCards = (mediaPosts, comments) => {
     li.appendChild(cardDescription);
     const commentContainer = document.createElement('div');
     commentContainer.className = 'commentcontainer';
+
     comments.forEach((comment) => {
       if (comment.mediaid === mediaPost.id) {
         const commentPost = document.createElement('p');
@@ -243,13 +244,14 @@ const createMediaCards = (mediaPosts, comments) => {
             console.log(e.message());
           }
         });
-
         commentPost.appendChild(commentDelete);
         commentContainer.appendChild(commentPost);
       }
     });
 
-    li.appendChild(commentContainer);
+    if (commentContainer.hasChildNodes()) {
+      li.appendChild(commentContainer);
+    }
     li.appendChild(openCommentFormButton);
     li.appendChild(commentPopup);
     if (mediaPost.visibility === 1) {
@@ -261,7 +263,7 @@ const createMediaCards = (mediaPosts, comments) => {
     openCommentFormButton.addEventListener('click', () => {
       document.querySelector('.commentPopup').style.visibility = 'visible';
       console.log('commentButton clicked' + mediaPost);
-      const inputs = commentForm.querySelectorAll('input');
+      const inputs = commentForm.querySelectorAll('.inPut');
       inputs[0].value = '';
       inputs[1].value = mediaPost.id;
       inputs[2].value = mediaPost.userid;
@@ -273,7 +275,7 @@ const createMediaCards = (mediaPosts, comments) => {
 
     commentForm.addEventListener('submit', async (evt) => {
       evt.preventDefault();
-      const commentCheck = document.querySelector('.commentInput');
+      const commentCheck = document.querySelector('#commentInput');
       const commentForm = document.querySelector('.commentForm');
       if (commentCheck.value.length !== 0) {
         const data = serializeJson(commentForm);
@@ -295,11 +297,10 @@ const createMediaCards = (mediaPosts, comments) => {
       } else {
         alert('Kommenttikenttä on tyhjä');
       }
-      ;
     });
   });
 };
-
+//Creates mediacards for student view
 const createMediaCardsForStudent = (mediaPosts, comments) => {
   // clear ul
   console.log('Creating media cards...');
@@ -323,7 +324,7 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     img.alt = 'Missä kuva?';
     img.classList.add('resp');
 
-    // open large image when clicking image
+    //Opens large image when clicking image
     img.addEventListener('click', () => {
       modalImage.src = url + '/' + mediaPost.mediafilename;
       imageModal.alt = 'Missä kuva?';
@@ -331,7 +332,6 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     });
 
     const figure = document.createElement('figure').appendChild(img);
-
     const cardDescription = document.createElement('p');
     const cardDescUsername = document.createElement('span');
     const cardDescText = document.createElement('span');
@@ -345,7 +345,8 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     const commentPopup = document.createElement('div');
     const commentPopupX = document.createElement('p');
     const commentForm = document.createElement('form');
-    const commentInput = document.createElement('input');
+    const commentInput = document.createElement('textarea');
+    //const commentInput = document.createElement('input');
     const mediaId = document.createElement('input');
     const userId = document.createElement('input');
     const commentButton = document.createElement('button');
@@ -356,16 +357,19 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     commentPopup.appendChild(commentPopupX);
     commentButton.innerText = 'Lähetä';
     commentForm.className = 'commentForm';
-    commentInput.className = 'commentInput';
+    commentInput.id = 'commentInput';
     commentInput.name = 'comment';
+    commentInput.rows = "4";
+    commentInput.className = "inPut";
     mediaId.name = 'mediaid';
     mediaId.type = 'hidden';
+    mediaId.className = "inPut";
     userId.name = 'userid';
     userId.type = 'hidden';
+    userId.className = "inPut";
 
     openCommentFormButton.className = 'openCommentFormButton';
     openCommentFormButton.innerText = 'Kommentoi';
-
     commentButton.className = 'commentButton';
     commentButton.type = 'submit';
 
@@ -382,6 +386,8 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     li.appendChild(cardTopP);
     li.appendChild(figure);
     li.appendChild(cardDescription);
+    const commentContainer = document.createElement('div');
+    commentContainer.className = 'commentcontainer';
 
     comments.forEach((comment) => {
       if (comment.mediaid === mediaPost.id) {
@@ -395,10 +401,12 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
         commentPost.appendChild(commentUsername);
         commentPost.appendChild(commentText);
 
-        li.appendChild(commentPost);
+        commentContainer.appendChild(commentPost);
       }
     });
-
+    if (commentContainer.hasChildNodes()) {
+      li.appendChild(commentContainer);
+    }
     li.appendChild(openCommentFormButton);
     li.appendChild(commentPopup);
     ul.appendChild(li);
@@ -406,10 +414,11 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     openCommentFormButton.addEventListener('click', () => {
       document.querySelector('.commentPopup').style.visibility = 'visible';
       console.log('commentButton clicked at mediaPost ' + mediaPost.id);
-      const inputs = commentForm.querySelectorAll('input');
+      const inputs = commentForm.querySelectorAll('.inPut');
       inputs[0].value = '';
       inputs[1].value = mediaPost.id;
       inputs[2].value = mediaPost.userid;
+      console.log("Uutta touhua: " + mediaPost.id);
     });
 
     commentPopupX.addEventListener('click', function() {
@@ -418,7 +427,7 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
 
     commentForm.addEventListener('submit', async (evt) => {
       evt.preventDefault();
-      const commentCheck = document.querySelector('.commentInput');
+      const commentCheck = document.querySelector('#commentInput');
       const commentForm = document.querySelector('.commentForm');
       if (commentCheck.value.length !== 0) {
         const data = serializeJson(commentForm);
@@ -440,12 +449,11 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
       } else {
         alert('Kommenttikenttä on tyhjä');
       }
-      ;
     });
   });
 };
 
-// get comments
+//Get comments
 const getComments = async () => {
   console.log('getComments token ', sessionStorage.getItem('token'));
   try {
@@ -464,13 +472,13 @@ const getComments = async () => {
   }
 };
 
-// close modal
+//Close modal
 close.addEventListener('click', (evt) => {
   evt.preventDefault();
   imageModal.classList.toggle('hide');
 });
 
-// AJAX call
+//AJAX call
 const getMediaPosts = async () => {
   console.log('getMediaPosts token ', sessionStorage.getItem('token'));
   try {
@@ -496,7 +504,7 @@ const getMediaPosts = async () => {
   }
 };
 
-// Submit add media post form
+//Submit add media post form
 addForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const fd = new FormData(addForm);
@@ -514,7 +522,7 @@ addForm.addEventListener('submit', async (evt) => {
   getMediaPosts();
 });
 
-// Submit modify form
+//Submit modify form
 modForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const data = serializeJson(modForm);
@@ -533,7 +541,7 @@ modForm.addEventListener('submit', async (evt) => {
   getMediaPosts();
 });
 
-// Login
+//Login - creates different elements for different users
 loginForm.addEventListener('submit', async (evt) => {
   evt.preventDefault();
   const data = serializeJson(loginForm);
@@ -582,7 +590,7 @@ loginForm.addEventListener('submit', async (evt) => {
   }
 });
 
-// Logout
+//Logsout
 logOut.addEventListener('click', async (evt) => {
   evt.preventDefault();
   try {
@@ -594,13 +602,11 @@ logOut.addEventListener('click', async (evt) => {
     const response = await fetch(url + '/auth/logout', options);
     const json = await response.json();
     console.log(json);
-    // remove token
+    //Removes token
     sessionStorage.removeItem('token');
     //alert('You have logged out');
     // show/hide forms + cats
     loginForm.style.display = 'block';
-
-    //loginWrapper.style.display = 'flex';
     loggedIn = false;
     kirjaudu.innerText = 'Kirjaudu';
     logOut.style.display = 'none';
@@ -621,7 +627,6 @@ logOut.addEventListener('click', async (evt) => {
     console.log(e.message);
   }
   document.getElementById('password').placeholder = 'Salasana';
-  //getMediaPosts();
 });
 
 // Submit register form
@@ -638,7 +643,7 @@ addUserForm.addEventListener('submit', async (evt) => {
 
   const response = await fetch(url + '/auth/register', fetchOptions);
   const json = await response.json();
-  console.log('user add response', json);
+  //console.log('user add response', json);
 });
 
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
@@ -848,10 +853,6 @@ const firstReset = () => {
 
   button.style.color = `ghostwhite`;
   button.style.backgroundColor = `gray`;
-  /*
-    button.style.color = `rgb(${255 - color1}, ${255 - color2}, ${255 - color3}`;
-    button.style.backgroundColor = `rgba(${color1}, ${color2}, ${color3}, 1)`;
-  */
 
   if (which === 1) {
     button.innerText = 'KERÄÄ VAIN PARITTOMIA NUMEROITA!';
@@ -1237,7 +1238,6 @@ const gameOneStarter = () => {
   gameView.style.display = 'none';
   gameButton.style.visibility = 'hidden';
   button.style.display = 'block';
-
   canvas.style.display = 'none';
   lives = 0;
   score = 0;
@@ -1257,6 +1257,7 @@ const gameTwoStarter = () => {
 //Gamebutton listener
 gameButton.addEventListener('click', revealGames);
 
+//We decide not tu use this:
 // when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
 /*
 if (sessionStorage.getItem('token')) {

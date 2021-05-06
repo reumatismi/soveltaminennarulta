@@ -4,8 +4,6 @@ const bcrypt = require('bcryptjs');
 const userModel = require('../models/userModel');
 const {validationResult} = require('express-validator');
 
-const users = userModel.users;
-
 const user_list_get = async (req, res) => {
   const users = await userModel.getAllUsers();
   res.json(users);
@@ -23,7 +21,7 @@ const user_create = async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  //here we will create a user with data comming from req...
+  //Creates a user with data coming from req
   console.log('userController user_create', req.body);
   //hashing password before insert into database
   const user = {};
@@ -34,7 +32,7 @@ const user_create = async (req, res, next) => {
   user.classid = req.body.class;
   const salt = bcrypt.genSaltSync(12);
   user.password = bcrypt.hashSync(req.body.password, salt);
-  console.log('userController user_create after hashing?', req.body, user);
+  console.log('userController user_create after hashing ', req.body, user);
 
   const id = await userModel.insertUser(user);
   if (id > 0) {

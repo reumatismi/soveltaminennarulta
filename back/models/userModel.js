@@ -2,6 +2,7 @@
 const pool = require('../database/db');
 const promisePool = pool.promise();
 
+//Gets all users from database
 const getAllUsers = async () => {
   try {
     const [rows] = await promisePool.execute('SELECT * FROM proj_user');
@@ -22,6 +23,7 @@ const getUser = async (id) => {
   }
 };
 
+//Adds a new user to the database
 const insertUser = async (req) => {
   try {
     const [rows] = await promisePool.execute(
@@ -35,18 +37,7 @@ const insertUser = async (req) => {
   }
 };
 
-const updateUser = async (id, req) => {
-  try {
-    const [rows] = await promisePool.execute(
-        'UPDATE proj_user SET username = ?, firstname = ?, lastname = ?, role = ?, classid = ? WHERE id = ?;',
-        [req.body.username, req.body.firstname, req.body.lastname, req.body.role, req.classid]);
-    console.log('userModel update:', rows);
-    return rows.affectedRows === 1;
-  } catch (e) {
-    return false;
-  }
-};
-
+//Gets user for login
 const getUserLogin = async (params) => {
   try {
     console.log(params);
@@ -59,12 +50,9 @@ const getUserLogin = async (params) => {
   }
 };
 
-//TODO: delete function. Consider no return needed? just best effort...
-
 module.exports = {
   getAllUsers,
   getUser,
   insertUser,
-  updateUser,
   getUserLogin,
 };
