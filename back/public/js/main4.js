@@ -1,6 +1,6 @@
 'use strict';
-const url = 'https://localhost:8000'; // change url when uploading to server
-//const url = 'https://10.114.32.88/app'; // change url when uploading to server
+//const url = 'https://localhost:8000'; // change url when uploading to server
+const url = 'https://10.114.32.88/app'; // change url when uploading to server
 
 // select existing html elements
 const helloAntero = document.querySelector('#helloSirpa');
