@@ -165,7 +165,7 @@ const createMediaCards = (mediaPosts, comments) => {
       try {
         const response = await fetch(url + '/media/' + mediaPost.id,
             fetchOptions);
-        const json = await response.json();
+        const json = await response.text();
         console.log('delete response', json);
         getMediaPosts();
       } catch (e) {
@@ -235,11 +235,12 @@ const createMediaCards = (mediaPosts, comments) => {
             console.log('Testing comment delete ' + comment.id);
             const response = await fetch(url + '/comment/' + comment.id,
                 fetchOptions);
-            const json = await response.json();
-            //console.log('delete response', json);
+            console.log('Testing comment delete ' + comment.id);
+            const json = await response.text();
+            console.log('delete response', json);
           } catch (e) {
             getMediaPosts();
-            console.log(e.message());
+            console.log('Error in deleye comment',e);
           }
         });
         commentPost.appendChild(commentDelete);
@@ -641,7 +642,8 @@ addUserForm.addEventListener('submit', async (evt) => {
   };
 
   const response = await fetch(url + '/auth/register', fetchOptions);
-  const json = await response.json();
+  const json = await response.text();
+  addUserForm.reset();
   togbutton2();
   //console.log('user add response', json);
 });

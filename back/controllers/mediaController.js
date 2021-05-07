@@ -77,7 +77,7 @@ const mediaPost_update = async (req, res) => {
 const mediaPost_delete = async (req, res) => {
   try {
     const deleteOk = await mediaModel.deleteMediaPost(req.params.id);
-    res.send(`mediaPost terminated... ${updateOk}`);
+    res.send(`mediaPost terminated... ${deleteOk}`);
   } catch (e) {
     res.status(400).json({error: e.message});
   }

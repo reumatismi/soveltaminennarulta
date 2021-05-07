@@ -42,10 +42,13 @@ const user_create = async (req, res, next) => {
   }
 }
 
+/*
 const user_update = async (req, res) => {
   const updateOk = await userModel.updateUser(req.params.id, req);
   res.send(`updated... ${updateOk}`);
 };
+ */
+
 
 const user_delete = async (req, res) => {
   res.send('deleted...');
@@ -55,6 +58,6 @@ module.exports = {
   user_list_get,
   user_get_by_id,
   user_create,
-  user_update,
+  //user_update,
   user_delete
 };
