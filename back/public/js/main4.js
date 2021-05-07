@@ -3,7 +3,7 @@ const url = 'https://localhost:8000'; // change url when uploading to server
 //const url = 'https://10.114.32.88/app'; // change url when uploading to server
 
 // select existing html elements
-const userInfo = document.querySelector('#user-info');
+const helloAntero = document.querySelector('#helloSirpa');
 const kirjaudu = document.getElementById('kirjaudu');
 const pelit = document.getElementById('pelit');
 const logOut = document.querySelector('#log-out');
@@ -13,18 +13,13 @@ const addUserForm = document.querySelector('#add-user-form');
 const addForm = document.querySelector('#add-cat-form');
 const modForm = document.querySelector('#mod-cat-form');
 const ul = document.querySelector('#ul');
-/*
-const teacherUL = document.querySelector('#teacherPics');
-const studentUL = document.querySelector('#studentPics');
-const userLists = document.querySelectorAll('.add-owner');
- */
 const imageModal = document.querySelector('#image-modal');
 const modalImage = document.querySelector('#image-modal img');
 const close = document.querySelector('#image-modal a');
 //Game button control stuff
 let gameButtonMode = 1;
 let stopMode = 0;
-
+//Display stuff
 const mockFeed = document.querySelector('#mockFeed');
 const teacherFeed = document.querySelector('#teacherFeed');
 const success = document.getElementById('success');
@@ -34,7 +29,7 @@ dropDownTwo.style.display = 'none';
 const dropDownThree = document.querySelector('#addUser');
 dropDownThree.style.display = 'none';
 const teacherDropUp = document.querySelector('#choose');
-//For different
+//For controling different user views
 let loggedIn = false;
 let gamesVisible = false;
 let teacherness = false;
@@ -44,14 +39,16 @@ const gameView = document.querySelector('#gameView');
 const game1 = document.querySelector('#game1');
 const game2 = document.querySelector('#game2');
 
-const header = document.getElementById('headerDiv');
+const nav = document.getElementById('nav');
+const navToggle = document.getElementById('nav-toggle');
 
-//Creates media cards for teacherview
+///////////////////////////////////////
+//Creates media cards for teacherview//
+///////////////////////////////////////
 const createMediaCards = (mediaPosts, comments) => {
   // clear ul
   console.log('Creating media cards...');
   ul.innerHTML = '';
-  const x = sessionStorage.getItem('token');
   mediaPosts.forEach((mediaPost) => {
     // create li with DOM methods
     const cardTop = document.createElement('p');
@@ -78,6 +75,9 @@ const createMediaCards = (mediaPosts, comments) => {
     const cardDescription = document.createElement('p');
     const cardDescUsername = document.createElement('span');
     const cardDescText = document.createElement('span');
+    //To implement who posted the picture:
+    //cardDescUsername.innerHTML = 'Kuvan postasi ' + mediaPost.username;
+    //cardDescText.innerHTML = ': ' + mediaPost.mediadesc;
     cardDescUsername.innerHTML = mediaPost.username;
     cardDescText.innerHTML = ' ' + mediaPost.mediadesc;
     cardDescription.appendChild(cardDescUsername);
@@ -96,8 +96,8 @@ const createMediaCards = (mediaPosts, comments) => {
     commentPopup.className = 'commentPopup';
     commentButton.innerText = 'Lähetä';
     commentForm.className = 'commentForm';
-    commentPopupX.className = 'close';
-    commentPopupX.innerHTML = 'x';
+    commentPopupX.className = 'close2';
+    commentPopupX.innerHTML = '&#10006';
     commentPopup.appendChild(commentPopupX);
 
     commentInput.id = 'commentInput';
@@ -122,7 +122,7 @@ const createMediaCards = (mediaPosts, comments) => {
     commentForm.appendChild(commentButton);
     commentPopup.appendChild(commentForm);
 
-    // add selected media's values to modify form
+    //Add selected media's values to modify form
     const modButton = document.createElement('button');
     modButton.innerHTML = 'Luokkanäkymään';
     modButton.addEventListener('click', async (evt) => {
@@ -175,14 +175,14 @@ const createMediaCards = (mediaPosts, comments) => {
 
     const li = document.createElement('li');
     li.className = 'mediaCard';
-
+    //Puts the card together
     li.appendChild(cardTop);
     li.appendChild(cardTopP);
     li.appendChild(figure);
     li.appendChild(cardDescription);
+    //Handles the comment part of the card
     const commentContainer = document.createElement('div');
     commentContainer.className = 'commentcontainer';
-
     comments.forEach((comment) => {
       if (comment.mediaid === mediaPost.id) {
         const commentPost = document.createElement('p');
@@ -195,9 +195,9 @@ const createMediaCards = (mediaPosts, comments) => {
         commentUsername.innerHTML = comment.username;
         commentText.innerHTML = ' ' + comment.commenttext + ' ';
         commentDelete.className = 'deleteCommentButton';
-        commentDelete.innerText = ' delete ';
+        commentDelete.innerText = ' Poista ';
         commentApprove.className = 'approveCommentButton';
-        commentApprove.innerText = 'approve';
+        commentApprove.innerText = ' Hyväksy ';
         commentPost.appendChild(commentUsername);
         commentPost.appendChild(commentText);
 
@@ -221,11 +221,9 @@ const createMediaCards = (mediaPosts, comments) => {
             //console.log(e.message());
           }
         });
-
         if (comment.visibility === 1) {
           commentPost.appendChild(commentApprove);
         }
-
         commentDelete.addEventListener('click', async () => {
           const fetchOptions = {
             method: 'DELETE',
@@ -259,7 +257,7 @@ const createMediaCards = (mediaPosts, comments) => {
     }
     li.appendChild(delButton);
     ul.appendChild(li);
-
+    //Event listeners for commenting
     openCommentFormButton.addEventListener('click', () => {
       document.querySelector('.commentPopup').style.visibility = 'visible';
       console.log('commentButton clicked' + mediaPost);
@@ -300,12 +298,17 @@ const createMediaCards = (mediaPosts, comments) => {
     });
   });
 };
-//Creates mediacards for student view
+
+///////////////////////////////////////
+//Creates mediacards for student view//
+///////////////////////////////////////
+
+//This is basically the same as for teacher but without dlete and accept buttons
+//and all content is already approved by the teacher
 const createMediaCardsForStudent = (mediaPosts, comments) => {
   // clear ul
   console.log('Creating media cards...');
   ul.innerHTML = '';
-  const x = sessionStorage.getItem('token');
   mediaPosts.forEach((mediaPost) => {
     //console.log('Media post: ' + JSON.stringify(mediaPost));
 
@@ -346,13 +349,12 @@ const createMediaCardsForStudent = (mediaPosts, comments) => {
     const commentPopupX = document.createElement('p');
     const commentForm = document.createElement('form');
     const commentInput = document.createElement('textarea');
-    //const commentInput = document.createElement('input');
     const mediaId = document.createElement('input');
     const userId = document.createElement('input');
     const commentButton = document.createElement('button');
 
     commentPopup.className = 'commentPopup';
-    commentPopupX.className = 'close';
+    commentPopupX.className = 'close2';
     commentPopupX.innerHTML = 'x';
     commentPopup.appendChild(commentPopupX);
     commentButton.innerText = 'Lähetä';
@@ -566,7 +568,7 @@ loginForm.addEventListener('submit', async (evt) => {
     // show/hide forms + cats
     loginForm.style.display = 'none';
     logOut.style.display = 'block';
-    userInfo.innerHTML = `Hello ${json.user.firstname}!`;
+    helloAntero.innerText = `Moi ${json.user.firstname}!`;
 
     if (!gamesVisible) {
       main.style.display = 'block';
@@ -584,9 +586,6 @@ loginForm.addEventListener('submit', async (evt) => {
     }
     loggedIn = true;
     getMediaPosts();
-    // getCat();
-    //getUsers();
-    //document.getElementsByClassName('password').placeholder = 'Salasana';
   }
 });
 
@@ -620,7 +619,7 @@ logOut.addEventListener('click', async (evt) => {
     dropDownTwo.style.display = 'none';
     dropDownThree.style.display = 'none';
     teacherFeed.style.display = 'none';
-    userInfo.innerHTML = '';
+    helloAntero.innerHTML = '';
     teacherness = false;
 
   } catch (e) {
@@ -646,15 +645,6 @@ addUserForm.addEventListener('submit', async (evt) => {
   togbutton2();
   //console.log('user add response', json);
 });
-
-// when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
-/*
-if (sessionStorage.getItem('token')) {
-  loginWrapper.style.display = 'none';
-  logOut.style.display = 'block';
-  main.style.display = 'block';
-  getMedia();
-}*/
 
 //Controls the main view
 const revealGames = () => {
@@ -696,7 +686,6 @@ const revealGames = () => {
     }
     gamesVisible = false;
   } else if (gameButtonMode === 3) {
-    //pelit.innerHTML = "Takaisin peleihin";
     console.log(gameButtonMode);
     gameButtonMode = 2;
     button.style.display = 'none';
@@ -710,7 +699,8 @@ const revealGames = () => {
     lives = 0;
     score = 0;
     firstReset();
-    header.style.visibility = 'visible';
+    nav.style.visibility = 'visible';
+    navToggle.style.visibility = 'visible';
     if (loggedIn) {
       main.style.display = 'none';
       if (teacherFeed.style.display === 'block') {
@@ -752,7 +742,7 @@ let leftPressed = false;
 let upPressed = false;
 let downPressed = false;
 
-//Random colors for button other game elements
+//Random colors for game elements
 let number = Math.floor(Math.random() * 9) + 1;
 let color1 = Math.floor(Math.random() * 256);
 let color2 = Math.floor(Math.random() * 256);
@@ -772,6 +762,7 @@ let lives = 1;
 
 //Game start button
 let button = document.getElementById('butt');
+button.className = "buttonG1";
 button.style.display = 'block';
 button.style.margin = '10% auto';
 button.style.color = `ghostwhite`;
@@ -804,22 +795,15 @@ const reset = () => {
 //Big reset
 const superReset = () => {
   number = Math.floor(Math.random() * 9) + 1;
-  //document.location.reload();
   canvas.style.display = 'none';
   button.style.display = 'block';
   button.style.margin = '14% auto';
   gameButton.style.visibility = 'visible';
-  //
   gameButton.innerHTML = 'Peleihin';
-  //gameButtonMode = 3;
-  //
   reset();
   which = Math.floor(Math.random() * 2);
-  //console.log(which);
-
   paddleX = (canvas.width - paddleWidth) / 2;
   paddleY = paddleHeight;
-
   button.style.color = `ghostwhite`;
   button.style.backgroundColor = `gray`;
   //Game button text
@@ -840,7 +824,6 @@ const superReset = () => {
 //For first game
 const firstReset = () => {
   number = Math.floor(Math.random() * 9) + 1;
-  //document.location.reload();
   canvas.style.display = 'none';
   button.style.display = 'block';
   button.style.margin = '14% auto';
@@ -973,7 +956,7 @@ const drawScore = () => {
   ctx.fillStyle = 'dim grey';
   ctx.fillText(score, 235, canvas.height - 13);
 };
-//Displays lives, but currently just one life
+//Displays lives, but currently just one life so this is not used
 const drawLives = () => {
   ctx.font = '15px Monaco';
   ctx.fillStyle = 'grey';
@@ -1066,6 +1049,8 @@ const gameTwo = () => {
 
   const leftButton = document.getElementById('vaihtoehto1');
   const rightButton = document.getElementById('vaihtoehto2');
+  leftButton.innerText = 'Käännän aluksen poispäin aukosta.';
+  rightButton.innerText = 'En usko silmiäni.';
   const pStory = document.getElementById('storyP');
   pStory.innerText = 'Olet avaruusaluksen kapteeni. Kesken rutiinilennon Jupiteriin on edessäsi yhtäkkiä musta aukko. Mitä teet?';
   //Tells in which part of the story we are
@@ -1114,13 +1099,13 @@ const gameTwo = () => {
       'palaa alkuun.',
       null],
     [
-      'Alus räjähtää palasiksi. Onneksi hätäpelastussuojakenttä kietoutuu ympärillesi ja selviät hengissä. ' +
+      'Alus räjähtää palasiksi. Onneksi hätäsuojakenttä kietoutuu ympärillesi ja selviät hengissä. ' +
       'Sinun ei auta muuta kuin rauhassa odottaa että sinut tullaan pelastamaan. Loppu!',
       'Jos haluat,',
       'palaa alkuun.',
       null],
     [
-      'Voi voi! Kummatkin alukset räjähtävät palasiksi. Onneksi suojakenttä ympäröi sinut ja vihaisen avaruusolennon ja selviätte ' +
+      'Voi voi! Kummatkin alukset räjähtävät palasiksi. Onneksi lempeä suojakenttä ympäröi sinut ja vihaisen avaruusolennon ja selviätte ' +
       'hengissä kunnes teidät pelastetaan. Loppu!', 'Jos haluat,',
       'palaa alkuun.', null],
     [
@@ -1167,7 +1152,7 @@ const gameTwo = () => {
       null],
     [
       'Ennen kuin ehdit tehdä niin saat viestin komentajaltasi jossa kerrotaan että sinulle on uusi tehtävä. Aurinkokuntaan on ' +
-      'saapunut avaruusolento, joka sinun pitää vastaanottaa. Aluksen tunnistat siitä että se vaikutta tietyssä valossa joko mustalta aukolta, ' +
+      'saapunut avaruusolento, joka sinun pitää vastaanottaa. Aluksen tunnistat siitä että se vaikuttaa tietyssä valossa joko mustalta aukolta, ' +
       'juustolta tai appelsiinilta. Loppu!', 'Jos haluat,',
       'palaa alkuun.', null],
     [
@@ -1232,7 +1217,8 @@ const gameTwo = () => {
 //Starts game one from the moon
 const gameOneStarter = () => {
   //button.style.display = 'block';
-  header.style.visibility = 'hidden';
+  nav.style.visibility = 'hidden';
+  navToggle.style.visibility = 'hidden';
   gameButtonMode = 3;
   pelit.innerHTML = 'Peleihin';
   game1.style.display = 'block';
@@ -1246,7 +1232,8 @@ const gameOneStarter = () => {
 };
 //Starts game one from the space capsule
 const gameTwoStarter = () => {
-  header.style.visibility = 'hidden';
+  nav.style.visibility = 'hidden';
+  navToggle.style.visibility = 'hidden';
   gameButtonMode = 3;
   pelit.innerHTML = 'Peleihin';
   game2.style.display = 'block';
@@ -1258,15 +1245,6 @@ const gameTwoStarter = () => {
 //Gamebutton listener
 gameButton.addEventListener('click', revealGames);
 
-//We decide not tu use this:
-// when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
-/*
-if (sessionStorage.getItem('token')) {
-  loginWrapper.style.display = 'none';
-  logOut.style.display = 'block';
-  main.style.display = 'block';
-  getMedia();
-}*/
 
 (function() {
 
@@ -1285,7 +1263,6 @@ if (sessionStorage.getItem('token')) {
   };
 
   hamburger.initialize();
-
 }());
 
 function togbutton() {
@@ -1300,3 +1277,13 @@ function togbutton3() {
 function togbutton4() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
+
+//We decided not to use this:
+// when app starts, check if token exists and hide login form, show logout button and main content, get cats and users
+/*
+if (sessionStorage.getItem('token')) {
+  loginWrapper.style.display = 'none';
+  logOut.style.display = 'block';
+  main.style.display = 'block';
+  getMedia();
+}*/

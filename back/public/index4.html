@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Vähintään kutosen arvoinen aplikaatio</title>
+    <title>Tuokio</title>
     <link rel="stylesheet" href="./css/styles4.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,9 +14,10 @@
 
 <div class="header" id="header1">
     <p class="tuokio">Tuokio</p>
+    <p id ="helloSirpa"></p>
 </div>
 
-<div class="nav-toggle">
+<div class="nav-toggle" id ="nav-toggle">
     <div class="nav-toggle-bar"></div>
 </div>
 
@@ -27,19 +28,31 @@
             <div id="myDropdown2"  class="dropdown-content" style="border-radius: 8px">
                 <div id="success">
                     <form class="light-border" id="add-user-form" style="color:black" style="border-radius: 8px">
-                        <input class="light-border" type="text" name="username" placeholder="Käyttäjänimi" required minlength="2" autocomplete="off">
-                        <input class="light-border" type="text" name="first_name" placeholder="Etunimi" required minlength="2" autocomplete="off">
-                        <input class="light-border" type="text" name="last_name" placeholder="Sukunimi" required minlength="2" autocomplete="off">
+                        <label>
+                            <input class="light-border" type="text" name="username" placeholder="Käyttäjänimi" required minlength="2" autocomplete="off">
+                        </label>
+                        <label>
+                            <input class="light-border" type="text" name="first_name" placeholder="Etunimi" required minlength="2" autocomplete="off">
+                        </label>
+                        <label>
+                            <input class="light-border" type="text" name="last_name" placeholder="Sukunimi" required minlength="2" autocomplete="off">
+                        </label>
                         <!--
                         <input class="light-border" type="text" name="role" placeholder="Rooli" required maxlength="1">
                         -->
-                        <select class="light-border" name="role">
-                            <option value=1>Oppilas
-                            <option value=2>Opettaja
-                        </select>
-                        <input class="light-border" type="text" name="class" placeholder="Luokkatunnus" required minlength="3" maxlength="3" autocomplete="off">
-                        <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
-                               placeholder="Salasana" required autocomplete="off">
+                        <label>
+                            <select class="light-border" name="role">
+                                <option value=1>Oppilas
+                                <option value=2>Opettaja
+                            </select>
+                        </label>
+                        <label>
+                            <input class="light-border" type="text" name="class" placeholder="Luokkatunnus" required minlength="3" maxlength="3" autocomplete="off">
+                        </label>
+                        <label>
+                            <input class="light-border" type="password" name="password" pattern="(?=.*[A-Z]).{8,}"
+                                   placeholder="Salasana" required autocomplete="off">
+                        </label>
                         <button onclick="togbutton2()" class="light-border" type="submit">Lisää käyttäjä</button>
                     </form>
                 </div>
@@ -53,7 +66,9 @@
                       id="add-cat-form" style="color:black" style="border-radius: 8px">
                         <div>
                             <label>Kuvaus:</label>
-                            <input class="light-border" type="text" name="description" placeholder="Kuvaus" required minlength="3" maxlength="80" autocomplete="off">
+                            <label>
+                                <input class="light-border" type="text" name="description" placeholder="Kuvaus" required minlength="3" maxlength="80" autocomplete="off">
+                            </label>
                         </div>
 
                         <input class="light-border"
@@ -72,11 +87,13 @@
                 <form id="login-form" class="light-border" style="color:black" >
                     <div>
                         <label>Käyttäjätunnus:</label>
-                        <input class="light-border" type="text" name="username" placeholder="Käyttäjätunnus" autocomplete="off" onfocus="this.value=''"/>
+                        <label>
+                            <input class="light-border" type="text" name="username" placeholder="Käyttäjätunnus" autocomplete="off" onfocus="this.value=''"/>
+                        </label>
                     </div>
                     <div>
                         <label>Salasana:</label>
-                        <input class ="light-border" type="password" id = "password" name = "password" placeholder="Salasana" autocomplete="off"/>
+                        <label for="password"></label><input class ="light-border" type="password" id = "password" name = "password" placeholder="Salasana" autocomplete="off"/>
                     </div>
                     <div>
                         <button onclick="togbutton()" class="light-border" type="submit">Kirjaudu</button>
@@ -95,9 +112,7 @@
 
 <div id="mockFeed">
     <div class="frontPageBox">
-        <ul id="mock">
-            <!-- js creates list here -->
-        </ul>
+
         <h2>Tuokio</h2>
         <p>Tervetuloa Tuokioon, </p>
         <p>alakoululaisille suunnattuun</p>
@@ -106,8 +121,9 @@
         <p>mutta muuhun sisältöön</p>
         <p>pääsy vaatii, että luokallesi</p>
         <p>on luotu tunnukset.</p>
-        <p>Kysy asiasta opettajaltasi!</p>
-        <br><br><br>
+        <p >Kysy asiasta opettajaltasi!</p>
+        <p class = "last">Stenvall - Rautio - Menna - tuotanto © 2021</p>
+
     </div>
 </div>
 
@@ -120,13 +136,6 @@
         <ul id="ul">
             <!-- js creates list here -->
         </ul>
-        <hr>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
     </main>
 </div>
 
@@ -137,7 +146,9 @@
        <h3>Sapiskaa mummolle</h3>
        --->
         <form id="mod-cat-form" class="light-border">
-            <input class="light-border" type="number" name="visibility" placeholder="taso" required>
+            <label>
+                <input class="light-border" type="number" name="visibility" placeholder="taso" required>
+            </label>
             <input type="hidden" name="id">
             <button class="light-border" type="submit">Save changes</button>
         </form>
