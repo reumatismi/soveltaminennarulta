@@ -33,7 +33,6 @@ router.post('/',
     mediaController.make_thumbnail,
     body('description').isLength({min: 1}),
     mediaController.mediaPost_create);
-
 router.get('/:id', mediaController.mediaPost_get_by_user_id);
 router.put('/',
 //    body('visibility').isLength({max: 1}).isNumeric().blacklist(';'),

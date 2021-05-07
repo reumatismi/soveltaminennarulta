@@ -61,7 +61,7 @@ const createMediaCards = (mediaPosts, comments) => {
     commentButton.addEventListener('click', () => {
       console.log('commentButton clicked' + mediaPost);
       const inputs = commentForm.querySelectorAll('input');
-      inputs[0].value = 'Testausta';
+      inputs[0].value = '';
       inputs[1].value = mediaPost.id;
       inputs[2].value = mediaPost.userid;
     });
